@@ -1,0 +1,1513 @@
+= Data Product Interoperability in S-100 Navigation Systems - Part D: Level 4 Interoperability
+:series: S
+:docnumber: 98
+:doctype: standard
+:edition: 1.0.0
+:language: en
+:published-date: 2022-05-01
+:copyright-year: 2022
+:status: in-force
+:committee: ircc
+:workgroup: ibsc
+:mn-document-class: iho
+:mn-output-extensions: xml,html,doc,pdf,rxl
+:local-cache-only:
+:data-uri-image:
+:imagesdir: images
+
+[.preface]
+== Document History
+
+Changes to this Specification are coordinated by the IHO S-100 Working
+Group. New editions will be made available via the IHO web site. Maintenance
+of the Specification shall conform to IHO Resolution 2/2007 (as amended).
+
+[cols="14,15,14,57",options="unnumbered"]
+|===
+h| Version Number h| Date h| Approved By h| Purpose
+
+| 0.1 | 31 Jul 2017 | EM, RM | First draft.
+| 0.2 | 12 Dec 2017 | RM, EM | Changes from interoperability workshop
+and TSM5.
+| 0.3 | 08 Jul 2018 | EM, RM | Edits from March 2018 review commentsUpdates
+for conformance to S-100 Edition 4.0.0, ISO 19115-1, and 19115-3.
+Removed metadata items not used by S-98 from the metadata documentation
+tables.
+| 1.0.0 RC1 | 13 Mar 2019 | RM | Applied S-100 WG4 decisions; updated
+metadata to conform to final version of S-100 Edition 4.0.0.
+| 1.0.0 (Draft) | 21 Mar 2019 | JW | Editorial updates for HSSC.
+| 0.4 | Jan 2020 | RM | Revised after TSM7 decision to separate interoperability
+into an abstract specification (new S-100 Part) and implementation
+specification (S-98).
+| 1.0.0 | May 2022 | S-100WG | Submission to HSSC14 for approval.
+| 1.0.0 | May 2022 | HSSC | Initial published version for evaluation
+and testing.
+
+|===
+
+[[sec_D-1]]
+== Introduction
+
+S-98 Part D contains information that applies to Interoperability
+Catalogues which use interoperability rules and operations of at most
+Level 4 interoperability.
+
+Interoperability Catalogues conforming to this Part must comply with
+both the following components of S-98:
+
+. S-98 Main Specification, which describes requirements applying to
+all S-98 Interoperability Catalogues and S-98 Exchange Sets;
+. S-98 Part D (this Part), which defines the subset of the interoperability
+model and Catalogue encoding that are specific to Level 4 interoperability.
+
+The hypothetical processing model for implementations is described
+in general terms in the "S-98 - Main" document and elaborated in <<sec_D-7>>
+of this Part.
+
+Level 4 interoperability includes the following capabilities:
+
+* Level 1 interoperability, in which feature types from different
+products, including S-101, are interleaved as specified by display
+plane and drawing priority information contained in the Interoperability
+Catalogue.
+* Level 2 type suppression functionality, which allows suppression
+of all features of a specified feature type in a specified product,
+with another feature type from a different product being displayed
+instead. Filtering by attribute values and geometry type is also possible.
+* Level 2 constructs allowing catalogues to partition interoperability
+rules and operations according to specified combinations of data products
+("predefined combinations"). The rules and operations in each partition
+are applied only when the corresponding data products are part of
+the display.
+* Level 3 interoperability functionality for allowing suppression
+of selected feature instances and combination or conversion of feature
+types from input products into different feature types for display
+and alert processing purposes. In Level 3, combination/conversion
+operations are limited to thematic attributes.
+* Enhanced feature combination/conversion functionality introduced
+in Level 4; allowing query, combination and conversion operations
+on spatial attributes as well as thematic attributes.
+
+The output of interoperability processing is either the original feature
+data (processing option 1) or drawing instructions (processing option
+2), accompanied by display plane and drawing priority information,
+which is passed through to the portrayal processor. <<sec_D-7>> elaborates
+on these options.
+
+[[sec_D-1.1]]
+=== How to read this Part
+
+<<sec_D-2>> of this Part contains scope identification information
+corresponding to the contents of this Part, which applies specifically
+to Interoperability Catalogues designated as Level 4.
+
+For <<sec_D-3;to!sec_D-10>>, the content of the clause or sub-clause
+extends or elaborates on the content under the same or similar clause
+head or sub-head in the S-98 - Main document.
+
+The numbering of <<sec_D-3;to!sec_D-10>> may differ from that of corresponding
+clauses in S-98 - Main, because for some there is no additional Level-specific
+information needed. If a clause or sub-clause in S-98 - Main has no
+corresponding clause or sub-clause in this Part, there is no Level-specific
+information on that topic.
+
+Part D includes Part A, Part B and Part C content (pertaining to
+Levels 1, 2 and 3), adapted as necessary for Level 4. Reference to
+Parts A, B and C should therefore not be needed.
+
+[[sec_D-2]]
+== Specification Scope for Part D
+
+S-98 Part D describes the portions of S-98 which correspond to the
+following scope defined in S-98 - Main (clause 2):
+
+*Scope Identification:* S98L4
+
+*Level*: MD_ScopeCode - 13
+
+*Level Name*: Interoperability Level 4
+
+*Description*: Spatial operations; instance and type selectivity;
+hybridization; interleaving
+
+*Extent*: EX_Extent.description = "worldwide";
+EX_GeographicBoundingBox = [-180, +180, -90, +90]
+
+[[sec_D-3]]
+== Data Content and Structure
+
+=== Application Schema
+
+[[sec_D-3.1.1]]
+==== Overview of Application Schema
+
+The Application Schema for Interoperability Level 4 is depicted in
+<<fig_D-3.1>> below. This Application Schema is a subset of the full
+Application Schema in S-100 Part 16. It consists of the following
+components:
+
+. Catalogue header information.
+. Display plane ordering information.
+. Display planes content in the form of either features or drawing
+instructions.
+. Specification of rules indicating which feature layers to suppress.
+. Specification of data product combinations and method of referencing
+collections of interoperability rules and operations to specific combinations.
+. Specification of rules indicating which feature instances to suppress.
+. Rules for combining feature data into new features based on thematic
+attributes.
+. Operations involving only thematic attributes, for combining selected
+instances of feature types from different data products, or conversion
+of feature data into new feature data.
+. Feature and Portrayal Catalogues for the new features generated
+according to the above mentioned combination or conversion operations.
+. Operations involving querying, combining, or performing other spatial
+operations on feature geometry (in combination with the previously
+mentioned operations on thematic attributes), for combining or converting
+feature data into new features.
+
+[%landscape]
+<<<
+
+[[fig_D-3.1]]
+.Level 4 Interoperability Catalogue
+image::figure-d-3-1.png["",856,502]
+
+[%portrait]
+<<<
+
+[[sec_D-3.1.2]]
+==== Operations in pre-defined combinations
+
+Level 4 allows predefined combinations, whereby the scope of specified
+interoperability operations can be restricted so the operations are
+executed only when a specified set of data products is active on the
+user display. Display plane and feature ordering (Level 1 operations)
+can be thus restricted by associating a specific set of products (listed
+in *S100_IC_PredefinedCombination* elements) to *S100_IC_DisplayPlane*
+elements.
+
+Level 4 interoperability also allows replacement of a feature layer
+from one product by a feature layer from another product. These layers
+are specified by *S100_IC_SuppressedFeatureLayer* elements. Replacement
+operations are restricted to occur only when specific combinations
+of data products are present on the user display because the
+*S100_IC_SuppressedFeatureLayer* elements in Interoperability Catalogues
+are always contained within *S100_IC_PredefinedCombination* elements.
+
+The simplest operations on feature instances are replacement of selected
+instances from one product by selected instances from another product.
+These are described by *S100_IC_SuppressedFeatureInstance* elements.
+
+Level 4 also allows more complex operations, including conversion
+of input feature instances into new features (hybridization) as described
+by *S100_IC_HybridFeature* elements. The replacement and hybridization
+rules are described in <<sec_D-3.1.5>>. The operations allowed in
+Level 4 are:
+
+. Operations on selected instances of a feature type (Level 3 interoperability).
+. Conversion of input feature data into new feature data involving
+only thematic attributes (Level 3 interoperability).
+. Conversion of input feature data into new feature data involving
+spatial as well as thematic attributes (enhanced functionality introduced
+in Level 4).
+
+[[sec_D-3.1.3]]
+==== Enhanced selection of feature instances
+
+*S100_IC_SuppressedFeatureInstance* and *S100_IC_HybridFeature* elements
+specify the feature types on which they operate by indicating the
+product and feature types of two products. Selection of feature instances
+is done by evaluating a filter expression (type **FeatureSelector**,
+a string expression conforming to the specified [TBD] format) with
+the feature instance as input parameter. A *FeatureSelector* is a
+more expressive form of the attribute-value combination filter described
+in clause 4.3 of the "S-98 - Main" document that can include spatial
+operations and more complex expressions on thematic attributes.
+
+NOTE: If a scripting language for selection is developed it will belong
+in this Level - the TBD in the previous sentence would be the specification
+of the scripting language, and equally importantly, their call/function
+signatures and restrictions on what the scripts are allowed to do.
+
+If spatial attributes are not mentioned in filtering or selection
+conditions, spatial equality is an implied criterion in determining
+each input instance set of feature instances to be converted to new
+feature data. Spatial equality is used as an implicit criterion for
+set membership; that is, only coincident instances (to a system-determined
+tolerance) are combined; and the geometry of the output is the same
+as the geometry of any instance in the input set.
+
+For Level 4 interoperability, the Levels 1-3 restriction on the use
+of spatial attributes is relaxed and complex spatial operations are
+permitted, but there is an implicit assumption that the members of
+the input instance set are meaningfully related spatially (for example
+95% common area). The precise criteria for meaningful spatial relationships
+depend on the nature of the data products and other particular circumstances
+and must, for this Edition of S-98, be defined by the developers of
+a particular Interoperability Catalogue footnote:[Later editions of
+S-98 may include concrete criteria and additional spatial operations,
+ideally after exploratory Level 4 implementations have resulted in
+agreement on which spatial operations are useful for practical interoperability.].
+
+In Level 4 interoperability, the spatial attributes of the output
+instance may be generated by applying spatial operators (for example,
+spatial union, intersection, etc) to the spatial attributes of the
+input instance set. The allowed spatial operations are the methods
+for testing spatial relations described in IHO Publication S-58, Section
+2, extended with additional operations (to be determined when Level
+4 is elaborated footnote:[Later editions of S-98 may include concrete
+criteria and additional spatial operations, ideally after exploratory
+Level 4 implementations have resulted in agreement on which spatial
+operations are useful for practical interoperability.]).
+
+[[sec_D-3.1.4]]
+==== Interoperability levels
+
+The _interoperabilityLevel_ attribute in *S100_IC_InteroperabilityCatalogue*
+specifies the highest level of interoperability implemented in that
+XML Interoperability Catalogue file. The _interoperabilityLevel_ attribute
+in *S100_IC_DisplayPlane* specifies the level to which that display
+plane pertains.
+
+The _interoperabilityLevel_ attribute in each *S100_IC_PredefinedCombination*
+element specifies the highest level of interoperability operations
+that are encoded in the element. *S100_IC_PredefinedCombination* elements
+are permitted to also include operations of a lower level of interoperability.
+
+The _interoperabilityLevel_ attribute in *S100_HybridFeatureCreationRule*
+specifies the interoperability level to which that rule applies. In
+Level 4 Catalogues the value must be 4.
+
+[[sec_D-3.1.5]]
+==== Hybridization rules
+
+Hybridization rules define how a set of feature instances is combined
+to create a hybrid feature type. In the simplest form of hybridization,
+the hybrid feature would bind all the attributes of the input types
+to a single output feature type (this assumes that there are no collisions
+footnote:[Attributes which describe the same characteristic of substantially
+the same phenomenon. Such attributes will generally have the same
+name. Developers of Interoperability Catalogues can detect collisions
+by comparing Application Schemas and Feature Catalogues.] between
+the thematic attributes of the input types.) More complex hybridization
+rules can handle collisions, for example by defining a preference
+order for colliding attributes, including all the values if the input
+types bind the same enumerated attribute, or adding uncertainty metadata
+if numeric attribute values are different.
+
+The hybridization rules require two feature instances as input and
+produce a single feature instance as output. The formal specification
+and rule language for hybridization will be described in a subsequent
+version of this Specification.
+
+[[sec_D-3.1.5.1]]
+===== Simple hybridization rule
+
+Simple rules treat thematic attributes uniformly, for example by binding
+the attributes of both primary and secondary input instances to the
+output instance; or preferring the attribute bindings of the primary
+instance to those of the secondary instance in case of a difference
+in the values of common attributes. Location/extent spatial attributes
+of all input instances must be spatially equal and are passed through
+unchanged.
+
+[[sec_D-3.1.5.2]]
+===== Thematic hybridization rule
+
+Thematic rules treat thematic attributes on an individual basis; for
+example, use specified attributes from the primary input instance
+and specified attributes from the secondary input instance. Combination
+operations on attribute values may be specified (for example,
+OutputFeature.depthValue = maximum(ProductA.FeatureX.depthValue,
+ProductB.FeatureY.depthValue)). Location/extent spatial attributes
+of all input instances must be spatially equal (as defined in IHO
+Publication S-58) and are passed through unchanged.
+
+[[sec_D-3.1.5.3]]
+===== Complete hybridization rule
+
+Complete rules allow selection of input sets using complex spatial
+queries as well as spatial equality and selector expressions on attribute
+values. The output can combine thematic attributes in any of the ways
+allowed by thematic hybridization rules. In addition, it may generate
+complex spatial objects from the input spatial primitives by applying
+selected spatial operations to the input instances. The allowed spatial
+operations will be identified in a future Edition of this Specification
+(tentatively, the spatial operations defined in IHO Publication S-58,
+Section 2).
+
+[[sec_D-3.1.6]]
+==== Hybrid feature and portrayal catalogues
+
+Hybrid Feature and Portrayal Catalogues are physically separate files
+from the main Interoperability Catalogue, but the main Catalogue links
+to them by encoding the names of the hybrid Catalogue files which
+are used by the feature creation rules defined in it. The hybrid Feature
+and Portrayal Catalogues conform to the structures required by S-100
+Parts 5 and 9 respectively.
+
+[[sec_D-3.1.7]]
+==== Progression of interoperability levels
+
+<<fig_D-3.2>> below shows the components of the model subset used
+by this Level compared to lower Levels.
+
+Level 2 adds predefined combinations and feature suppression elements
+to Level 1.
+
+Level 3 adds elements related to thematic hybridization.
+
+Level 4 adds rules that can use spatial operations.
+
+Interoperability Catalogues at any Level can also use lower-Level
+functionality.
+
+[[fig_D-3.2]]
+.Progressive use of Interoperability Catalogue model
+image::figure-d-3-2.png["",626,279]
+
+=== Interoperability Catalogue
+
+[[sec_D-3.2.1]]
+==== Conceptual types for Level 4 interoperability
+
+The following clauses summarize the conceptual elements used in Level
+4 Interoperability Catalogues. Details about these conceptual types
+are provided in S-100 Part 16.
+
+[[sec_D-3.2.1.1]]
+===== Display plane (S100_IC_DisplayPlane)
+
+A display plane element in the Interoperability Catalogue acts as
+a container for display information for specified feature classes,
+which enables the interleaving of feature layers during portrayal
+by indicating the display plane, priority, and drawing order of the
+features assigned to a display plane.
+
+A feature type may be referenced in more than one **S100_IC_DisplayPlane**,
+but the entries in different display planes must be distinguished
+by different attribute-value combinations or spatial primitives so
+that the actual instances of features are partitioned unambiguously
+between different display planes.
+
+The portrayal of feature types not mentioned in any *S100_IC_DisplayPlane*
+component is undefined until ordinary portrayal processing takes place.
+
+[[sec_D-3.2.1.2]]
+===== Feature type display information (S100_IC_Feature)
+
+The *S100_IC_Feature* element describes the display parameters for
+all features of a specific feature type in a specific product and
+thereby determines the order of drawing the feature type relative
+to other feature types in the same display plane. It also specifies
+the viewing group to which the feature is assigned. Its applicability
+can be optionally restricted to a subset of instances of the feature
+type by additional attributes that specify the type of spatial primitive
+and indicate specific values of thematic attributes.
+
+[[sec_D-3.2.1.3]]
+===== Feature layer (S100_IC_SuppressedFeatureLayer)
+
+Each instance of this element identifies a feature type in a specific
+data product which is supposed to be suppressed in the presence of
+another specified feature type from another product.
+
+[[sec_D-3.2.1.4]]
+===== Drawing instruction (S100_IC_DrawingInstruction)
+
+Drawing instructions in the Interoperability Catalogue play a similar
+role to feature type display information (*S100_IC_FeatureType*) but
+with drawing instructions instead of feature objects. The
+*S100_IC_DrawingInstruction* element in Interoperability Catalogues
+is similar in operation to the layering and priority aspects of the
+*DrawingInstruction* element in Portrayal Catalogues (see S-100 Part
+9 - Portrayal). Where there is a conflict with a Portrayal Catalogue
+drawing instruction, the drawing instruction in the Interoperability
+Catalogue supersedes the drawing instruction in the Portrayal Catalogue.
+
+The *S100_IC_DrawingInstruction* element contains an additional attribute
+that allows substitution of symbolization instructions generated by
+portrayal processing.
+
+[[sec_D-3.2.1.4.1]]
+====== Comparison and use of S100_IC_Feature and S100_IC_DrawingInstruction
+
+*S100_IC_Feature* and *S100_IC_DrawingInstruction* elements in Interoperability
+Catalogues operate in essentially the same way as far as assignment
+of drawing order, priority, and display planes is concerned. They
+differ in that *S100_IC_DrawingInstruction* provides an optional attribute
+to substitute the symbolization elements of the drawing instruction.
+
+*S100_IC_Feature* should be used for Interoperability Catalogues that
+are designed for systems where interoperability processing precedes
+the generation of drawing instructions.
+
+*S100_IC_DrawingInstruction* should be used for Interoperability Catalogues
+that are designed for systems where interoperability processing precedes
+the generation of drawing instructions. It should also be used in
+all Catalogues where substitution of symbolization is necessary.
+
+[[sec_D-3.2.1.5]]
+===== Predefined combination (S100_IC_PredefinedCombination)
+
+A predefined combination element defines a collection of data products
+for which a common set of interoperability operations have been defined
+in the Interoperability Catalogue. Instances of predefined combinations
+are also characterized by interoperability Level, which allows the
+encoding of different sets of operations depending on how tightly
+integrated the user desires the products to be on the resultant display.
+
+The _interoperabilityLevel_ attribute in each *S100_IC_PredefinedCombination*
+element specifies the highest Level of interoperability operations
+that are encoded in the element. *S100_IC_PredefinedCombination* elements
+with a specified Level attribute are permitted to also include operations
+of a lower Level of interoperability.
+
+Predefined combinations can be linked to *S100_IC_DisplayPlane* elements
+by means of references in the *S100_IC_PredefinedCombination* elements.
+
+[[sec_D-3.2.1.6]]
+===== Suppressed feature Instance (S100_SuppressedFeatureInstance)
+
+This element allows Interoperability Catalogues to indicate when specific
+feature instances in a data product must be suppressed by specific
+feature instances in another product. Its functionality is similar
+to S100_SuppressedFeatureLayer except that it can use somewhat more
+expressive selection/replacement rules (by virtue of its dependency
+on *S100_SimpleRule*) and it applies to feature instances instead
+of feature types or subsets of feature types.
+
+[[sec_D-3.2.1.7]]
+===== Feature hybridization (S100_HybridFeature)
+
+This element allows selected feature types or instances to be combined
+into a new feature for display purposes.
+
+[[sec_D-3.2.1.8]]
+===== Feature creation or replacement rule (S100_SimpleRule, S100_ThematicRule, S100_CompleteRule)
+
+Feature creation and replacement is advanced functionality whose implementation
+is not required for this version of the Interoperability Catalogue.
+
+Feature creation and replacement rules create new feature types by
+combining characteristics of specified feature types from the input
+data products. A feature creation/replacement rule basically transforms
+a collection of feature instances in the input stream into one or
+more different feature instances in the output stream. The created
+feature differs from all the input features, for example by adding
+properties of one feature to properties of another feature.
+
+[[sec_D-3.2.2]]
+==== Use of S-100 types
+
+The S-100 types used by S-98 Level 4 interoperability catalogues are
+described in the S-98 - Main component of this Specification. For
+Level 4 interoperability catalogues, the following additional information
+applies.
+
+* Interoperability Catalogues of Level 4 do not use feature and information
+associations in feature filters defined by _attributeCombination_
+attributes in *S100_S100_IC_Feature* or *S100_IC_DrawingInstruction*
+elements. This is the same as the Level 1, 2, and 3 functionality
+for these elements.
+* Interoperability Catalogues of Level 4 are allowed to use feature
+and information associations in feature selector expressions encoded
+in the _primarySelector_ and _secondarySelector_ attributes of
+*S100__IC_DerivedFeature* or in *S100_SimpleRule*, *S100_ThematicRule*,
+or *S100_CompleteRule* elements.
+
+=== UML model documentation
+
+The UML model documentation is provided in S-100 Part 16. This clause
+documents details specific to the use of the UML model for the interoperability
+Level described in this Part of S-98.
+
+Only the model elements used in this Level (and included in the Level's
+Application Schema) are listed. The constraints and considerations
+listed in the UML documentation tables in S-100 Part 16 apply. Any
+S-98 general or Level-specific considerations are described under
+the element name in the list below.
+
+. *S100_IC_DisplayPlane*: No Level-specific constraints or notes.
++
+--
+*Attribute* _interoperabilityLevel_: Mandatory. The only values allowed
+for Level 4 Interoperability Catalogues are 1, 2, 3, and 4.
+--
+
+. *S100_IC_DrawingInstruction*:
++
+--
+NOTE: for implementers: Even if the Presentation Schema in S-100 Part
+9 is used, implementers may need to provide specific code to validate
+the content of the _substituteSymbolization_ attribute instead of
+depending on normal XML Schema validation. The content of this attribute
+is not prescribed by this Specification and may be a fragment of XML,
+or interpretable code or rules, etc, in a non-XML syntax. It may be
+enclosed in a `<![CDATA[…]]>` section so that XML validators treat it
+as character data instead of XML.
+--
+
+. *S100_IC_Feature*: No Level-specific constraints or notes.
+. *S100_IC_InteroperabilityCatalogue*:
++
+--
+*Attribute* _productCovered_: Must use values defined in the dictionary
+identified by MRN: urn:mrn:iho:prod:s98:1:0:0:products
+
+*Attribute* _interoperabilityLevel_: Mandatory in S-98 Catalogues
+at all levels. The only value allowed for Level 4 interoperability
+catalogues is 4.
+
+*Role hybridFC*: Required if and only if there are any feature hybridization
+rules in the Catalogue.
+
+*Role hybridPC*: Required if and only if there are any feature hybridization
+rules in the Catalogue.
+
+*Role hybridizationRules*: Required if and only if there are any instances
+of **S100_IC_SimpleRule**, **S100_IC_ThematicRule**, or *S100_IC_CompleteRule*
+in the Catalogue.
+--
+
+. *S100_IC_PredefinedCombination*:
++
+--
+*Attribute* _interoperabilityLevel_: Mandatory in the S-98 Interoperability
+Catalogue; allowed values: 1, 2, 3, 4.
+--
+
+. *S100_IC_SuppressedFeatureLayer*: No Level-specific constraints
+or notes.
+. *Codelist dataProduct*: No Level-specific constraints or notes.
+The data type for all Levels is described below.
++
+--
+Codelist Type: closed dictionary
+
+MRN: urn:mrn:iho:prod:s98:1:0:0:products
+--
+
+. *Codelist requirementType*: No Level-specific constraints or notes.
++
+--
+For all Interoperability Levels, the following subset of the standard
+values listed in S-100 Part 16 are permitted to be used in S-98 Interoperability
+Catalogues:
+
+[[table_D-3.1]]
+.Allowed values for requirementType
+[cols="3",options="header"]
+|===
+| Value | Description | Code
+
+| IHO | Original IHO Interoperability Catalogue | 1
+| OEM | Prepared according to requirements specified by OEM or systems
+integrator | 2
+| national | Prepared according to requirements specified by a national
+Government, group of national Governments (for example the European
+Union), or governmental agency such as a national shipping authority
+or the Coast Guard | 3
+| local | Prepared according to requirements specified by a sub-national
+governmental authority such as a state, province, or county | 4
+| port | Prepared according to requirements specified by a harbormaster's
+office or port authority | 5
+| company | Prepared according to requirements specified by the owner,
+charterer, or operator | 6
+| pilot | Prepared according to requirements specified by a pilot | 7
+| master | Prepared according to requirements specified by the vessel's master | 8
+|===
+
+
+Extra values ("other: ...") as defined in S-100 part 3, clause 3-6.7
+are also permitted.
+--
+
+. *S100_IC_FeatureDerivation*:
++
+--
+The resulting derived feature does not need to have any hybrid characteristics;
+that is, one restricted area replaced with another restricted area
+will use regular Portrayal Catalogue/Feature Catalogue of the primary
+product. However if the result feature needs to be supported by any
+custom Feature Catalogue or Portrayal Catalogue elements they must
+be defined under hybrid Feature Catalogue and hybrid Portrayal Catalogue
+accordingly.
+
+A rule for creating the feature must be described in the rules section
+of the Interoperability Catalogue.
+
+*Attribute* __primarySelector__: If omitted, all instances of the
+type are included.
+
+In Level 3 processing, may contain only thematic attributes and the
+primary and secondary instance geometries must be spatially equal.
+
+Level 3 Example: categoryOfIce = 5
+
+In Level 4 processing, expressions may also contain spatial attributes.
+
+Level 4 Example: categoryOfIce = 5 AND WITHIN(<primary>, <secondary>)
+
+*Attribute* _secondarySelector_: If omitted, all instances of the
+type are included.
+
+In Level 3 processing, may contain only thematic attributes and the
+primary and secondary instance geometries must be spatially equal.
+
+Level 3 Example: categoryOfIce = 5
+
+In Level 4 processing, expressions may also contain spatial attributes.
+
+Level 4 Example: categoryOfIce = 5 AND WITHIN(<secondary>, <primary>)
+
+NOTE: *S100_IC_FeatureDerivation* is an abstract super-class for different
+types of feature hybridization operations.
+--
+
+. *S100_IC_HybridFC*: No Level-specific constraints or notes.
+. *S100_IC_HybridFeature*: No Level-specific constraints or notes.
+. *S100_IC_HybridFeatureCreationRule*: No Level-specific constraints
+or notes.
++
+--
+*Attribute* __interoperabilityLevel__: Mandatory for all Levels in
+S-98.
+
+NOTE: *S100_IC_HybridFeatureCreationRule* is an abstract super-class
+for different types of hybridization rules. This functionality needs
+to be worked out but OGC Filter seems to be the ideal option for defining
+data filtering logic.
+
+NOTE: Overall, the output from execution of *S100_IC_HybridFeatureCreationRule*
+is a set of hybrid features for which predefined Feature Catalogue,
+Portrayal Catalogue and display plane definitions already exist so
+such feature will be suitable for passing to the portrayal engine
+for processing just like any other S-100 features.
+--
+
+. *S100_HybridPC*: No Level-specific constraints or notes.
+. *S100_IC_PredefinedCombination*
++
+--
+*Role* __derivedFeatures__: Required if and only if there are any
+instances of *S100_SuppressedFeatureInstance* or subclasses of the
+abstract class *S100_IC_HybridFeature* in the Catalogue.
+--
+
+. *S100_IC_SimpleRule*: No Level-specific constraints or notes.
+. *S100_IC_SuppressedFeatureInstance*: No Level-specific constraints
+or notes.
+. *S100_IC_ThematicRule*: No Level-specific constraints or notes.
+. *FeatureSelector*: No Level-specific constraints or notes.
+. *S100_CompleteRule*: No Level-specific constraints or notes.
+
+[[sec_D-4]]
+== Level-Specific Data Quality Considerations
+
+[[sec_D-4.1]]
+=== Quality of displayed data
+
+There are no Level-specific extensions to clause 6.1 of the "S98 -
+Main" document.
+
+<<sec_D-5.11>> provides guidance for maintaining data quality for
+Level-specific rules and operations.
+
+[[sec_D-4.2]]
+=== Quality of Interoperability Catalogues
+
+The quality measures recommended in S-97 (Part C) which are applicable
+to Level 4 S-98 Interoperability Catalogues are those listed in Table
+6-1 of the "S-98 - Main" document plus those listed in <<table_D-4.1>>
+below.
+
+S-98 also includes the quality measure "Relative Internal Positional
+Accuracy" (S-100 Part 4c, Appendix 4c-C) as a measure of the accuracy
+of any spatial operations during interoperability processing which
+may generate spatial primitives for display purposes from input products.
+
+[[table_D-4.1]]
+.Quality elements for Level 4 S-98 Interoperability Catalogues
+[cols="6,19,17,31,12,14",options="header"]
+|===
+| No. | Data quality element and sub element | Definition
+| DQ measure / description
+| Evaluation scope footnote:[For the IC evaluation scope, a "dataset"
+is an entire Interoperability Catalogue file, an "element" is an
+Interoperability Catalogue component corresponding to one of the classes
+in the model depicted in S-100 Part 16, Figure 16-3.] for IC
+| Evaluation scope for resultant
+footnote:["Resultant" means the result of applying interoperability
+operations to covered data. "Resultant feature" means the apparent
+feature as it appears on the display after application of interoperability.
+"Resultant dataset" means the collection of resultant features. A
+"modified resultant feature" is the feature or drawing instruction
+resulting from the application of an operation or rule which affects
+spatial or thematic attributes or their values, including combining
+or suppressing attributes or generating an instance of a feature defined
+in the HYBRID Feature Catalogue in Level 3 or 4. A "superseding feature"
+is a feature which suppresses a feature (instance or type) from another
+dataset, or whose priority is increased by an interoperability rule
+or operation (which would make it visible in preference to a feature
+which would otherwise overlie it). A "superseded feature" is one that
+is suppressed or overlaid by a superseding feature.]
+features
+
+| D1 | Completeness / Omission
+| Data absent from the dataset, as described by the scope.
+| numberOfMissingItems / This data quality measure is an indicator
+that shows that a specific item is missing in the data.
+| Hybrid FC / PC | Features produced by hybridization rules.
+
+| D2 | Logical Consistency / Domain Consistency
+| Adherence of the values to the value domains.
+| numberOfNonconformantItems / This data quality measure is a count
+of all items in the dataset that are not in conformance with their
+value domain.
+| (See S-98 - Main) | Features produced by hybridization rules.
+
+| D3 | Thematic Accuracy / ThematicClassificationCorrectness
+| Comparison of the classes assigned to features or their attributes
+to a universe of discourse.
+| miscalculationRate / This data quality measure indicates the number
+of incorrectly classified features in relation to the number of features
+that are supposed to be there. [Adapted from ISO 19157] This is a
+RATE which is a ratio, and is expressed as a REAL number representing
+the rational fraction corresponding to the numerator and denominator
+of the ratio. For example, if there are 1 items that are classified
+incorrectly and there are 100 of the items in the dataset then the
+ratio is 1/100 and the reported rate = 0.01.
+| Hybrid FC / PC | Features produced by hybridization rules.
+
+| D4 | Logical Consistency / Conceptual Consistency
+| Adherence to the rules of a conceptual schema.
+| numberOfInvalidSurfaceOverlaps / This data quality measure is a
+count of the total number of erroneous overlaps within the data. Which
+surfaces may overlap and which must not is application dependent.
+Not all overlapping surfaces are necessarily erroneous.
+| N/A
+| Features produced by hybridization rules with spatial operations
+on surface spatial primitives.
+
+| D5 | Logical Consistency / Topological Consistency
+| Correctness of the explicitly encoded topological characteristics
+of the dataset, as described by the scope.
+| rateOfFaultyPointCurveConnections / This data quality measure indicates
+the number of faulty link-node connections in relation to the number
+of supposed link-node connections. This data quality measure gives
+the erroneous point-curve connections in relation to the total number
+of point-curve connections.
+| N/A
+| Features produced by hybridization rules with spatial operations
+on curve spatial primitives.
+
+| D6 | Logical Consistency / Topological Consistency
+| Correctness of the explicitly encoded topological characteristics
+of the dataset, as described by the scope.
+| numberOfMissingConnectionsUndershoots / This data quality measure
+is a count of items in the dataset within the parameter tolerance
+that are mismatched due to undershoots.
+| N/A
+| Features produced by hybridization rules with spatial operations
+on curve spatial primitives.
+
+| D7 | Logical Consistency / Topological Consistency
+| Correctness of the explicitly encoded topological characteristics
+of the dataset, as described by the scope.
+| numberOfMissingConnectionsOvershoots / This data quality measure
+is a count of items in the dataset within the parameter tolerance
+that are mismatched due to overshoots.
+| N/A
+| Features produced by hybridization rules with spatial operations
+on curve spatial primitives.
+
+| D8 | Logical Consistency / Topological Consistency
+| Correctness of the explicitly encoded topological characteristics
+of the dataset, as described by the scope.
+| numberOfInvalidSlivers / This data quality measure is a count of
+all items in the dataset that are invalid sliver surfaces. A sliver
+is an unintended area that occurs when adjacent surfaces are not digitized
+properly. The borders of the adjacent surfaces may unintentionally
+gap or overlap to cause a topological error.
+| N/A
+| Features produced by hybridization rules with spatial operations
+on surface spatial primitives.
+
+| D9 | Logical Consistency / Topological Consistency
+| Correctness of the explicitly encoded topological characteristics
+of the dataset, as described by the scope.
+| numberOfInvalidSelfIntersects / This data quality measure is a count
+of all items in the dataset that illegally intersect with themselves.
+| N/A
+| Features produced by hybridization rules with spatial operations
+on surface spatial primitives.
+
+| D10 | Logical Consistency / Topological Consistency
+| Correctness of the explicitly encoded topological characteristics
+of the dataset, as described by the scope.
+| numberOfInvalidSelfOverlap / This data quality measure is a count
+of all items in the dataset that illegally self-overlap.
+| N/A
+| Features produced by hybridization rules with spatial operations
+on surface or curve spatial primitives.
+
+| D11 | Positional Accuracy / Absolute or External Accuracy
+| Closeness of reported coordinative values to values accepted as
+or being true.
+| Root Mean Square Error / Standard deviation, where the true value
+is not estimated from the observations but known a priori.
+| N/A
+| Modified or superseding features that have coordinate values associated.
+
+| D12 | Positional Accuracy / Vertical Position Accuracy
+| Closeness of reported coordinative values to values accepted as
+or being true.
+| linearMapAccuracy2Sigma / Half length of the interval defined by
+an upper and lower limit in which the true value lies with probability
+95%.
+| N/A
+| Modified or superseding features with attributes indicating vertical
+data measures.
+
+| D13 | Positional Accuracy / Horizontal Position Accuracy
+| Closeness of reported coordinative values to values accepted as
+or being true.
+| linearMapAccuracy2Sigma / Half length of the interval defined by
+an upper and lower limit in which the true value lies with probability
+95%.
+| N/A
+| Modified or superseding features that have horizontal coordinate
+values associated.
+
+| D14 | Positional Accuracy / Gridded Data Position Accuracy
+| Closeness of reported coordinative values to values accepted as
+or being true.
+| Root mean square error of planimetry / Radius of a circle around
+the given point, in which the true value lies with probability P.
+| N/A
+| Modified or superseding features of gridded spatial types.
+
+| D15 | Positional Accuracy / Relative Internal Position Accuracy
+| Closeness of the relative positions of features in a dataset to
+their respective relative positions accepted as or being true
+| relativeHorizontalError / An evaluation of the random errors in
+the horizontal position of one feature to another in the same data
+set or on the same map/chart.
+| N/A | Features produced by hybridization rules with spatial operations.
+
+| D16 | Positional Accuracy / Relative Internal Position Accuracy
+| Closeness of the relative positions of features in a dataset to
+their respective relative positions accepted as or being true
+| relativeVerticalError / An evaluation of the random errors of one
+relief feature to another in the same data set or on the same map/chart.
+It is a function of the random errors in the two elevations with respect
+to a common vertical datum.
+| N/A | Features produced by hybridization rules with spatial operations.
+
+|===
+
+[[sec_D-4.2.1]]
+==== Test methods
+
+The provisions of Clause 6.2.1 of the "S-98 - Main" document apply.
+
+The tests in <<table_D-4.1>> should be evaluated only with features
+produced by hybridization rules.
+
+Evaluation of quality elements D1-D3 in <<table_D-4.1>> consists of
+verifying that the Feature Catalogue and Portrayal Catalogue corresponding
+to the output product(s) specified in hybridization operations define
+a feature type and portrayal rule respectively for any feature type
+produced by a hybridization operation and that the attribute bindings
+and values are consistent.
+
+[[sec_D-4.2.2]]
+==== Data quality testing
+
+The provisions of clause 6.2.2 of the "S-98 - Main" document apply.
+Evaluation methods for quality elements D1-D3 in <<table_D-4.1>> should
+include either a complete static analysis of hybridization rules compared
+to Feature and Portrayal Catalogues (either with or without automated
+support) or full test case coverage. Evaluation methods for quality
+elements D4-D16 may use test datasets.
+
+== Level-Specific Guidance on Making Product Specifications Interoperable
+
+The guidelines in this clause supplement and extend guidance common
+to all levels on making Product Specifications interoperable, which
+is given in clause 8 of the "S-98 - Main" document.
+
+[[sec_D-5.1]]
+=== Duplicated features
+
+There is no Level-specific guidance for determining duplicated features.
+However, when Interoperability Catalogues are developed to resolve
+duplicated features, keep in mind the following level-dependent considerations.
+
+Level 4 Interoperability Catalogues offer the same interoperability
+functionality for resolving duplicated features as Level 3:
+
+* Interleaving changes - changes to the display planes and display
+orders specified in the products' Portrayal Catalogues, as determined
+by display plane and drawing priority information. This means that
+features which are not covered by features with higher drawing priority
+or in an upper display plane will still be visible. This is the same
+functionality as Level 1.
+* Type-based suppression of features from one product by features
+from another product. The difference from interleaving changes is
+that type-based suppression will suppress even features which are
+not covered by features from the second product. Note that this applies
+only in areas where there is data coverage by both products; it does
+not apply in areas where only one product has data coverage. This
+is the same functionality added by Level 2 to Level 1.
+* Suppression of feature instances matching specified conditions and
+their replacement by other feature instances. This is the same functionality
+as Level 3.
+
+[[sec_D-5.1.1]]
+==== Duplicated features same model
+
+Level 4 offers the same interoperability functionality for resolving
+this as Level 3. See the guidance in the "S-98 - Main" component of
+this Specification, and keep in mind the differences between Level
+1, 2, and 3 interoperability solutions described earlier in <<sec_D-5.1>>
+of this Part.
+
+*S100_IC_SuppressedFeatureLayer* elements only have feature code and
+product as attributes for suppression, this means that all instances
+of a listed feature class will be suppressed. This is important to
+remember when creating rules that promote alternative instances.
+*S100_IC_Feature* and *S100_IC_DrawingInstruction* can have attribute
+combinations and spatial primitives to select the alternative instances.
+There is therefore a risk that unless sufficient attention to details
+is given, important instances may be omitted.
+
+[example]
+If *Restricted Area Navigational* in ENC is suppressed, and
+*Restricted Area Navigational* with attribute
+*category of restricted area = 4 (nature reserve)* in a Marine Protected
+Area dataset is promoted in its place, there is a chance that only
+instances with that combination will be visible, and all others suppressed.
+
+*S100_SuppressedFeatureInstance* elements can suppress instances selectively,
+as defined by conditions specified in the _primarySelector_ attribute
+or referenced *S100_SimpleRule* element. While the *S100_HybridFeature*
+element is intended mainly for feature hybridization, it can also
+be used to suppress duplicated features, since it inherits the same
+attributes as *S100_SuppressedFeatureInstance* from their common abstract
+super-class *S100_FeatureDerivation*. However, if the intention is
+merely to suppress a feature, *S100_SuppressedFeatureInstance* should
+be used.
+
+[[sec_D-5.1.2]]
+==== Duplicated features, different models
+
+See the guidance in clause 8.1.2 of the "S-98 - Main" document, and
+keep in mind the differences between Level 1 and Level 2 interoperability
+solutions described in <<sec_D-5.1>> of this Part. There is no other
+Level-specific guidance for this scenario.
+
+[[sec_D-5.1.3]]
+==== Duplicate feature domains
+
+See the guidance in clause 8.1.3 of the "S-98 - Main" document, and
+keep in mind the differences between Level 1 and Level 2 interoperability
+solutions described in <<sec_D-4.1>> of this Part. There is no other
+Level-specific guidance for this scenario.
+
+=== Geometry
+
+[[sec_D-5.2.1]]
+==== Combined geometry
+
+See clause 8.2.1 of the "S-98 - Main" document for guidance for developers
+of Product Specifications that may result in hybrid features when
+interacting with specific other products.
+
+NOTE: The hybrid feature concept is only for interoperability Levels
+3 and 4. Thematic hybridization/fusion is possible in both Levels
+3 and 4. Spatial hybridization/fusion is only available for interoperability
+Level 4. Both are out of scope for initial implementations of this
+Interoperability Specification.
+
+[[sec_D-5.2.2]]
+==== Spatial discrepancy, unrelated to scaled or cartographic smoothing
+
+There is no Level-specific guidance for this issue. Common guidance
+is provided in clause 8.2.2 of the "S-98 - Main" document.
+
+[[sec_D-5.2.3]]
+==== Spatial discrepancies, related to scale or cartographic smoothing
+
+There is no Level-specific guidance for this issue. Common guidance
+is provided in clause 8.2.3 of the "S-98 - Main" document.
+
+=== Display of text
+
+There is no Level-specific guidance for this issue. Common guidance
+is provided in clause 10.8 of the "S-98 - Main" document.
+
+=== Skin-of-the-earth feature operations
+
+[[sec_D-5.4.1]]
+==== Skin-of-the earth feature replacement
+
+Level 4 Interoperability Catalogues permit any of the following:
+
+* Interleaving of display planes so that upper planes overwrite lower
+planes (Level 1 functionality). This can be used to shift feature
+layers to lower or higher planes to overwrite layers whose replacement
+is desired.
+* Suppression of feature layers in which case the features in the
+suppressed layer are not processed for portrayal but features over/under
+the suppressed features will be displayed as determined by their display
+planes and drawing priorities (Level 2 functionality).
+* Suppression of feature instances, which is like suppression of feature
+layers but applies to feature instances selected by selector expression
+or simple rule (Level 3 functionality).
+* Merging of features from different products creating hybrid features
+(Level 3 functionality).
+* Spatial operations for feature selection or creation of feature
+geometry for hybrid features from the geometry of the input features
+(additional functionality in Level 4).
+
+See <<sec_D-6.9>> for portrayal considerations.
+
+[[sec_D-5.4.2]]
+==== Skin-of-the earth feature adjusting
+
+Adjustment of thematic attribute values is possible in Level 4 Catalogues
+by means of hybridization rules.
+
+For example, the values of depth and under keel clearance attributes
+may be adjusted by combining bathymetry and/or water level information
+with ENC data.
+
+In interoperability Level 4, skin-of-the-earth feature spatial attribute
+adjustment is a specialization of combined geometry, see <<sec_D-5.2.1>>
+for details. Also see <<sec_D-6.9>> for portrayal considerations.
+Additional considerations should be given to the attributes of the
+resulting skin-of-the-earth feature, as a combined feature may have
+altered geographical representation, attribute combinations or attribute
+values.
+
+[example]
+Shoaling in a channel in an ENC may be indicated by high definition
+bathymetry, and a shallower channel hybrid feature replaces the ENC
+feature, which also has an amended shape. Depth areas adjacent grow
+due to the shoaling.
+
+[[sec_D-5.5]]
+=== Blended feature concepts
+
+Blended feature concepts or blended portrayals can be produced by
+using transparency between related features; or creating a temporary
+blended feature; or blended portrayal (rule and/or symbol) of specific
+combinations of features from different products. See clause 10 in
+the "S-98 - Main" document for portrayal considerations and an example
+of a use case.
+
+Blended features or portrayal will typically be created by using
+*S100_IC_PredefinedCombination* which link to a hybrid Portrayal Catalogue
+that includes the features to be combined and a suppression rule,
+for example by using **S-100_IC_SuppressedFeatureLayer**, for the
+features that are to be replaced.
+
+An example where a blended concept could be used is where winds blowing
+from the west cause fairways to some west coast ports of Finland to
+get layered ice (wind pushes ice layers on top of each other until
+there is ice from the sea bottom up to the surface). When an ice-breaker
+makes a path through some ice remains between the sea bottom and the
+keel of the ice-breaker. Ice thickness in such a place could be up
+to 11 m while the ice-breaker draught is around 7-8 meters. In such
+cases a simultaneous display of both ice coverage and underlying depth
+area is required. Other depth area features such as spot soundings,
+rocks, wrecks, etc, are also still important.
+
+Developers of Product Specifications that are likely to be used in
+blended feature concepts by ECDIS in interoperability mode should
+communicate their intentions with developers of related Specifications
+so that awareness is created about the inter-dependencies of these
+types of relationships. Such communication is especially important
+when revisions to these Specifications are considered. Doing so will
+help manage risks to breaking the relationships as the related Product
+Specifications transition through their life cycle.
+
+=== Hierarchy of data
+
+[[sec_D-5.6.1]]
+==== Hierarchy by stacking of display planes
+
+In Level 4 Interoperability Catalogues, hierarchy can be set by interleaving
+of display planes or feature layer suppression operations.
+
+[[sec_D-5.6.2]]
+==== Predefined combinations
+
+Predefined combinations can be defined in Level 4 Interoperability
+Catalogues. Interoperability rules can be made contingent on the presence
+of particular combinations of data products on the display. Predefined
+combinations are generally created with a particular type of operational
+view in mind, and therefore the hierarchy of data may vary between
+predefined combinations. Typically, the ENC will be the base layer;
+that is, the lowest layer in a predefined combination.
+
+Predefined combinations are used to define the hierarchy of data between
+different S-100 based Specifications. An instance of
+*S100_IC_PredefinedCombination* is associated to *S100_IC_DisplayPlane*
+instances to give the hierarchy of the data products that are intended
+to be used. The attribute _order_ within the *S100_IC_DisplayPlane*
+gives the order in which the layers are drawn.
+
+[[sec_D-5.7]]
+=== New datasets
+
+There is no Level-specific guidance for this issue. Common guidance
+is provided in clause 8.7 of the "S-98 - Main" document.
+
+[[sec_D-5.8]]
+=== Dataset scales, loading, and unloading
+
+There is no Llevel-specific guidance for this issue. Common guidance
+is provided in clause 8.8 of the "S-98 - Main" document.
+
+[[sec_D-5.9]]
+=== Metadata
+
+There is no Level-specific guidance for this issue. Common guidance
+is provided in clause 8.9 of the "S-98 - Main" document.
+
+[[sec_D-5.10]]
+=== Meta-features
+
+Any spatial operations on meta-features require an Interoperability
+Catalogue to implement at least Level 4.
+
+There is no other Level-specific guidance for meta-features. Common
+guidance is provided in clause 8.10 of the "S-98 - Main" document.
+
+[[sec_D-5.11]]
+=== Quality considerations
+
+The guidance in clause 8.11 of the "S-98 - Main" document applies.
+
+Developers of Interoperability Catalogues should note that the caution
+about not replacing products of higher data quality with products
+of lower data quality is extended to the attribute level for feature
+hybridization - for example, vertical measure attributes of lower
+data quality should not replace vertical measures of higher quality,
+taking into account not just the encoded uncertainties but the totality
+of circumstances surrounding data quality assessment of a particular
+product, dataset, or feature.
+
+If spatial operations are encoded in an Interoperability Catalogue,
+developers should, while developing the corresponding hybridization
+rule, assess the effect on data quality of applying the appropriate
+principles of error propagation to the resultant spatial primitives.
+This assessment will need to take into account the nature of the operation
+(replacement, intersection, etc). The assessment may change the uncertainty
+of the result relative to the input feature data, so developers may
+have to determine whether the quality of the result is sufficient
+to justify the rule.
+
+== Portrayal
+
+This clause gives guidelines and instruction to portrayal considerations
+related to the use of the Interoperability Catalogue in an ECDIS.
+The Interoperability Catalogue must apply to the specific Product
+Specifications listed in the Interoperability Catalogue metadata,
+_interoperabilityCatalogueProducts_ attribute under *S100_IC_CatalogueMetadata*.
+
+There may be additional data products present in the S-100 ECDIS that
+are external to the Interoperability Catalogue; in such cases the
+Interoperability Catalogue should continue to function in presence
+of products not defined in the Catalogue. Data products that are outside
+of the interoperability scope must be treated in Interoperability
+Level 0 (see clause 9.6 in the "S-98 - Main" document).
+
+=== Display of significant features
+
+There is no Level-specific guidance for this issue. Common guidance
+is provided in clause 10.1 of the "S-98 - Main" document.
+
+=== Display of significant features - switching to original
+
+There is no Level-specific guidance for this issue. Common guidance
+is provided in clause 10.2 of the "S-98 - Main" document.
+
+=== Portrayal distinguishability - colour set-asides
+
+There is no Level-specific guidance for this issue. Common guidance
+is provided in clause 10.3 of the "S-98 - Main" document. See also
+S-100 Part 16 for specific guidance on colour set-asides.
+
+=== Day/night/dusk modes
+
+There is no Level-specific guidance for this issue. Common guidance
+is provided in clause 10.4 of the "S-98 - Main" document.
+
+=== Impacts on viewing groups
+
+There is no Level-specific guidance for this issue. Common guidance
+is provided in clause 10.5 of the "S-98 - Main" document.
+
+=== Impacts on Portrayal Catalogues
+
+There is no Level-specific guidance for this issue. Common guidance
+is provided in clause 10.6 of the "S-98 - Main" document.
+
+=== Meta-features
+
+There is no Level-specific guidance for this issue. Common guidance
+is provided in clause 10.7 of the "S-98 - Main" document.
+
+=== Display of text
+
+There is no Level-specific guidance for this issue. Common guidance
+is provided in clause 10.8 of the "S-98 - Main" document.
+
+[[sec_D-6.9]]
+=== Skin-of-the-earth operations and portrayal
+
+[[sec_D-6.9.1]]
+==== Skin-of-the-earth feature replacement and portrayal
+
+For all Levels, anything that replaces S-101 skin-of-the-earth features
+will overwrite it by having a higher priority; that is, be drawn later.
+The major difference between the Levels is in the overwriting.
+
+For suppressed feature layers the suppressed features do not reach
+the rendering stage and case features from layers over/under the suppressed
+features will be displayed as determined by their display planes and
+drawing priorities, after any modifications encoded in the Interoperability
+Catalogue.
+
+Suppressed feature instances are treated similarly to suppressed feature
+layers for portrayal purposes, except that only selected instances
+are suppressed. Instances that are not suppressed will be portrayed
+as determined by the applicable display order and drawing priority,
+modified as prescribed by any applicable Interoperability Catalogue
+rules or operations.
+
+Gridded data will generally go over ENC and obscure ENC features,
+either all (interoperability Level 0) or specific features (interoperability
+Levels 1 or 2) depending on the interoperability level chosen, the
+predefined combinations or display plane of the features that are
+interacting.
+
+[example]
+High definition gridded bathymetry replaces (overwrite) depth area
+and depth contours, but soundings, aids to navigation, and obstructions
+are over the high definition bathymetry (interoperability Level 1).
+
+[example]
+Surface current gridded data goes over ENC and replaces all surface
+current features (interoperability Level 2).
+
+NOTE: The safety contour comes from the ENC and is generated by the
+viewer system. This safety contour is an IMO requirement (IMO Performance
+Standard 5.8 (MSC.232(82))) for ECDIS and should be presented with
+highest priority when turned on by the user. OEMs are permitted to
+add additional safety contour functions; for example, generated from
+combining high definition gridded bathymetry (S-102) and S-104 input.
+
+[[sec_D-6.9.2]]
+==== Skin-of-the-earth feature adjusting and portrayal
+
+This clause covers the possibility of the skin-of-the-earth features
+geometry and/or attribute values being dynamically adjusted based
+on the corresponding features in other data layers.
+
+Adjusted features are portrayed according to the Portrayal Catalogue
+for the product named as the output product in the hybridization rule
+in the Interoperability Catalogue. If the output product is specified
+as "HYBRID", the Hybrid Portrayal Catalogue must be used.
+
+Changes to the location or extent of symbols displayed on the screen
+due to a feature in another dataset are possible in interoperability
+Level 4. These changes effectively augment the geometry and/or attributes
+of a conceptually different feature in another dataset (though the
+nominal value remains unchanged). For example, surface or sea-floor
+ice may effectively change the geometry of safety contours, by reducing
+the extent of safe water or affecting depths and under keel clearance
+in ways that depend on vessel characteristics and icebreaker activity.
+
+=== Blended portrayals
+
+There is no Level-specific guidance for this issue. Common guidance
+is provided in clause 10.10 of the "S-98 - Main" document.
+
+=== Hierarchy of data
+
+As noted in clause 11.11 of the "S-98 - Main" document, hierarchy
+of data can be controlled by predefined combinations (Level 2 and
+higher). Level 1 Catalogues offer only a very limited means of controlling
+hierarchy by means of display plane ordering. There is no Level-specific
+guidance for portrayal in connection with this issue.
+
+[[sec_D-6.11.1]]
+==== Interacting gridded information
+
+There is no Level-specific guidance for portrayal in connection with
+this issue. Common guidance is provided in clause 10.11.1 of the
+"S-98 - Main" document.
+
+=== Pick reports
+
+NOTE: The Pick Report functionality specification in S-98 is still
+under development, and the content of this section will change as
+this functionality is defined.
+
+In interoperability Level 4, hybrid features must be present in the
+Pick Report and marked as hybrid features.
+
+[[sec_D-7]]
+== Processing Model
+
+<<fig_D-7.1>> below shows the processing steps and input to each step
+from parts of the Interoperability Catalogue, for the
+"Interoperability before portrayal" processing option. <<fig_D-7.2>>
+shows the processing steps and input to each step for the for the
+"Interoperability after portrayal" processing option. In each case,
+the flow depends on the interoperability Level selected by the Mariner.
+
+As in Level 2 or 3 interoperability, data products to be loaded are
+selected as specified in the predefined combination selected by the
+Mariner. The Mariner may also select additional data products from
+the optional load set.
+
+In Level 3 processing, operations for suppressing feature instances
+(Suppress Feature Instances) are added, as are operations for hybridization
+of thematic attributes (Combine Thematic Attributes). Additional processing
+to adjust feature and information associations for remaining features
+may be needed and this is done in the "Combine Associations" stage.
+The order of processing steps is *Suppress Feature Types ->
+Suppress Feature Instances -> Combine Thematic Attributes ->
+Interleave Feature Layers*. It is depicted in <<fig_D-7.2>>.
+
+In Level 4 processing, any additional processing needed to generate
+spatial primitives for the output hybridized feature is done in the
+Combine Spatial Attributes stage between suppression of feature instances
+and combination of thematic attributes. The processing flow is
+*Suppress Feature Types -> Suppress Feature Instances ->
+Combine Spatial Attributes -> Combine Thematic Attributes ->
+Interleave Feature Layers*. It is also depicted in <<fig_D-7.2>>.
+
+[[fig_D-7.1]]
+.Processing for Level 4 interoperability (interoperability precedes portrayal)
+image::figure-d-7-1.png["",612,308]
+
+The processing flow for the other implementation option (drawing instructions
+precede interoperability) is similar with an additional step
+(_Portrayal Processing_) moved to immediately follow loading of data.
+
+[[fig_D-7.2]]
+.Processing for Level 4 interoperability (interoperability follows portrayal processing)
+image::figure-d-7-2.png["",629,276]
+
+[[table_D-7.2]]
+.Stages in Level 4 interoperability processing
+[cols="13,15,7,24,23,18"]
+|===
+h| Stage h| Description h| Level h| IC information h| Context information h| Remarks
+
+| Select Load Sets
+| Select data products to be loaded
+| All
+| Level 1: User adds data products to display individuallyLevel 2:
+Included product list from S100_IC_PredefinedCombination.includedProduct
+Levels 3, 4: included product list from S100_IC_PredefinedCombination.includedProduct
+a| Level 1: NoneLevels 2, 3, 4: User-selected predefined combination.
+
+| Information & functionality depends on user-selected level setting.
+
+| Portrayal Processing
+| Ordinary S-100 portrayal processing
+| All
+| Levels 1, 2: display planesLevels 3, 4: Hybrid PC, display planes
+|
+| Except final display processing / rendering
+
+| Interleave Feature Layers
+| Assign display plane and drawing order to feature data
+| 1, 2, 3, 4
+| S100_IC_DisplayPlane
+|
+|
+
+| Suppress Feature Types
+| Suppress all instances of a specified feature type in a product
+| 2,3,4
+| S100_IC_SuppressedFeatureLayer
+|
+|
+
+| Suppress Feature Instances
+| Suppress selected instances of a specified feature type in a product
+| 3,4
+| S100_IC_SuppressedFeatureInstance
+|
+
+| Applies feature selector expressions encoded in primarySelector
+and secondarySelector attributes.
+
+| Combine Thematic Attributes
+| Select instances for hybridization and generate thematic attributes
+of a derived feature
+| 3,4
+| S100_IC_SimpleRule, S100_IC_ThematicRule, S100_IC_CompleteRule,
+S100_IC_HybridFeature, S100_IC_HybridFC
+|
+| Selection step skipped if preceded by *Combine Spatial Attributes*
+(Level 4 processing)
+
+| Combine Associations
+| Adjust associations
+| 3, 4
+| S100_IC_SimpleRule, S100_IC_ThematicRule, S100_IC_CompleteRule,
+S100_IC_HybridFeature, S100_IC_HybridFC
+|
+|
+
+| Combine Spatial Attributes
+| Select instances for hybridization and generate spatial attributes
+of hybrid feature
+| 4
+| S100_IC_CompleteRule
+|
+| Complete rules incorporate thematic as well as spatial queries and
+functions.
+
+| Rendering
+| Display processing
+| All
+| S100_IC_DisplayPlane
+|
+|
+
+|===
+
+== Normative Implementation Guidance
+
+There is no Level-specific normative implementation guidance in this
+Edition of S-98. See clause 17 of the "S-98 - Main" document for implementation
+guidance that applies to all Levels.
+
+== Feature Catalogue
+
+Level 4 Interoperability Catalogues use a conditionally mandatory
+S-98 hybrid Feature Catalogue, which must be defined by Interoperability
+Catalogue developers if the Interoperability Catalogue contains hybridization
+rules which generate feature types which do not conform to the Feature
+Catalogue for one of the input data products.
+
+[[sec_D-10]]
+== Portrayal Catalogue
+
+Level 4 Interoperability Catalogues use a conditionally mandatory
+S-98 hybrid Portrayal Catalogue, which must be defined by Interoperability
+Catalogue developers if the Interoperability Catalogue contains hybridization
+rules which generate feature types which do not conform to the Feature
+Catalogue for one of the input data products.
