@@ -196,6 +196,7 @@ ____
 
 The System Database is compiled from one or more S-100-based products and/or S-57 based products.
 
+[[sec_4.2]]
 === ECDIS concept, limitations, and challenges
 
 IMO MSC 530(106)/Rev.1 also defines Electronic Chart Display and Information System (ECDIS):
@@ -278,6 +279,7 @@ The guidelines in IMO MSC.1/Circ.1609 (Guidelines for the Standardization of Use
 
 === Data products and information layers
 
+[[sec_6.1.1]]
 ==== Basic product specifications and layers
 
 Navigation displays such as the ECDIS main screen *must* be able to process and display at least the following data products:
@@ -454,6 +456,7 @@ The alerting model allows product developers to associate alerts with features (
 
 Alerts are associated with drawing instructions output by the portrayal, and are triggered when the vessel route (either actual track, during route monitoring, or planned, during route planning) intersects the geometry (which may be restricted or augmented) of a feature. The events are alarms, alerts, warnings, cautions, or indications as described in IMO MSC.252(83).
 
+[[sec_8]]
 == Interoperability
 
 Ensuring visual interoperability in the presence of simultaneously displayed products is an important aspect of user interfaces for navigation screens. IHO Publication S-98 (Data Product Interoperability in S-100 Navigation Systems) specifies the structure of an interoperability catalogue to be used for ECDIS and INS. S-98 will provide, as a minimum for S-100 ECDIS, two levels of interoperability allowing data layers in different products to be interleaved or substituted within the display. An interoperability catalogue is currently unpublished by IHO and there is no current requirement for its implementation in ECDIS. Other mechanisms for interoperability between product specifications exist and are defined in this document.
@@ -464,12 +467,15 @@ It is intended, in a future edition of this document, to also provide user inter
 
 S-98 itself also permits extensions, substitutes and customizations provided the minimum functions provided by the IHO Catalogue are maintained and interoperability is not degraded (S-98 clauses 12.1.1-12.1.3).
 
+[[sec_9]]
 == Display Organisation and Operation
 
+[[sec_9.1]]
 === Display of non-S-100 information
 
 This section describes the display of information that is not from official S-100-based data products, S-57, radar, or AIS.
 
+[[sec_9.1.1]]
 ==== Distinguishing between official S-100 data and additional data
 
 IMO Performance Standards (MSC.530(106)/Rev.1 section 1.5) states that ECDIS should enable the mariner to execute all route planning, route monitoring, and positioning and sections 3.3-3.4 mean that the ENDS and System Database may contain information from nautical publications as well as ENCs. This specification requires that ECDIS must distinguish between official data and such additional data from users (mariners) and manufacturers. The colour and symbol usage for mariners' and manufacturers' data in the IHO GI Registry and the Portrayal Catalogues for S-100 data products are designed to implement this while ensuring the display remains clear and uncluttered.
@@ -496,6 +502,7 @@ For ECDIS, the ST code holding the role determines whether a dataset or supporti
 
 ST field values using the role *OTHER_DATA_PRODUCER* (or any other value not included in the list above, or those not conforming to the CN MRN format above) represent data or catalogue content which is non official.
 
+[[sec_9.1.2]]
 ==== Supplemental display items
 
 The following information must be shown on demand
@@ -513,10 +520,12 @@ The following information must be shown on demand
 * Edition numbers of Presentation Libraries in use;
 * Edition numbers of feature and portrayal catalogues in use.
 
+[[sec_9.1.3]]
 ==== Navigational Warning functions
 
-Specification for the display of navigational warnings are contained in section <<sec_12.13>>
+Specification for the display of navigational warnings are contained in section <<sec_12.12>>
 
+[[sec_9.1.4]]
 ==== Units
 
 The units of height and depth listed below must be permanently indicated.
@@ -535,6 +544,7 @@ Distance: Nautical miles and decimal miles; or metres.
 
 Speed: Knots and decimal knots.
 
+[[sec_9.1.5]]
 ==== Legend
 
 A standard legend of general information relating to the area displayed, applicable to the position selected by the mariner, must be shown on a graphic or text display. See <<sec_12.11.1>> for detail.
@@ -600,6 +610,7 @@ All symbols are specified in the Portrayal Catalogue for the respective Product 
 
 Some feature types do not have a symbol. Such "no symbol" features may be picked up by cursor interrogation of the area.
 
+[[sec_10.2]]
 === Reproduction of lines, symbols and text
 
 ==== Introduction
@@ -618,9 +629,9 @@ The minimum sizes for all symbols must be as defined in the Portrayal Catalogue.
 
 Enough "picture units" (pixels) must be used to draw small features and symbols clearly and allow viewers to distinguish similar symbols. Symbols must therefore always be drawn with at least the same number of pixels as are required to draw the symbol at the size defined in the Portrayal Catalogue for the minimum resolution and minimum chart display area.
 
-NOTE: (informative): This requirement means the minimum height in pixels of a symbol is: (symbol height in mm) divided by the "pixel size" for the minimum size chart display.
+NOTE: (informative): This requirement means the minimum height in pixels of a symbol is: (symbol height in stem:["unitsml(mm)"]) divided by the "pixel size" for the minimum size chart display.
 
-The CHKSYM01 symbol may be used for comparison; this symbol must measure 5mm×5mm when displayed at its nominal size (that is, scaled to 100%), within the tolerance specified by the IEC testing standard (recommended tolerance: 1 physical pixel width in each of the X and Y dimensions).
+The CHKSYM01 symbol may be used for comparison; this symbol must measure stem:[5 "unitsml(mm)" xx 5 "unitsml(mm)"] when displayed at its nominal size (that is, scaled to 100%), within the tolerance specified by the IEC testing standard (recommended tolerance: 1 physical pixel width in each of the X and Y dimensions).
 
 Since the CHKSYM01 symbol is quite small for the purpose of on-site system configuration by ordinary users, manufacturers may use an enlarged version or an equivalent method for that purpose.
 
@@ -628,6 +639,7 @@ Since the CHKSYM01 symbol is quite small for the purpose of on-site system confi
 
 When the display scale is enlarged by zooming in, it must be possible to hold symbol size constant. The same applies to text. Symbol and text size must never be decreased when zooming out.
 
+[[sec_10.3]]
 === Common text and information attributes
 
 Several Product Specifications use common structures for feature names (*featureName*) and information attributes (*information/text*)
@@ -697,6 +709,7 @@ Cursor pick reports and information displays in off-graphic panels are described
 
 ENC Features are contained within DataCoverage features and aggregated into datasets. Each DataCoverage feature contains attributes __optimumDisplayScale__, _minimumDisplayScale_ and _maximumDisplayScale_. The algorithm which must be used for the selection and rendering of ENC features is contained in <<annexE>> - Dataset Loading and Display (Rendering) Algorithms
 
+[[sec_12.1.1]]
 ==== ENC scale
 
 The term "scale" is used to describe either:
@@ -708,7 +721,7 @@ The term "scale" is used to describe either:
 The S-101 ENC values used for the Data Scale attributes _minimumDisplayScale_ and _optimumDisplayScale_ are fixed, and taken from the table below:
 
 ._minimumDisplayScale_ and _optimumDisplayScale_ values
-[cols=1,options="unnumbered"]
+[cols="^",options="unnumbered"]
 |===
 h| Scale
 
@@ -732,6 +745,7 @@ h| Scale
 
 The ordering and selection of *Data Coverage* features by Data Scale, prior to S-101 portrayal is defined fully in <<annexE>> - Dataset Loading and Display (Rendering) Algorithms.
 
+[[sec_12.2]]
 === Display of Non-ENC data layers
 
 Non-ENC data layers may not contain DataCoverage features. Where the dataset discovery metadata entries for non-ENC datasets contains values *_minimumDisplayScale_* and *_maximumDisplayScale_* these values define the range of display scales for which a non-ENC dataset is intended to be displayed.
@@ -740,6 +754,7 @@ Where the dataset discovery metadata do not contain values for minimumDisplaySca
 
 There is no algorithm defined for the selection and rendering of non-ENC data.
 
+[[sec_12.3]]
 === Overscale
 
 Data is overscale when displayed at a scale larger than its *_optimumDisplayScale_*.
@@ -761,7 +776,7 @@ This overscale indication is required by IMO Performance Standards (MSC.530(106)
 
 ==== Chart Scale boundary
 
-Where the *_optimumDisplayScale_* of the ENC data available changes the ECDIS should warn the mariner of upcoming ENC scale change. Only the major changes in *_optimumDisplayScale_* resulting from the scale jumping more than three steps in *_optimumDisplayScale_* should be shown. The steps are the defined scale bands in the display Loading and rendering <<table_e-1>>.
+Where the *_optimumDisplayScale_* of the ENC data available changes the ECDIS should warn the mariner of upcoming ENC scale change. Only the major changes in *_optimumDisplayScale_* resulting from the scale jumping more than three steps in *_optimumDisplayScale_* should be shown. The steps are the defined scale bands in the display Loading and rendering <<table_11>>.
 
 The "chart scale boundaries", where the *_optimumDisplayScale_* of the data changes by more than three steps, must be symbolised on the ECDIS display by a solid 0.32mm wide line using colour token CHGRD. Alternatively, linestyle SCLBDY51 may be used. The display priority is 9; over-radar; standard display; viewing group 21030.
 
@@ -789,8 +804,9 @@ For example if the display scale (MSVS) 1:3,500 is selected, the area of *_optim
 
 ==== Larger scale data available
 
-As the mariner's display window moves and begins to cover an ENC that is of a larger *__optimumDisplayScale__*, the ECDIS must indicate when the ship's position enters the larger scale ENC, as required by MSC.530(106)/Rev.1 6.1.2.
+As the mariner's display window moves and begins to cover an ENC that is of a larger *_optimumDisplayScale_*, the ECDIS must indicate when the ship's position enters the larger scale ENC, as required by MSC.530(106)/Rev.1 6.1.2.
 
+[[sec_12.4]]
 === Graphical indexes
 
 ==== Graphical indexes of ENCs
@@ -814,8 +830,10 @@ The ECDIS must additionally implement a capability for displaying graphical inde
 
 If the system displays graphical indexes for different products simultaneously it must be possible to individually select the display of each supported data product. The display of each supported data product shall be differentiated.
 
+[[sec_12.5]]
 === Limits of data
 
+[[sec_12.5.1]]
 ==== ENC No data areas
 
 The ECDIS must fill any areas in which there is no installed ENC coverage using area pattern NODATA03, using colour token NODTA. These areas are defined as no data areas.
@@ -824,6 +842,7 @@ The indication "**__No ENC Available__**" must be shown if the display includes 
 
 An indication that the mariner must refer to the official chart must also be given whenever line style NONHODAT appears on the display, or whenever the display is comprised of other than ENC data as specified by <<sec_9.1.1>>.
 
+[[sec_12.5.2]]
 ==== Limit of official S-101 data and non official S-101 data
 
 The limit of official S-101 data on the graphical index defines the limit of official ENC coverage. The definition of official data as opposed to non official data is contained in 9.1.1
@@ -1122,42 +1141,79 @@ The ECDIS chart legend containing the items in <<table_4>> must be available for
 
 [[table_4]]
 .Legend elements
-[cols="203,365,4358"]
+[cols="203,365"]
 |===
-h| ECDIS Legend Item 2+h| Values
+h| ECDIS Legend Item h| Values
 
-| Units for depth 2+| Axis Unit of Measure (AXUM) subfield in the Coordinate System Axes (CSAX) field
+| Units for depth | Axis Unit of Measure (AXUM) subfield in the Coordinate
+System Axes (CSAX) field
 
-| Units for height 2+| AXUM subfield in the CSAX field
-3+.<| Although the S-101 ENC Product Specification does not allow any units other than metres for depths and heights, these two elements must be stated for clarity for the Mariner
-| Scale of display 2+| Selected by mariner
-| Data quality indicator
-2+a|
+| Units for height | AXUM subfield in the CSAX field
 
-. zoneOfConfidence.categoryOfZoneOfConfidence (CATZOC) attribute of the *Quality Of Bathymetric Data* (M_QUAL) meta-feature.
-When multiple temporal attributes are present:- If a single attribute value is valid for the selected viewing date range, that value must be displayed.If multiple values are valid for the selected viewing date range, the worst-case value must be displayed.When multiple features are present (to indicate bathymetric data quality at various depths):- The feature which intersects the specified safety contour value must be used.(b) Total _horizontalPositionUncertainty_ of the *Quality Of Non-Bathymetric Data* (M_ACCY) meta-feature if available. +
+2+| Although the S-101 ENC Product Specification does not allow any
+units other than metres for depths and heights, these two elements
+must be stated for clarity for the Mariner
 
-NOTE: Due to the way quality is encoded in the ENC, both values (a and b) must be provided
+| Scale of display | Selected by mariner
 
-3+.<|
+| Data quality indicator a|
 
-| Sounding/vertical datum 2+| The _verticalDatum_ attribute of the *SoundingDatum* feature and *VerticalDatumOfData* feature when available.(_verticalDatum_ attributes of individual features must not be used for the legend.)
-| Horizontal datum 2+| WGS84
-| Value of safety depth 2+| Selected by Mariner. Default is 30 metres
-| Value of safety contour
-2+a| Selected by Mariner. Default is 30 metres
+. zoneOfConfidence.categoryOfZoneOfConfidence (CATZOC) attribute of
+the *Quality Of Bathymetric Data* (M_QUAL) meta-feature.
+When multiple temporal attributes are present:
+- If a single attribute value is valid for the selected viewing date
+range, that value must be displayed.
+If multiple values are valid for the selected viewing date range,
+the worst-case value must be displayed.When multiple features are
+present (to indicate bathymetric data quality at various depths):
+- The feature which intersects the specified safety contour value
+must be used.
 
-NOTE: If the Mariner has selected a contour that is not available in the ENC and the ECDIS displays a default contour, both the contour selected and the contour displayed must be quoted
+. Total _horizontalPositionUncertainty_ of the
+*Quality Of Non-Bathymetric Data* (M_ACCY) meta-feature if available.
+
+NOTE: Due to the way quality is encoded in the ENC, both values
+(a and b) must be provided
+
+2+|
+
+| Sounding/vertical datum |The _verticalDatum_ attribute of the *SoundingDatum*
+feature and *VerticalDatumOfData* feature when available.(_verticalDatum_
+attributes of individual features must not be used for the legend.)
+
+| Horizontal datum | WGS84
+
+| Value of safety depth | Selected by Mariner. Default is 30 metres
+
+| Value of safety contour a|
+Selected by Mariner. Default is 30 metres
+
+NOTE: If the Mariner has selected a contour that is not available
+in the ENC and the ECDIS displays a default contour, both the contour
+selected and the contour displayed must be quoted
 
 | WLA method
 | Method of Water Level Adjustment selected.
-|
 
-| Magnetic variation 2+| *MagneticVariation* (MAGVAR) feature, attributes: _referenceYearForMagneticVariation (RYRMGV)_,_valueofAnnualChangeInMagneticVariation (VALACM)_, and _valueOfMagneticVariation (VALMAG)_ Item must be displayed as: VALMAG RYRMGV (VALACM) +
+| Magnetic variation | *MagneticVariation* (MAGVAR) feature, attributes:
+_referenceYearForMagneticVariation (RYRMGV)_, _valueofAnnualChangeInMagneticVariation (VALACM)_,
+and _valueOfMagneticVariation (VALMAG)_ Item must be displayed as:
+VALMAG RYRMGV (VALACM) +
 For example, 4°15W 1990 (8'E)
-| Date and number of latest update affecting the ENC each dataset currently in use 2+| Issue date and update number from the dataset discovery record (S100_DatasetDiscoveryMetadata) of the last update dataset applied. (See S-100 Part 17)
-| Edition number and date of each dataset the ENC currently in use 2+| Edition number and issue date from the dataset discovery record (S100_DatasetDiscoveryMetadata) of the current base issue of the ENC dataset. (See S-100 Part 17)
-| Display projection 2+| Projection used for the ECDIS display (For example, oblique azimuthal). This must be appropriate to the scale and latitude of the data in use
+| Date and number of latest update affecting the ENC each dataset
+currently in use
+| Issue date and update number from the dataset discovery record
+(S100_DatasetDiscoveryMetadata) of the last update dataset applied.
+(See S-100 Part 17)
+
+| Edition number and date of each dataset the ENC currently in use
+| Edition number and issue date from the dataset discovery record
+
+(S100_DatasetDiscoveryMetadata) of the current base issue of the ENC
+dataset. (See S-100 Part 17)
+| Display projection | Projection used for the ECDIS display
+(For example, oblique azimuthal). This must be appropriate to the
+scale and latitude of the data in use
 
 |===
 
@@ -1165,6 +1221,7 @@ The list above is the minimum that must be available, but the complete list need
 
 === Displaying manual and automatic updates and added information
 
+[[sec_12.11.1]]
 ==== Manual updates
 
 It must be possible to make the following manual updates to an ENC:
@@ -1179,9 +1236,9 @@ Manual chart updates, which are subject to human error, must be distinguished fr
 
 . *Keying and Symbology*. The mariner must be able to enter manual updates for presentation on the display. A capacity should exist to enable the mariner to:
 
-*.1* Enter the update so it can be displayed as described in this specification.
+.. Enter the update so it can be displayed as described in this specification.
 
-*.2* Ensure all update text information relevant to the new condition and to the source of the update, as entered by the Mariner, is recorded by the system for display on demand.
+.. Ensure all update text information relevant to the new condition and to the source of the update, as entered by the Mariner, is recorded by the system for display on demand.
 
 . *Indications and Alerts*. The ECDIS should provide indications and alerts related to manual updates, using the same criteria as for ENC features.
 . *Presentation*. Manual updates must be displayed as described in this clause. A selection of standardised symbols must be made available for preparing hand-entered chart corrections. The original chart features must not be removed or altered. A description and list of all symbols reserved for manual chart updates is contained in <<annexA>>
@@ -1251,24 +1308,27 @@ Non-official chart information may be updated by any systematic procedure. A rec
 
 The mariner must be able to remove all non-official chart information if the need should arise.
 
+[[sec_12.12]]
 === Display and Management of Navigational Warnings
 
 S-124 Navigational Warnings (NAVWARN) portrayal is provided by a portrayal catalogue that includes a symbol set and symbol instructions for the feature and attribute combinations.
 
+[[sec_12.12.1]]
 ==== Additional Portrayal requirements of the Graphical User Interface
 
 A dedicated interface must be provided to allow users to interact with NAVWARN messages. This interface must, at a minimum, provide the following functionality;
 
-. The user must be able to tag individual messages according to the filtering requirements in <<sec_12.13.2>>
+. The user must be able to tag individual messages according to the filtering requirements in <<sec_12.12.2>>
 . A Capability for an on demand listing of all (S-124) NAVWARN messages in the system, and sorting these according to: received date and time, issue date and time, warning type, producer and series, must be provided. Additionally, a means to list according to user classification should be provided.
-. Provide an indication when a new NAVWARN message is received until it has been displayed or 24 hours have passed. This indication may be suppressed if the NAVWARN message does not meet filtering criteria set by the mariner (see <<sec_12.13.2>>).
-. Means must be provided for the mariner to enter criteria for filtering of indication of new NAVWARN messages based on time and maximum distance from own ship, monitored route or planned route (see <<sec_12.13.2>>). Default setting must be no filtering.
+. Provide an indication when a new NAVWARN message is received until it has been displayed or 24 hours have passed. This indication may be suppressed if the NAVWARN message does not meet filtering criteria set by the mariner (see <<sec_12.12.2>>).
+. Means must be provided for the mariner to enter criteria for filtering of indication of new NAVWARN messages based on time and maximum distance from own ship, monitored route or planned route (see <<sec_12.12.2>>). Default setting must be no filtering.
 . Details of the filtering options that have been enabled by user must be available on demand for inspection and modification.
 . Means must be provided to view the most recent message, past messages, and to view messages associated with selection of NAVWARN symbols in the graphical display area.
 . Listing of all NAVWARN must include means for viewing an abbreviated view of any **NAVWARNPart**, *warningInformation* attributes present.
 
 NOTE: It may be possible to create some of this functionality via portrayal context parameters,
 
+[[sec_12.12.2]]
 ==== Filtering Navigational Warning information
 
 The mariner must be able to select the graphical display of S-124 navigational warning (NAVWARN) dataset on or off.
@@ -1310,15 +1370,19 @@ NOTE: It must be possible for user to recall cancelled messages for review purpo
 [example]
 Any dangers that are in waters too shallow for the ship get classified as off chart warnings, _but must be discoverable_ in the on demand listing of active NAVWARNs.
 
+[[sec_12.12.3]]
 ==== Cancelled datasets
 
 When a S-124 dataset is cancelled it must not be displayed on the navigation screen, but must be available for review in the on demand listing of NAVWARNs in the navigation system and marked as cancelled.
 
+[[sec_12.12.4]]
 ==== Portrayal of feature types
 
 The *NAVWARNAreaAffected* class does not have a portrayal defined to avoid causing significant cluttering on the navigation screen. Rather, the feature must be highlighted by the system if selected from a pick report or by other means for interrogation by user.
 
 When a *NAVWARNPart* is not portrayed, such as when user selections mark it not to be visualized, any associated *TextPlacement* features must also not be portrayed.
+
+
 
 == Coverages and Time Series for Gridded Data (S-102, S-104 and S-111)
 
@@ -1333,6 +1397,7 @@ For S-102 and S-104 datasets, ECDIS must support gridded data in DCF 2 format on
 
 Gridded data will specify either continuous or discrete interpolation (no interpolation between points) between grid points. Data for discrete fixed points, moving platform and time series at fixed points is intrinsically discrete.
 
+[[sec_13.1]]
 === Thinning
 
 When gridded data is portrayed using discrete symbols at each data point, the effects of scaling the display must be considered. A high-resolution display (that is, zooming in) of regularly gridded data display produces a lower density of data in the visual field.
@@ -1343,6 +1408,7 @@ Thinning must therefore be applied to reduce symbol density when the display is 
 
 Manufacturers may use the recommended algorithm contained in <<annexG>> or other algorithms of their own devising.
 
+[[sec_13.2]]
 === Temporal variation
 
 The metadata variables related to time are __dateTimeOfFirstRecord__, __dateTimeOfLastRecord__, __timeRecordInterval__, _numberOfTimes, timeIntervalIndex, timePoint, startDateTime,_ and _endDateTime_ (see S-100 Part 10c). The time selected for display (that is, past/present/future) will typically not correspond exactly to the timestamp (metadata variable _timePoint_) of the input data. For a correct display, the ECDIS must select the correct data.
@@ -1367,6 +1433,7 @@ DUSK:: The "Dusk" colour palette is based on using a black background; this pale
 
 NIGHT:: The "Night" colour palette is intended for nighttime use. At night the light emitted by the display must be strictly limited to avoid impairing night vision. In case the luminance needs to be further reduced, the "Night" colour palette may be augmented by a luminance-reducing neutral density filter which should have 8 times attenuation, designated (logarithmically) "0.9 ND". (This is a manufacturer's option.)
 
+[[sec_15]]
 == Cursor Pick Reports and Displays in Interface Panels
 
 ECDIS must be capable of performing spatial queries on ENC and other S-100 data. Spatial query is understood as the ability to inspect graphical position and numerical value of spatial coordinates associated with a charted feature.
@@ -1447,6 +1514,7 @@ The table shows how a *Tidal Stream Panel Data* feature and its attributes are u
                 ^| _6_  ^| [blue]#*138*# ^| [blue]#*0.3*# ^| [blue]#*0.5*#
 |===
 
+
 == Alerts and Indications
 
 IMO Resolution MSC.530(106)/Rev.1 states in 11.3 and 11.4 and their sub-paragraphs how an ECDIS should respond to risk of crossing, dangers, prohibited areas or areas with special conditions, during route planning (11.3) or route monitoring (11.4). Appendix 4 and Appendix 5 of the same resolution provide details about the areas for which an ECDIS should detect incursions and provide an alert or indication.
@@ -1463,6 +1531,7 @@ In order to be able to use the official Portrayal Catalogue for a data product, 
 
 Context parameters may be added or removed by updates to the Portrayal Catalogue. Context parameters which cannot be automatically associated with ECDIS display functions or user interface features must be exposed to the Mariner for use.
 
+[[sec_18]]
 == Dual-fuel systems
 
 Dual-fuel systems are systems that use both older (pre-S-100) and newer (S-100) data products that contain the same type of information (for example, S-57 and S-101 ENCs).
@@ -1517,6 +1586,7 @@ Absolute accuracy in colour reproduction is not required but relative colour fid
 
 === Display requirements for colours
 
+[[sec_19.3]]
 ==== General
 
 The ECDIS manufacturer can use any technology to build the display as long as their display fulfils the requirements of this specification.
@@ -1613,19 +1683,19 @@ Delta(u^**,v^**) = SQRT[(u2^** - u1^**)^2 + (v2^** - v1^**)^2]
 Delta E^** = SQRT [(L2^** - L1^**)^2 + (u2^** - u1^**)^2 + (v2^** - v1^**)^2]
 ++++
 
-Calculations of stem:[L^**, u^**], and stem:[v^**] must be made using as reference the chromaticity and luminance specified for the brightest white colour token in the respective colour table (Y0, u0, y0); where Y0 is the luminance in units of cd/m2. Note: this is not the brightest white of the monitor.
+Calculations of stem:[L^**, u^**], and stem:[v^**] must be made using as reference the chromaticity and luminance specified for the brightest white colour token in the respective colour table stem:[(Y0, u0, y0)]; where stem:[Y0] is the luminance in units of stem:["unitsml(cd/m^2)"]. Note: this is not the brightest white of the monitor.
 
 NOTE: "stem:[Delta]" represents the Greek letter "Delta", although it may appear differently on some computers.
 
 The tolerances for the conversion of the colour tables from the CIE colours defined in these specifications to the actual RGB values for the ECDIS display are defined in three terms:
 
-. Overall discrimination between actual colours within the converted table: ΔE*. This is to ensure that all the colours within the RGB table remain discriminably separate; that is, that the relative colour distinctions have been maintained.
+. Overall discrimination between actual colours within the converted table: stem:[Delta E^**]. This is to ensure that all the colours within the RGB table remain discriminably separate; that is, that the relative colour distinctions have been maintained.
 
-. Colour discrimination differences between the defined and the actual values: Δ(u*,v*). This is to ensure that the actual RGB colours resulting from the conversion remain reasonably close to the CIE colours defined in the specifications; that is, that the blues stay blue and the greens stay green.
+. Colour discrimination differences between the defined and the actual values: stem:[Delta (u^**,v^**)]. This is to ensure that the actual RGB colours resulting from the conversion remain reasonably close to the CIE colours defined in the specifications; that is, that the blues stay blue and the greens stay green.
 
 . Luminance differences between the defined values and the actual values: stem:[L]. This is to ensure that the luminance remains the same within acceptable limits.
 
-Note: The CIE L*u*v\* human perception colour model, which is the source of the tolerances described above, has not yet been evaluated at the low luminances of the night colour table, at which the less colour-sensitive rods of the eye take over from the daytime cones. Consequently these tolerances should not be applied to the night table; and for type-approval purposes they are restricted to the bright sun table.
+Note: The CIE stem:[L^** u^** v^**] human perception colour model, which is the source of the tolerances described above, has not yet been evaluated at the low luminances of the night colour table, at which the less colour-sensitive rods of the eye take over from the daytime cones. Consequently these tolerances should not be applied to the night table; and for type-approval purposes they are restricted to the bright sun table.
 
 Colour tolerance values:
 
@@ -1663,6 +1733,7 @@ The first method is a test of a monitor as part of an integrated system. In this
 
 The second method is an independent test of the monitor. In this method the monitor and the image generator of ECDIS display are separately tested against a reference (that is, the monitor is tested against a reference image generator and the image generator is tested against a reference monitor). The second method has tighter tolerance for displayed colour than the first method.
 
+[[sec_19.5]]
 === ECDIS Chart 1 and Colour (Differentiation) Test Diagram
 
 The IHO provides ECDIS Chart 1 in digital form, a graphical index of selected ECDIS symbols and symbolized lines and area boundary linestyles. This is intended to familiarize the Mariner with the colour and symbol coding used by the ECDIS. The symbols are grouped according to INT1, which is familiar to the Mariner, but are numbered with a look-up sheet, not labelled.
@@ -1671,7 +1742,7 @@ Since Product Specifications for data products used on ECDIS will be updated at 
 
 The ECDIS Chart 1 and any supplements are intended for use in route planning. They are not needed during route monitoring, when the Mariner can use cursor enquiry to find the meaning of symbols.
 
-The ECDIS Chart 1 and its indexing list of symbol names and meanings arranged numerically, together with the colour differentiation test diagrams, are intended for the Mariner's use. The use of the Colour Differentiation Test Diagrams is described in 19.6.2
+The ECDIS Chart 1 and its indexing list of symbol names and meanings arranged numerically, together with the colour differentiation test diagrams, are intended for the Mariner's use. The use of the Colour Differentiation Test Diagrams is described in <<sec_19.6.2>>
 
 === Use of ECDIS Chart 1 and Colour Test Diagram
 
@@ -1709,6 +1780,7 @@ Revisions will be made by whole file replacement; that is, by the issuing of new
 
 Refer to the S-164 test dataset manual for ECDIS parameter settings for portrayal of Chart 1 datasets.
 
+[[sec_19.6.2]]
 ==== The Colour Test Diagram
 
 A multi-purpose colour differentiation test diagram is illustrated in <<fig_4>>. This consists of 20 squares each coloured with one of the 4 main background colour fills (such as shallow water blue); and each having a diagonal line in one of the six important foreground colours (such as mariner's orange). Each diagonal line is 0.64mm.
@@ -1781,6 +1853,7 @@ The Chart 1 datasets are located alongside the existing S-57 Chart 1 cells to al
 ==== The Black-adjust symbol
 
 The black-adjust symbol BLKADJ01 is to allow the Mariner to adjust the display for ambient illumination on the bridge of a ship. An ECDIS must have the black-adjust symbol displayed whenever the mariner is adjusting the display (that is, depending on the technology of the display brilliance, brightness, contrast, etc), as required by <<sec_19.3>>.
+
 
 == Dataset Management
 
@@ -1873,6 +1946,7 @@ Coverage gaps in products other than the ENC can be expected and should not be i
 
 Similarly, overlaps between different data producers' ENC and other data products other than ENC should also be expected. Certain features, such as navigational warnings, can extend far beyond national boundaries and may therefore overlap other data producers' ENC data. An indication is not needed in these cases.
 
+[[sec_20.4]]
 === Updating Datasets on ECDIS
 
 ==== Introduction
@@ -1988,36 +2062,45 @@ h| Symbol h| Suggested attributes h| Example
 
 | Depth | Depth ValueInformation.text
 a|
+[%unnumbered]
 image::figure-table-8-1.png["",185,45]
 
 | Underwater | Information.text
 a|
+[%unnumbered]
 image::figure-table-8-2.png["",149,39]
 
 | Wreck | As per Wreck feature in S-101
 a|
+[%unnumbered]
 image::figure-table-8-3.png["",85,30]
 
 | Obstruction | As per obstruction feature in S-101
 a|
+[%unnumbered]
 image::figure-table-8-4.png["",104,30]
 
 | Beacon | As per general purpose beacon in S-101
 a|
+[%unnumbered]
 image::figure-table-8-5.png["",113,52]
 
 | Buoy | As per general purpose buoy in S-101
 a|
+[%unnumbered]
 image::figure-table-8-6.png["",89,56]
 
 | Caution (Vicinity) | Caution Area
 a|
+[%unnumbered]
 image::figure-table-8-7.png["",170,31]
 
+[%unnumbered]
 image::figure-table-8-8.png["",125,77]
 
 | Caution (Object Missing) | Caution Area
 a|
+[%unnumbered]
 image::figure-table-8-9.png["",170,58]
 
 |===
@@ -2030,14 +2113,17 @@ h| Symbol h| Suggested attributes h| Example
 
 | Danger |
 a|
+[%unnumbered]
 image::figure-table-9-1.png["",221,178]
 
 | Cable |
 a|
+[%unnumbered]
 image::figure-table-9-2.png["",318,115]
 
 | Other |
 a|
+[%unnumbered]
 image::figure-table-9-3.png["",329,70]
 |===
 
@@ -2049,14 +2135,17 @@ h| Symbol h| Suggested attributes h| Example
 
 | Restricted Area |
 a|
+[%unnumbered]
 image::figure-table-10-1.png["",275,180]
 
 | Caution Area |
 a|
+[%unnumbered]
 image::figure-table-10-1.png["",269,131]
 
 | Other |
 a|
+[%unnumbered]
 image::figure-table-10-1.png["",165,185]
 |===
 
@@ -2228,6 +2317,7 @@ IHO standards determine the content and revision of such Catalogues. The followi
 [[fig_b-9]]
 .Authentication of Feature and Portrayal Catalogues
 image::figure-b-09.png["",477,337]
+
 
 [[annexC]]
 [appendix]
@@ -2562,10 +2652,13 @@ When a user selects a safety contour value, outside areas of S-102 coverage the 
 
 When the safety contour has been generated from S-102 data then the area over which it is generated, that is the S-102 coverage area, must be surrounded by a boundary line using colour token DEPWL footnote:[colour token DEPWL, stem:[xyL] values are: DAY stem:[x = 0.15], stem:[y = 0.15], stem:[L = 30.0]; DUSK stem:[x = 0.15], stem:[y = 0.15], stem:[L = 7.5]; NIGHT stem:[x = 0.15], stem:[y = 0.15], stem:[L = 1.2]] see <<fig_D-1-1>>.
 
-[[fig_D-1-1]]
-.Boundary line of S-102 coverage
-image::figure-d-1-1.emf["",448,247]
 
+
+// [[fig_D-1-1]]
+// .Boundary line of S-102 coverage
+// image::figure-d-1-1.emf[]
+
+[[sec_D-1.1]]
 ==== Data Constraints
 
 . Portrayal of S-102 data and application of ESC must be restricted by minimum and maximum display scale values contained in the exchange catalogue as specified in <<sec_12.2>>.
@@ -2588,6 +2681,7 @@ image::figure-d-1-3.png["",438,173]
 . Only rectangular grids for S-102 are allowed. The method outlined may be extended to other grids; for example, triangular grids in the future.
 . Enhanced Safety Contour can only be processed in areas where the Sounding Datum of suppressed S-101 features is the same as the vertical datum of the S-102 Coverage.
 
+[[sec_D-1.2]]
 ==== Enhanced Safety Contour Selection and Implementation
 
 The user must be able to select S-102 to be used as the source of the depth information and the Enhanced Safety Contour.
@@ -2675,7 +2769,7 @@ When WLA is selected for use, in areas where WLA coverage exists, one of the thr
 
 ==== Implementation - general
 
-WLA can be applied only in areas where there is data from both S-102 and S-104. For example, the intersection of the Red and Blue outline in <<fig_D-4-6>> below. WLA is applied to S-101 features after substitution of depths by S-102 as defined in <<sec_D-1.2>> and <<sec_D-1-3>>.
+WLA can be applied only in areas where there is data from both S-102 and S-104. For example, the intersection of the Red and Blue outline in <<fig_D-2-6>> below. WLA is applied to S-101 features after substitution of depths by S-102 as defined in <<sec_D-1.2>> and <<sec_D-3.1>>.
 
 [[fig_D-2-6]]
 .WLA can only be computed in areas where there is S-104 and S-102 data
@@ -2700,6 +2794,7 @@ In addition to the display of the boundary line of the WLA coverage there should
 
 OEMs are free to design their user interface. Usable ideas include, for example, a mouse roller to change datetime, use of a slider to change datetime, or even to provide an animation from user selected start date and time to user selected end date and time.
 
+[[sec_D-2.5]]
 ==== Implementation of WLA Option 1 - WLA for a single datetime instant
 
 WLA is based on S-104 values closest to the selected datetime instant. Each S-102 point has an extent of coverage which is closest to it. Each S-104 point, similarly has an extent. The adjustment of the S-102 values is calculated by adjusting each S-102 point by the shoalest of the S-104 values, for all S-104 points whose extent intersects the extent of the S-102 point.
@@ -2720,6 +2815,7 @@ Format of the permanent indication is as below:
 
 *WLA 12:34 08 Nov 2021*
 
+[[sec_D-2.6]]
 ==== Implementation of WLA Option 2 - WLA for a datetime range specified by the user as a time period
 
 When WLA is based on a datetime range, then the process is identical to that followed for WLA Option 1 except each S-104 value selected is the shoalest of all values available in the S-104 within the selected time period.
@@ -2743,13 +2839,14 @@ Format of the permanent indication is as below:
 
 *WLA from 12:34 08 Nov 2021 to 14:56 08 Nov 2021*
 
+[[sec_D-2.7]]
 ==== Implementation of WLA Option 3 - linking of WLA to a defined route with planned waypoints and times
 
 When WLA is based on a route then the limit of check area around the route is set by the user as specified by IMO MSC 530(106) 11.3.7.
 
 The same user-specified distance must be used for the check of safety contour, prohibited areas, geographic areas for which special conditions exist and navigational hazards and equivalent requirements when route monitoring
 
-The WLA is processed within this check area. The boundary of the area of the display where WLA has been carried out must be displayed (as shown in <<fig_D-2.16>>). In the process description this distance is referred to as 'a'.
+The WLA is processed within this check area. The boundary of the area of the display where WLA has been carried out must be displayed (as shown in <<fig_D-2-16>>). In the process description this distance is referred to as 'a'.
 
 A route could be either a Planned route or a Monitored route. Both could be processed for the WLA, but not at the same time in a single display area. In case of multiple display areas, it is possible that one area is WLA processed for Planned route and another area is WLA processed for the Monitored route.
 
@@ -2824,8 +2921,10 @@ Format of the permanent indication is as below:
 
 *WLA from 12:34 08 Nov 2021 to 14:56 08 Nov 2021*
 
+[[sec_D-3]]
 === Treatment of depth and water level related S-101 features
 
+[[sec_D-3.1]]
 ==== Substitution and adjustment of depth values
 
 In areas covered by only S-102, all depth values must be substituted for all ENC features at all scales which have depth attribution (that is, the attribute _valueOfSounding_ bound to them in the S-101 Feature Catalogue)
@@ -2896,7 +2995,7 @@ For example:
 
 Substituted or adjusted values in ENCs at the largest scale must be used as input to any alert/indication processing. The substituted values are portrayed as shown in <<fig_D-3-20>> which shows the graphical highlight (red boundary and red transparent fill) for the intersected safety contour.
 
-[[fig_D-3]]
+[[fig_D-3-20]]
 .20 - Graphical highlight for intersected safety contour
 image::figure-d-3-20.png["",363,230]
 
@@ -2991,9 +3090,7 @@ The following algorithm associates a set of scale band indexes with a *Data Cove
 *Output:* A set of associated scale band indices _S_
     1. _minimumDisplayScale_ - The minimum display scale of the coverage (if not defined it is assumed that the scale is stem:[1:oo = 0])
     _optimumDisplayScale_ - The optimum display scale of the coverage
-
     2. Create an empty set _S_
-
     3. *If* _minimumDisplayScale < 10,000,000_
         a. stem:[S = S uu 1]
     4. *For* index = 2 to 15
@@ -3288,12 +3385,14 @@ In order to avoid confusing the mariner, reasonable consideration should be give
 [appendix]
 == Import and Use of projected data on S-100 ECDIS
 
+[[sec_H-1]]
 === Introduction
 
 The ECDIS implementer must use an algorithm for the conversion of UTM coordinates to geographic latitude/longitude. The algorithm described meets these requirements but implementers may also use their own.
 
 <<sec_H-1.1>> and <<sec_H-1.2>> provide a set of numbered, steps for the conversion calculations.
 
+[[sec_H-1.1]]
 ==== Conversion from UTM to WGS 84
 
 . For the calculation of latitude stem:[varphi] and longitude stem:[lambda] (both in degrees of arc) from easting stem:[E] and northing stem:[N] (both in meters) from a Universal Transverse Mercator (UTM) coordinate reference system (CRS) where the UTM CRS has a geodetic CRS of WGS 84, it is given for all UTM zones:
@@ -3434,6 +3533,7 @@ Q^' = sinh^{-1}(tan beta^')
 ++++
 --
 
+[[sec_H-1.2]]
 ==== Conversion from UPS North to WGS 84
 
 . For the calculation of latitude stem:[phi] and longitude stem:[lambda] (both in degrees of arc) from easting stem:[E] and northing stem:[N] (both in meters) from the Universal Polar Stereographic (UPS) North CRS with a geodetic CRS of WGS 84, it is given that:
@@ -3573,3 +3673,6 @@ The following references are provided for background, and to explain the origin 
 . IOGP Report 373-07-02, p. 60
 . IOGP Report 373-07-02, p. 61
 . IOGP Report 373-07-02, p. 84
+
+////
+////
