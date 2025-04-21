@@ -1,0 +1,76 @@
+= S-100 ECDIS and Interoperability Specification
+:series: S
+:docnumber: 98
+:doctype: standard
+:edition: 2.0.0
+:language: en
+:published-date: 2025-03-01
+:copyright-year: 2025
+:status: in-force
+:committee: ircc
+:workgroup: ibsc
+:mn-document-class: iho
+:mn-output-extensions: xml,html,doc,pdf,rxl
+:local-cache-only:
+:data-uri-image:
+:imagesdir: images
+
+include::sections/00-preface.adoc[]
+
+include::sections/01-introduction.adoc[]
+
+include::sections/02-references.adoc[]
+
+include::sections/03-abbreviations.adoc[]
+
+include::sections/04-background.adoc[]
+
+include::sections/05-user-interface.adoc[]
+
+include::sections/06-data-layers.adoc[]
+
+include::sections/07-portrayal.adoc[]
+
+include::sections/08-interoperability.adoc[]
+
+include::sections/09-display.adoc[]
+
+include::sections/10-general-rules.adoc[]
+
+include::sections/11-text-and-graphics.adoc[]
+
+include::sections/12-display-elements.adoc[]
+
+include::sections/13-coverages.adoc[]
+
+include::sections/14-colours.adoc[]
+
+include::sections/15-cursor-pick.adoc[]
+
+include::sections/16-alerts.adoc[]
+
+include::sections/17-context-parameters.adoc[]
+
+include::sections/18-dual-fuel.adoc[]
+
+include::sections/19-specifications.adoc[]
+
+include::sections/20-dataset-management.adoc[]
+
+include::sections/21-dataset-support.adoc[]
+
+include::sections/aa-manual-updates.adoc[]
+
+include::sections/ab-data-import.adoc[]
+
+include::sections/ac-ecdis.adoc[]
+
+include::sections/ad-enhanced-safety.adoc[]
+
+include::sections/ae-dataset-loading.adoc[]
+
+include::sections/af-gml.adoc[]
+
+include::sections/ag-thinning-algorithms.adoc[]
+
+include::sections/ah-import.adoc[]
