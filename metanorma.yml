@@ -7,6 +7,7 @@ metanorma:
       - sources/2.0.0/part-b/document.adoc
       - sources/2.0.0/part-c/document.adoc
       - sources/2.0.0/part-d/document.adoc
+      - sources/2.0.0/main/document.adoc
 
   collection:
     organization: "IHO: International Hydrographic Organization"
