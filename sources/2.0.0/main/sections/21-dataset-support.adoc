@@ -1,0 +1,65 @@
+
+== Dataset Support Files
+
+Exchange sets delivered to ECDIS only contain S-100 datasets, any
+required dataset support files, S-100 catalogues (feature and portrayal
+catalogues) and language packs, referred to as "system support files".
+
+The ECDIS must support the import of exchange set contents into the
+System database. There is no requirement to import or update any other
+content from an exchange set. This includes any of S-100's component
+schemas and system support files associated with those schemas.
+
+As defined in S-100 Part 17, each dataset support file references
+one or more datasets which contain a reference to it. Language packs
+(S-100 Part 18) reference the feature catalogue they refer to.
+
+=== Exchange set delivery
+
+Exchange sets which contain base datasets will also contain all relevant
+dataset support. Exchange sets containing updates will deliver any
+dataset support files which are required by those updates. This may
+not be necessarily all the dataset support files associated with the
+base dataset.
+
+=== Management of automatic updates to Dataset Support files
+
+Dataset names in S-100 are unique (S-100 Part 17). Dataset support
+files are referenced to one or more datasets in the exchange catalogue
+metadata. This allows dataset support files to be shared between multiple
+datasets.
+
+As with datasets, dataset support files are managed with the Exchange
+Set metadata field S100_SupportFileRevisionStatus. The behaviour of
+each is described below:
+
+* _new_ - A new dataset support file to be installed on the system
+* __replacement__ - a replacement for an existing dataset support
+file with the same name.
+* _deletion_ - deletion of the dataset support file with the given
+name (subject to the guidance in this section)
+
+When a feature pointing to a text, picture or application file is
+deleted or updated so that it no longer references the dataset support
+file, the ECDIS must check to see whether any other feature references
+the same dataset support file, before that dataset support file is
+deleted.
+
+Similarly, when a dataset support file is marked for deletion by a
+CATALOG.XML entry then the ECDIS must check that the support file
+is not used by any other datasets prior to deletion.
+
+=== Dataset Support File formats.
+
+From all possible support file formats, ECDIS must at least be able
+to display the following (taken from the list of support file formats
+in S-100 Part 17 S100_SupportFileFormat enumeration)
+
+* Plain text
+* JPEG 2000
+* TIFF 6.0
+
+All dataset support files except the graphic formats use UTF-8 encoding.
+
+System support files (feature and portrayal catalogues, and language
+packs) are in XML format.

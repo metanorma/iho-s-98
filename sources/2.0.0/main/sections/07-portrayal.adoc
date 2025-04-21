@@ -1,0 +1,262 @@
+
+== Portrayal Process, Catalogue Elements, and Alerting
+
+This section provides a brief, informative summary of the S-100 portrayal
+process, the main elements of Portrayal Catalogues, and the alert
+model. More details about the process and definitions of Portrayal
+Catalogue elements and the alerting model are available in S-100 Parts
+9 and 9a.
+
+Later sections of this document describe how the portrayal elements
+should be used in an ECDIS implementation.
+
+=== Overview of the portrayal process
+
+The system has feature data within its internal database that needs
+to be portrayed. The System Portrayal Engine transforms the feature
+data into drawing instructions according to the portrayal rules defined
+in the Portrayal Catalogue. The drawing instructions are intermediate
+data used by the rendering engine to produce the portrayal output.
+Drawing instructions include such things as references to symbol definitions,
+priority and filtering information. The symbol definitions contain
+the details of all graphical elements used for the portrayal.
+The drawing instructions are processed by the rendering engine to
+produce the final display according to the output device.
+
+S-100 describes two different portrayal mechanisms, one based on XSLT
+templates and the other based on the scripting capability described
+in S-100 Part 13. The basic portrayal process is the same for both,
+and is described in S-100 Part 9 and 9a.
+
+When interoperability is activated and there is an interoperable product
+loaded to the display, either feature data or drawing instructions
+(depending on the implementation architecture) are further filtered
+and/or have their priorities adjusted as specified in the interoperability
+catalogue. Interoperability processing is described in S-100 Part
+16 and in Annexes A and B of this specification (Note that such interoperability
+is not operational in this edition of S-98).
+
+=== Elements of S-100 Portrayal
+
+Much of the content of this section is included for information as
+it is described definitively in S-100 Part 9 and Part 9a.
+
+==== Pixmaps
+
+Pixmaps can be used for defining pattern fills for areas that are
+not sufficiently described to be symbolised, or for which no symbol
+exists in the IHO Geospatial Information (GI) Registry.
+
+==== Colour coding scheme
+
+The Portrayal Catalogue uses a colour scheme, which classifies colours
+by their usage. Each colour usage is represented by a colour token.
+Each colour token corresponds to a colour definition given in CIE
+and/or sRGB coordinates in one of a set of colours; each set is intended
+for a different bridge lighting condition. Each such set of colours
+is referred to as a "palette" and is generally identified by a descriptive
+name, such as "Day", "Dusk" and "Night". A particular colour token
+is often assigned different CIE/sRGB coordinates in different palettes
+(especially day/night/dusk palettes).
+
+A "colour profile", as the term is used in S-100, is a collection
+of tokens within a single XML file. An ECDIS makes palettes for day,
+night, and dusk conditions available on the system
+(MSC 530(106) / A10.4.
+
+Symbols, fill styles and line styles refer to the colour tokens as
+part of the symbol definition.
+
+==== Symbols
+
+The Portrayal Catalogue provides a set of symbols. These symbols are
+encoded as SVG files which conform to the S-100 SVG profile
+
+==== Area fills
+
+The Portrayal Catalogue offers various ways to fill areas. They can
+be filled with an opaque colour; with a colour shown with some transparency;
+or with a pattern of symbols (fill pattern) or with a centred symbol.
+Fill patterns and centred symbols are a solution for the symbolization
+of areas in special situations. Fill patterns or centred area symbols
+may be used to symbolize the case when the entire display window lies
+within an area (the area boundary is not visible).
+
+Area boundaries should not be visible on the edge of the display window
+when the display window is enclosed by an area. However, if the boundary
+is actually on the edge of the display window, it should be visible.
+
+==== Line styles
+
+The Portrayal Catalogue uses two types of line styles: simple line
+styles and complex line styles. Simple line styles are solid, dashed
+or dotted lines with varying colour and thickness
+(width or stroke width). Complex (or "composite") line styles are
+composed of repeating line patterns.
+
+Simple line styles are generally described by continuity, width, and
+colour. The full specification of a simple line style may also include
+other elements such as dash interval, cap and join types
+(see S-100 clauses 9-12.4 and 9a-11.2.2.3), defaults for which may
+be set in the Portrayal Catalogue. Complex line styles consist of
+additional elements, described in S-100 9-12.4 and 9a-11.2.2.3.
+
+Complex linestyles may be one-sided (symbols, text, etc., which are
+part of the line extend to only one side of the line) or two-sided
+(symbols, text, etc. extend on both sides of the line).
+
+==== Portrayal of Shared Edges.
+
+Shared edges portrayed with dash patterns may be presented incorrectly
+to the mariner when the ECDIS draws the edge in both directions.
+This issue can occur along the shared edges of features which abut,
+such as restricted areas or anchorages where adjacent edges are drawn
+in opposite directions.
+
+Rendering the dash pattern in both directions can alter the pattern
+from what is intended, and in some cases may result in a solid line.
+
+In the figure below, note the edges under the green highlight:
+
+[%unnumbered]
+====
+.Incorrect presentation
+image::img01.emf[]
+
+.Correct presentation
+image::img02.emf[]
+====
+
+This issue can also affect complex line styles, for example:
+
+[%unnumbered]
+====
+.Incorrect presentation
+image::img03.emf[]
+
+.Correct presentation
+image::img04.emf[]
+====
+
+==== Text
+
+S-101 and other Product Specifications may utilize a cartographic
+feature called *TextPlacement* that is used in association with a
+feature to optimise placement of labels (usually, either feature name
+or light characteristic description string).
+
+There are three types of text instructions possible in portrayal catalogues:
+
+* Text relative to a point;
+* Text that will be drawn along a line; and
+* Text placed relative to an area uses a local coordinate reference
+system. Note that this can cause the text to be drawn at multiple
+locations.
+
+However, explicit cartographic placement along curves or relative
+to area/local CRS cannot be explicitly encoded in S-101 datasets,
+though it can be encoded in portrayal rules in a Portrayal Catalogue
+(S-100 Part 9a, clause 9a-11.2).
+
+==== Style sheets
+
+Cascading Style Sheets (CSS) files are used to provide different sets
+of stroke and fill style instructions to be applied to symbols.
+This mechanism allows changing colours and line weights used in the
+symbols by swapping CSS files according to the desired colour scheme.
+
+In principle, any style attribute can be set in a CSS file, but the
+CSS files in IHO Portrayal Catalogues are restricted by S-100 9-B-4.4
+to only two use cases: setting stroke and fill colours, altering the
+visibility of elements which are not normally displayed
+(for example, the pivot point).
+
+==== Display planes
+
+Display planes are used to split the output of the portrayal functions
+into mutually exclusive lists. An example of this is the separation
+of chart information drawn under a radar image and chart information
+drawn over a radar image.
+
+==== Display (drawing) priorities
+
+Display priorities are also called "drawing priorities" in S-100 Parts
+9 and 9a.
+
+Display priorities control the order in which the output of the portrayal
+functions is processed by the rendering engine within a display plane.
+Priorities with smaller numerical values will be processed first.
+
+The display priority applies irrespective of whether a feature is
+a point, curve or surface. If the display priority is equal among
+features, curve features have to be drawn on top of surface features
+whereas point features are drawn on top of both. If the display priority
+is still equal among features of the same type of geometry
+(curve, surface or point) the given sequence in the data structure
+of the System Database, or some other neutral criterion, should be
+used for a decision as to which feature is drawn on top.
+
+==== Viewing groups
+
+The viewing group controls the content of the display. It provides
+an on/off switch in the Portrayal Catalogue for all drawing instructions
+assigned to the corresponding viewing group.
+
+==== Viewing group layers
+
+A viewing group layer defines a collection of viewing groups whose
+visibility can be simultaneously toggled on/off by an application.
+
+==== Display modes
+
+A display mode defines a collection of viewing group layers which
+can be simultaneously toggled on/off by an application.
+
+==== Rules
+
+A portrayal rule describes the transformation of feature data into
+drawing instructions.
+
+==== Context
+
+The context is a set of parameters whose values alter the portrayal
+processing. These parameters can be used to provide contextual information
+to the execution of rules in portrayal processing. Examples are settings
+of depth values for the safety depth, shallow and deep contours.
+
+==== Validity times
+
+Drawing instructions can be designated as being valid only during
+a specified interval, which may be open-ended at either beginning
+or end, or a single time point (with beginning and end the same).
+Intervals may be specified in terms of date, time (of day), or date-time
+endpoints.
+
+The start and end instants are defined by their date/time component
+of the smallest granularity. For example, if the end instant is specified
+a date without a time of day, and the interval is "right-closed",
+the end instant is midnight at the end of the specified day
+(240000 in ISO 8601 terms). This is consistent with the S-100 treatment
+of _dateStart_ and _dateEnd_ attributes (see S-100 Part 3 clause 3-8-3
+(Interpretation of models of time intervals and period), but note
+that the open/closed nature of the interval affects the interpretation
+for Part 9 time intervals — if the same interval is specified as "right-open"
+the start time point is midnight at the beginning of the specified
+day (000000 in ISO 8601 terms).
+
+=== Alerts
+
+The Alerts Catalogue is a component of the Portrayal Catalogue;
+it describes each alert event along with its associated message(s)
+and highlighting rules.
+
+The alerting model allows product developers to associate alerts with
+features (optionally satisfying specified conditions on attribute
+values) by encoding rules in the Portrayal Catalogue.
+
+Alerts are associated with drawing instructions output by the portrayal,
+and are triggered when the vessel route (either actual track, during
+route monitoring, or planned, during route planning) intersects the
+geometry (which may be restricted or augmented) of a feature.
+The events are alarms, alerts, warnings, cautions, or indications
+as described in IMO MSC.252(83).

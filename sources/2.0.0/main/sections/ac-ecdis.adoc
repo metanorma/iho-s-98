@@ -1,0 +1,475 @@
+
+[[annexC]]
+[appendix]
+== ECDIS Update Status Reports
+
+=== Purpose
+
+This Appendix elaborates the definition of an "up to date" dataset.
+This is required by the IMO Performance Standards and all ECDIS users
+are required to be able to demonstrate to a vetting inspector that
+their ECDIS and its installed datasets are "up to date".
+
+This Appendix specifies the format and content of an "Update Status
+Report" which will demonstrate the revision status of datasets within
+the ENDS/System Database of the ECDIS. The ECDIS must, therefore,
+implement two Update Status Reports:
+
+. An ENC Update Status Report, which reports the contents of electronic
+charts and directly related information.
+. An ENP (Electronic Nautical Publication) Update Status Report which
+reports the status of ENPs
+
+[discrete]
+==== Use and Responsibility
+
+An Update Status Report is designed as a concise and standardised
+format to assist end users in satisfying themselves that their data
+is "up to date" and help satisfy inspection requirements in that respect.
+
+The report is designed for two individual use cases:
+
+. To ensure that all navigational data loaded into the System Database
+is up to date for a section of a particular route
+. To ensure that all navigational data loaded into the System Database
+is up to date.
+
+All S-100 datasets use Edition and, sometimes, update numbers to denote
+their individual revision (see S-100 Part 17 for details). These numbers
+uniquely identify how up to date a dataset is. The difficulty with
+using Edition/update numbers in isolation is that they do not document
+the date of revision of all datasets relative to the installation
+date of a data server's service giving the end user no indication
+of whether a dataset (or a collection of datasets) is up to date with
+respect to the last dataset installed.
+
+S-100 supports the creation and distribution of IHO S-128 data which
+provides an issue date within its metadata for an entire data service
+as well as a snapshot of the Edition and update information for all
+component datasets within a data service. The issue date of the last
+delivered S-128 dataset is used in each update status reports to provide
+a reference date for every dataset either on a section of the vessel's
+route or for the System Database as a whole.
+
+The driving use case for the Update status report is that an inspector
+(for example flag State, port State or vetting) or end user can check
+that an ECDIS is up to date with respect to the last dataset installed
+from each data server's data within the System Database.
+
+Note that this report specification is not a concrete definition of
+what an "up to date" dataset (or ECDIS) is; it only shows a status
+of each dataset with respect to the last data installed on the system.
+If a period of time has passed since the last update then some data
+may well be "out of date" relative to the time the report is run -
+the report only records the up to date status relative to the last
+data installed (the date being defined by the issue date of the latest
+S-128 dataset). The equipment manual should explain terms "up to date"
+and "out of date".
+
+This report only reports the status of datasets delivered as part
+of a data service using S-100 Part 17 Exchange Set metadata and
+(as part of dual-fuel mode) IHO S-57 datasets (as illustrated in the
+hybrid Exchange Set in S-100 Part 17, clause 17-4.2). Where other
+S-100 datasets are installed on the system from other sources
+(for example, Unencrypted ENCs) then they should be displayed with
+a status of "unknown". The Equipment manual should explain terms "unknown".
+
+This Appendix provides a specification for a report which can be run
+on a compliant ECDIS to determine the status of S-100 datasets held
+within the System Database.
+
+[discrete]
+==== Completeness and Up-to-datedness
+
+Update status reports report whether the data which is installed in
+the system database are all up to date with reference to the one or
+more S-128 datasets, which together represent the status of a service
+provider's entire service.
+
+Update status reports may also show whether there are any items contained
+in the combined S-128 service which are not installed in the system
+database. This represents a "Completeness" status on a product by
+product basis.
+
+The primary use case for the completeness feature is to assess the
+installation of S-124 Navigational warnings against the in force bulletins
+produced by navigational warning providers.
+
+Completeness reports must be able to be restricted to individual products.
+They may be referenced to either S-128 datasets, or individual S-124
+Navigational Warning datasets representing in-force bulletins.
+
+[discrete]
+==== Product Independence.
+
+When update status reports are reporting "up to datedness" the following
+points must be borne in mind
+
+* S-128 datasets from multiple sources must be combined together to
+form a complete picture of what is "available" from service providers.
+When they are combined the most recent dates of any content should
+be used as the reference against which the report is generated.
+* S-128 datasets are "official" data by definition and have a data
+producer status (as defined in section )
+* S-128 datasets containing only a single product only contain revision
+for that product, not other products which may be contained in other
+S-128 datasets. This is to ensure that products with a high rate of
+update do not invalidate the revision status of other less frequently
+updated products. For example, a vessel may have an S-128 dataset
+initially installed with a mixture of S-101, S-102 and S-104 data.
+When approaching a port requiring more up to date S-104 data a new
+exchanges set containing updated S-104 data and an accompanying S-104-only
+S-128 dataset may be installed. This does not change the revision
+status of the S-101 data on the ECDIS. If the vessel installs a more
+up to date mixed exchange set (with S-101, S-102 and S-104) then the
+S-128 it contains is then used as the reference for the up to date
+status reports
+
+[discrete]
+==== Report Definitions
+
+[discrete]
+==== Report Contents
+
+The mariner must be able to select the type of report to be created:
+
+. An ENC Update Status Report, which reports the contents of electronic
+charts and directly related information. This report shows the status
+of IHO S-100 datasets of the following product types:
+.. ENC, either S-101 or S-57
+.. S-102
+.. S-104
+. An ENP (Electronic Nautical Publication) Update Status Report which
+reports the status of ENPs. All other S-100 products (with the exception
+of S-128 itself) installed in the System Database are in this category.
+
+The report name at the top of the report header shows the type of
+Report being produced.
+
+[discrete]
+==== Report Filters
+
+The mariner must be able to select the report filter to be one of
+the following:
+
+. A report detailing the status of all datasets within the System
+Database of the ECDIS for the appropriate type (ENC or ENP). This
+shows the status of the datasets with respect to the date contained
+in the S-128 dataset of the last update for each data server's service
+installed.
+. A report detailing the status of each S-100 dataset along a predefined
+section of a route contained within the ECDIS.
+
+[discrete]
+==== Example
+
+An example of an Update Status Report for current ECDIS with S-57
+ENCs is shown in the <<fig_c1>>, followed by an illustrative revised
+report for S-100 datasets in <<fig_c2>>. The example shown is an ENC
+Update Status Report.
+
+[[fig_c1]]
+.Update Status Report - current report example
+image::figure-c-1.emf["",524,366]
+
+[[fig_c2]]
+.Update Status Report - notional example for S-100 datasets
+image::figure-c-2.emf["",572,312]
+
+[discrete]
+==== Report specification
+
+The ENC Update Status Report is a formatted output from the ECDIS.
+It should be formatted to fit within the width of the ECDIS screen
+and, if printable, split into individual A4 pages.
+
+Reports of both types (complete System Database contents and filtered
+by route) are divided into two sections:
+
+. A header containing information on the vessel and report content
+selected (either filtered for a route (or part of a route) or for
+the entire System Database contents. This header contains vessel information
+and report reference dates followed by a summary totals for each report
+status.
+. A table containing information for each cell within the chosen content
+type. This provides detailed information on each dataset within the
+chosen content category.
+
+[discrete]
+==== Report header
+
+The data content of each of the header fields is defined in <<table_3>>
+below:
+
+[[table_c3]]
+.Data content of header fields
+[cols="183,62,312"]
+|===
+h| Field Name. h| Type h| Source
+a|
+. Report Name
+
+| Text
+a| Two Report names are possible depending on which Report is being
+shown. Either:
+
+* Electronic Navigational Charts (ENC) Update Status Report
+* Electronic Nautical Publications (ENP) Update Status Report
+
+a|
+[start=2]
+. Vessel Name
+
+| Text
+| The name of the vessel as recorded within the ECDIS.
+
+a|
+[start=3]
+. Identifier
+
+| Text
+| A unique identifier, the MMSI or vessel IMO number.
+
+a|
+[start=4]
+. Update reference date
+
+| Date
+| The data used as the reference for the status of each of the cells.
+This is the issue date of the last S-128 dataset in the Exchange Set
+used to update the System Database. The date is taken from the latest
+S-128 datasets issueDate in the CATALOG.XML and is expressed in ISO8601
+notation:[*YYYMMDDZHHMMSS*]
+
+a|
+[start=5]
+. Date of report
+
+| Date
+| The date the Report was run.
+
+a|
+[start=6]
+. Content
+
+| Text
+a| Each Report can be optionally filtered for an individual route
+plan or report the full System Database contents for each Report type:
+
+* "Filtered for Route Plan XXX to YYY" where XXX and YYY are the textual
+names of the point of origin and destination on the chosen route.
+* Full System Database contents.
+
+a|
+[start=7]
+. Start WP
+
+| Text
+| This field is only present if the Report is filtered for a route.
+It should comprise the textual name of the starting waypoint of the
+route (if one exists) and the lat/long coordinates of the waypoint.
+There is no fixed form that the coordinates should take.
+
+a|
+[start=8]
+. End WP
+
+| Text
+| This field is only present if the Report is filtered for a route.
+It should comprise the textual name of the last waypoint of the route
+(if one exists) and its lat/long coordinates. There is no fixed form
+that the coordinates should take.
+
+|===
+
+[discrete]
+==== Filtering of Update status report for route section
+
+Where an Update Status Report is filtered for a route plan then the
+datasets of the appropriate type (ENC or ENP) in the System Database
+whose status are checked are defined by the intersection of the route
+corridor with the dataset boundaries (as defined by dataset's coverage
+features (or coverage defined in the S-100 CATALOG.XML within the
+System Database)).
+
+The width of the filtering corridor is equal to the
+"user specified distance" implemented inside the ECDIS to fulfil IMO
+MSC.532(106) _11.3.5:_
+
+____
+A graphical indication should be given if the mariner plans a route
+closer than a user-specified distance from the boundary of a user-selectable
+category of prohibited area or a geographic area for which special
+conditions exist (see appendix 4). A graphical indication should also
+be given if the mariner plans a route closer than a user specified
+distance from a user-selectable category of point objects, such as
+a fixed or floating aid to navigation or isolated danger. The user-selectable
+categories should be the same as the user selections for the display
+of objects and be based on IHO standards. There should be a permanent
+indication when any user-selectable categories are deselected. Details
+of the deselection should be available on demand.
+____
+
+This is not the same as the XTD distance.
+
+[discrete]
+==== Summary totals
+
+The summary section of the Report follows directly after the header.
+The summary contains the following information:
+
+. The title: "Chart Status Summary".
+. Totals of cells with the relevant status in the order defined below.
+
+.. Total - the total number of datasets available in the System Database
+for the content type (ENC or ENP), selected for the Report (either
+full or filtered by route).
+.. Up to date - the total number of datasets (for the content selected)
+which have status "Up to date".
+.. Not up to date - the total number of datasets (for the content
+selected) which have status "Not up to date".
+.. Withdrawn - the total number of datasets (for the content selected)
+which have status "Withdrawn".
+.. Cancelled - the total number of datasets (for the content selected)
+which have status "Cancelled".
+.. Unknown - the number of datasets for which a status cannot be determined
+for any reason.
+. The possibilities for each dataset's status are listed in <<table_4>>
+below along with their definitions.
+
+[discrete]
+==== Data Server content tables
+
+The detailed tables in each Report are arranged by data server - each
+separate data server or dataset data source within the System Database
+has its own separate table listing all datasets by content type
+(as reported in the "Content" field in the report header) and S-100
+Product Specification order.
+
+The detailed tables contain the following information:
+
+. Title: Data Server Name - this is the data server identified by
+the S-128 Producer Code (which can either be a data producer, an aggregator
+or data aggregator (as identified by <<sec_9.1.1>>)
+. For each cell installed in the System Database from the data server:
+
+.. Dataset Name - the name of the dataset. (DSNM).
+.. Edition - the Edition of the dataset in the System Database (EDTN).
+.. Update - the update number of the dataset in the System Database.
+If the product does not support updates, then this must be
+labelled "-".
+.. Issue Date - the issue date of the last applied update to the dataset
+in the System Database (or "-" where no updates are supported for
+the S-100 product).
+.. Status - the status of the cell. The status may have one of four
+values determined according to the criteria in the following table:
+
+[[table_c4]]
+.Status values
+[cols="27,116"]
+|===
+h| Status h| Specification
+
+| *Up to date* | This is where the System Database has all the latest
+Edition and (where supported by the S-100 Product Specification) update
+information for the dataset installed as defined by the latest S-128
+dataset received from the data server. The reference date for the
+most up to date information is defined by the S-128 dataset issue
+date. The dataset update reference date must be within the last four
+weeks from the time of the Report execution or the cell must be displayed
+as "Not up to date" regardless of its status as defined by the S-128
+data.
+| *Not Up to date* | This is where the System Database has NOT installed
+all the latest update and/or New Edition for the cell. Again, the
+reference point for what should be installed is defined by the S-128
+dataset issue date. If the reference date is older than four weeks
+then cells must be displayed as "not up to date" by definition.
+| *Withdrawn* | The number of datasets which have been withdrawn by
+the data server or cancelled but which are still available within
+the System Database.
+| *Unknown* | Datasets for which a status cannot be determined for
+any reason. If the revision information in the latest S-128 dataset
+is incomplete for any reason then all datasets in the data server's
+service not included in the partial S-128 must be deemed to be "Unknown"
+as no definitive information on them can be determined. S-128 content
+is required to specify the status of all datasets in a data server's
+service.
+
+|===
+
+[discrete]
+==== Example of ENC update status report
+
+*_Report Name: ENC Update Status Report_*
+
+*Vessel Name:* HMS Goteborg
+
+*Identifier:* IMO 4653321
+
+*Update Reference Date:* 16 May 2013
+
+*Date of Report*: 1 Jun 2013
+
+*Content:* Full
+
+*Chart Status Summary:*
+
+*Chart Status: Count*
+
+Total: 50
+
+Up to Date 38/50
+
+Not Up to Date 10/50
+
+Withdrawn 2/50
+
+Unknown 0/50
+
+*_Table:_*
+
+.Data Server: XXXX
+[cols="84,101,84,84,84,83",options="unnumbered"]
+|===
+h| Product h| Dataset Name h| Edition h| Update h| Issue Date h| Status
+| *S-101* | *101US23495820* | *10* | *4* | *2020-01-02* | *Up to Date*
+|===
+
+*Example of ENP update status report*
+
+*_Report Name: Electronic Nautical Publications (ENP) Update Status Report_*
+
+*Vessel Name:* HMS Goteborg
+
+*Identifier:* IMO 4653321
+
+*Update Reference Date:* 16 May 2013
+
+*Date of Report*: 1 Jun 2013
+
+*Content:* Full
+
+*Chart Status Summary:*
+
+*Chart Status: Count*
+
+Total: 50
+
+Up to Date 38/50
+
+Not Up to Date 10/50
+
+Withdrawn 2/50
+
+Unknown 0/50
+
+*_Table:_*
+
+[cols="83,100,83,84,83,82",options="unnumbered"]
+|===
+6+h| Data Server: XXXX
+h| Product h| Dataset Name h| Edition h| Update h| Issue Date h| Status
+
+| *S-123*   | *123US3245394* | *5*       | -        | *2020-01-02* | *Up to Date*
+| *S-127*   | *127US2345032* | *6*       | -        |              |
+|===

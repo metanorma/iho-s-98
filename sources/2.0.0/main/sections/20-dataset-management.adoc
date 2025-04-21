@@ -1,0 +1,278 @@
+
+== Dataset Management
+
+This clause covers required functionality for S-100 dataset management
+on the ECDIS to the extent that it affects the user experience and
+portrayal processing.
+
+=== Multiple Feature and Portrayal Catalogues
+
+The ECDIS must be able to persistently install for usemultiple versions
+of the Feature and Portrayal Catalogues for S-100 products. Catalogue
+management is based on the version number of the Product Specification
+and Catalogues
+
+A list of the available versions of all installed feature and portrayal
+catalogues together with their versions must be available to the user
+on demand.
+
+See <<annexB>> for loading and ingest processes including SSE Codes
+relating to catalogues.
+
+The versioning of Feature and Portrayal catalogues follows the same
+rules as S-100, which uses a three-part version number
+(_Edition.Revision.Clarification_). The significance of each component
+is summarised below:
+
+* Edition: New Editions introduce significant changes, such as the
+ability to support new functions or applications; or the introduction
+of new constructs or data types. New Editions are indicated by incrementing
+the _Edition_ component of the version number and resetting the other
+components to 0.
+* Revision: Revisions introduce substantive semantic changes. New
+Revisions are indicated by incrementing the _Revision_ component of
+the version number and resetting the _Clarification_
+component to 0.
+* Clarification: Clarifications are non-substantive changes. Typically,
+Clarifications remove ambiguity; correct grammatical and spelling
+errors; amend or update cross references; and/or insert improved graphics,
+spelling, punctuation and grammar. Clarifications must not cause any
+substantive semantic changes. Changes in a Clarification are minor
+and ensure backward compatibility with the previous versions within
+the same Edition. Clarifications are indicated by incrementing the
+Clarification component of the version number.
+
+[cols="139,98,85,107,106",options="unnumbered"]
+|===
+h| Type of Change h| Example h| DPS h| FC h| PC
+
+| Major Change including an S-100 version change
+| New Concept in S-100, used in S-101
+a| image:figure-x.png["",16,16].0.0
+a| image:figure-x.png["",16,16].0.0
+a| image:figure-x.png["",16,16].0.0
+
+| New content
+| Attribute value / Feature added or removed
+a| A.image:figure-x.png["",16,16].0
+a| A.image:figure-x.png["",16,16].0
+a| A.image:figure-x.png["",16,16].0
+
+| FC correction, no content or portrayal impact
+| Clarification of definition
+| A.B.-
+a| A.B.image:figure-x.png["",16,16]
+| A.B.-
+|===
+
+Each dataset has a product specification edition number contained
+within it. These are located as follows:
+
+. ISO8211 datasets (S-100 Part 10a). The "PRED" field of the DSID
+record in the dataset.
+. GML Datasets (S-100 Part 10b). The "ProductEdition" element of the
+DatasetIdentification element in the GML dataset header.
+. HDF5 datasets (S-100 Part 10c) - Root Group "Product Specification"
+metadata value, S-100 Part 10c
+
+And have the following common format:
+
+*INT.IHO.[S-XXX].A.B[.C]* where: +
+S-XXX is the IHO product specification , e.g S-101, S-102 etc.. +
+*A.B* and, optionally encoded, *.C* are the Edition, Revision and
+clarification numbers as above.
+
+e.g. for an S-101 ENC dataset conforming to feature catalogue 1.4.1
+the DSID PRED field contains:
+
+*INT.IHO.S-101.1.4.1 or INT.IHO.S-101.1.4*
+
+Catalogues are identified by the following XML elements
+
+* Feature Catalogue: S100XC: *productid* and S100XC:**versionNumber**
+* Portrayal Catalogue: *productid* and *version* attributes of the
+PortrayalCatalogue root element of the portrayal_catalogue.xml contained
+in the root level of the compressed portrayal catalogue archive.
+
+Therefore, this requires the ECDIS to have installed a feature catalogue
+for each S-100 dataset which has a matching edition and revision number.
+Multiple feature catalogues for each S-100 product *must* therefore
+be supported to maintain different revisions and editions of datasets
+within the System Database.
+
+=== Portrayal and feature catalogue compatibility
+
+The ECDIS must support the ability to install and use multiple Portrayal
+Catalogues (including for individual products) for portrayal of the
+contents of the System Database.
+
+. Compatible datasets have identical Edition and Revision numbers.
+. Portrayal Catalogues compatible with Feature catalogues also have
+identical Edition and Revision Numbers.
+. Editions with different clarification numbers but identical Edition
+and Revision numbers are all compatible.
+. So, it is possible to process datasets conforming to a Clarification
+with the Feature and Portrayal Catalogues for an earlier Clarification
+within the same Edition and Revision.
+
+=== Dataset overlaps and gaps
+
+==== Overlaps and gaps in ENC coverage
+
+There may be cases where ENCs in the same scale range overlap.
+Such may be the case at agreed adjoining producer data limits, where,
+if it is difficult to achieve a perfect join, an overlapping buffer
+zone of up to 5 metres may be used.
+
+Where an overlap of more than 5 metres between two or more datasets
+exists the ECDIS *must* only display one dataset for the overlap area
+and provide a permanent indication "overlap".
+
+==== Overlaps and gaps between other data products
+
+Overlaps in datasets of the same scale range in products other than
+the ENC must be indicated by an on-demand indication
+"Overlap in ??? data" (where ??? is the abbreviation for the data
+product).
+
+An exception to this rule is S-102 and S-104 data used for Water Level
+Adjustment. In these cases the ECDIS *must* only select and use a
+single dataset from the overlapping data available and provide a permanent
+indication "overlap" as per ENCs.
+
+Coverage gaps in products other than the ENC can be expected and should
+not be indicated.
+
+Similarly, overlaps between different data producers' ENC and other
+data products other than ENC should also be expected. Certain features,
+such as navigational warnings, can extend far beyond national boundaries
+and may therefore overlap other data producers' ENC data. An indication
+is not needed in these cases.
+
+[[sec_20.4]]
+=== Updating Datasets on ECDIS
+
+==== Introduction
+
+The current Editions of S-65, S-57 and S-63 continue to apply to the
+production and data delivery for S-57 ENC updates. S-52 Appendix I
+continues to apply to the processing of S-57 updates on ECDIS.
+
+==== General requirements
+
+. *Data Integrity*. The ECDIS must be able to process updates to S-100
+data products without degradation of the information content of the
+dataset or dataset update. For example, all information regarding
+attributes, logical relationships, geometry, and topology must be
+accounted for.
+. *Verification of Application*. The ECDIS must provide a method to
+ensure that updates have been correctly applied to the System Database
+. *Log File*. ECDIS must keep a record of updates to all S-100 data
+products through a log file. The log file must contain, for each update
+applied to or rejected by the System Database, the following information:
+.. date and time of application
+.. complete and unique identification of update, for example update
+and edition numbers for S-101 ENC
+.. any anomalies encountered during application;
+.. type of application: manual/automatic.
+
+NOTE: (informative) Sequences are determined by the update and Edition
+numbers, not by issue date and time. Issue date/time are given in
+dataset discovery metadata in the Exchange Catalogue
+(see S-100 Part 17). Note that time is optional. Note also that it
+is possible for the date/time for two or more consecutive updates
+to be the same - in fact for data that are frequently updated, such
+as water levels, the date may be the same for many consecutive datasets.
+
+==== Automatic Update
+
+. *Reception of Updates.* The ECDIS must be capable of receiving official
+updates, as S-100 Part 17 exchange set.For such updates of S-124 and
+S-129 datasets, the ECDIS should footnote:[In the next operational
+version of S-98, "should" to be changed to "must" and the constraint
+to S-124 and S-129 to be removed.] be capable of being interfaced
+to a SECOM (IEC 63173-2) based telecommunication network. This capability
+should include at least:
+
+.. [[item_i]]User selection of data services from a list provided
+by a SECOM service registry,
+.. Management of information about the data services selected in <<item_i>>,
+for example SECOM subscription status, and
+.. Acknowledge receipt of datasets.
++
+--
+NOTE: (informative) The bi-directional transfer of S-421 based route
+plans using SECOM is described in IEC 61174, IEC 63173-1 and IEC 63173-2.
+--
+
+. *Sequence Check*. Where data products support sequential updating
+the ECDIS must ensure updates are always applied in uninterrupted
+sequence.
+. *Data Integrity and Authentication Check*. All exchange set contents
+require the use of digital signatures and the ECDIS must authenticate
+all updates using the applicable procedures described in S-100
+Part 15. All updates that do not pass the authentication and data
+integrity check must not be applied. The user must be informed of
+any authentication or data integrity anomalies (refer to SSE codes).
+Update authentication and data integrity related messages for the
+user may be combined to avoid flooding the user, but must all be logged
+. *Applicability*. Updates not relating to a dataset within the set
+of datasets in the System Database may be discarded.
+. *Summary Report*. A summary report for each of the Issuing Authority's
+official update files must be given after completion of receipt containing
+at least:
+.. Identification of Issuing Authority;
+.. Update numbers of the update files;
+.. Dataset Identifiers of datasets affected;
+.. Edition number and date of dataset involved;
+.. Number of updates in the affected dataset.
+
+. *Review of ENC Updates*. It must be possible for the Mariner to
+review ENC updates applied through displaying the System Database
+contents with the updates highlighted.
+. *ECDIS Update Status Report.* It must be possible for the user to
+inspect and demonstrate the up to date status of all datasets held
+within the ECDIS against a complete list supplied by a service provider.
+Details of the required update status reports for both electronic
+chart and nautical publications datasets are given in <<annexC>>
+
+=== New editions, re-issues, cancellations and updates of datasets
+
+The method for detecting whether a dataset is a New Edition, re-issue,
+cancellation, termination, or update is contained in the Exchange
+Set metadata field S100_Purpose.
+
+The behaviour of each is described below; note that individual Product
+Specifications may not implement all types of dataset state. All datasets
+include an issue date, and optionally an Edition and update number.
+
+* New dataset - install new dataset and any included updates and record
+for tracking purposes.
+* New Edition - replace numbered old Edition and its updates with
+the New Edition. The information in <<sec_13.2>> about the use of
+New Editions and re-issues for certain coverage data products should
+be kept in mind
+* Update - apply the numbered update and retain for tracking purposes.
+See <<sec_20.4>>. Where updates cannot be applied a permanent indication
+"Chart information not up to date" must be available in the chart
+display area when such a chart is in use (either displayed on chart
+area or used as largest scale available for chart related alerts and
+indications). This is also referenced by the ECDIS Update Status Report,
+<<annexC>>.
+* Re-issue - replace the original datasets and its updates up to the
+date of the issue with the reissued dataset. Retention of the old
+issue should be as specified in the Product Specification. The information
+in <<sec_13.2>> about the use of New Editions and re-issues for certain
+coverage data products should be kept in mind. After a re-issue, subsequent
+updates may be incorporated from this reissue or from the original
+data kept continuously updated.
+* Cancellation - delete the cancelled dataset and its updates as per
+S-100 17-4.4.1. The system must report any dataset(s) that have been
+identified as cancelled at load time. A message must be displayed
+informing the user of the dataset name. Depending on the method adopted
+by the OEM for managing cancelled datasets one of the following conditions
+must be observed: (1). The cancelled dataset cannot be viewed in the
+ECDIS; (2). The cancelled dataset can be viewed in the ECDIS with
+the warning message specified "Dataset <name> has been cancelled and
+may not be up to date. Under no circumstances should it be used for
+primary navigation".

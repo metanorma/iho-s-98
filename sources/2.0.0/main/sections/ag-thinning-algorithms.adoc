@@ -1,0 +1,180 @@
+
+[[annexG]]
+[appendix]
+== Thinning Algorithms
+
+=== Introduction
+
+Thinning algorithms resize symbols and ensure they do not conflict
+on screen. Thinning is only required when zooming within the visible
+scale range (maximum - minimum display scale) of a dataset. The ECDIS
+implementer must use a thinning algorithm to reduce the possibility
+of screen clutter. The algorithm described meets these requirements
+but implementers may also use their own.
+
+==== Regularly gridded data
+
+Let the grid cell's diagonal for the unthinned grid at the current
+display scale be given by stem:[D "unitsml(mm)"]. Note that stem:[D]
+is dependent on the dataset and the characteristics of the viewing
+monitor. If every stem:[n^{"th"}] cell is displayed, the displayed
+spacing is stem:[nD]. Next, suppose the maximum dimension of the largest
+scaled symbol in the displayed field is stem:[L_{smax} "unitsml(mm)"].
+Then the ratio stem:[R] of the maximum symbol dimension to the displayed
+grid spacing is constrained to be less than a prescribed maximum value,
+stem:[R_{"max"}]. A typical value for stem:[R_{"max"}] can be taken
+to be 0.5. (Given that on a navigation display there may be point
+features from other products within the extent of the grid,
+stem:[R_{"max"} = 0.5] may be too high for practical use; the optimal
+value of stem:[R_{"max"}] is left to manufacturer determination, and
+may be different for different products, depending on the shape of
+the symbol.) Then the following inequality must be satisfied for the
+thinned grid:
+
+[stem%unnumbered]
+++++
+R = L_{"smax"} / {nD} < R_{"max"}
+++++
+
+If the above inequality cannot be met with increment stem:[n] equal
+to 1, then a new value for stem:[n] is computed by the following formula:
+
+[stem%unnumbered]
+++++
+n = 1 + "fix" (L_{"smax"} / {D R_{"max"}})
+++++
+
+Where stem:["fix"()] is a function that returns the truncated integer
+value of its argument. For plotting, arrows at every stem:[n^{"th"}]
+column and every stem:[n^{"th"}] row are drawn, making sure that the
+row and column with the maximum-size symbol is drawn. The value of
+stem:[n] must be calculated by the system. It also requires identifying
+a "seed point," a grid point with the maximum-size symbol from which
+counting starts. Designating this seed point as (stem:[x_0, y_0]),
+the grid points where symbols are drawn are given by:
+
+[stem%unnumbered]
+++++
+{:{:(x_k,=,x_0 pm (n xx k)),(y_k,=,y_0 pm (n xx k)):}} quad "for" quad k = 0, 1, 2, 3, ...
+++++
+
+This algorithm assumes the grid spacing can be represented by its
+cell diagonal. It can be adapted to allow for symbols that are aligned
+parallel to grid axes or for rectangular cells.
+
+The Figures below illustrate the use of this algorithm. <<fig_G-1-1>>
+depicts a grid coverage feature symbolised by arrows of dimensions
+varying according to the value of an attribute at the grid point.
+<<fig_G-1-2>>. depicts the same data thinned with
+stem:[R_{"max"} = 0.5] (outline-only arrows are suppressed). <<fig_G-1-3>>
+depicts the thinning of the same data with stem:[R_{"max"} = 0.33].
+The nominal footnote:[Values are for hypothetical data and display,
+and the figures have been reduced for reproduction in this document.]
+dimensions and parameters for the three cases are:
+
+Grid spacing at the display scale (stem:[D]): stem:[36 "unitsml(mm)"]
+(grid diagonal).
+
+Scaling of symbols by data attribute values at grid points produced
+symbols of four sizes (arrow length):
+
+* stem:[L0 = 30.4 "unitsml(mm)" = L_{"smax"}]
+* stem:[L1 = 17.7 "unitsml(mm)"]
+* stem:[L2 = 16.2 "unitsml(mm)"]
+* stem:[L3 = 12.7 "unitsml(mm)"]
+
+[[fig_G-1-1]]
+.Grid without thinning
+image::figure-g-1-1.png["",365,361]
+
+For stem:[R_{"max"} = 0.5], with stem:[n = 1], the value of stem:[R]
+is greater than stem:[R_{"max"}]:
+
+[stem%unnumbered]
+++++
+R = L_{"smax"}/{1 xx D} = 30.4/36 = 0.844 > 0.5
+++++
+
+Applying the formula for computing stem:[n]:
+
+[stem%unnumbered]
+++++
+n = 1 + "fix"(30.4/(36 xx 0.5)) = 2
+++++
+
+Counting in row-major order from the grid origin stem:[(0,0)], the
+first symbol of size _Lsmax_ is located at stem:[(1,1)]. Denoting
+this point as the seed point stem:[(x0, y0)], the only grid points
+where symbols are displayed are:
+
+[stem%unnumbered]
+++++
+{:{:(x_k,=,x_0 pm (2 xx k)),(y_k,=,y_0 pm (2 xx k)):}} quad "for" quad k = 0, 1, 2, 3, ...
+++++
+
+The results are depicted in the following figure.
+
+[[fig_G-1-2]]
+.Grid thinned with stem:[R_{"max"} = 0.5]
+image::figure-g-1-2.png["",316,313]
+
+For stem:[R_{"max"} = 0.33], the formula for stem:[n] yields:
+
+[stem%unnumbered]
+++++
+n = 1 + "fix"(30.4/(36 xx 0.33)) = 3
+++++
+
+and
+
+[stem%unnumbered]
+++++
+{:{:(x_k,=,x_0 pm (3 xx k)),(y_k,=,y_0 pm (3 xx k)):}} quad "for" quad k = 0, 1, 2, 3, ...
+++++
+
+The results are shown in <<fig_10>>.
+
+[[fig_G-1-3]]
+.Grid thinned with stem:[R_{"max"} = 0.33]
+image::figure-g-1-3.png["",320,316]
+
+The algorithm may hide significant characteristics of the data; for
+example, counting displayable rows and columns starting with the first
+instance of a maximised symbol may suppress significant information
+in nearby grid points and produce the wrong overall impression.
+In <<fig_G-1-3>>, row 2 would be suppressed even if all the data points
+in that row are of the same size as the symbol at (1,1) — this would
+suppress more data points with scaled-up symbols, which may represent
+data of more significance to the Mariner.
+
+Grid diagonal as a measure of cell spacing is more suitable for grids
+where cell dimensions along both axes are approximately equal in display
+units (that is, in millimetres at the display scale); if there are
+significant differences, the stem:[D] and stem:[R_{"max"}] parameters
+will need to be different for the two axes.
+
+Execution of this algorithm would be faster if the grid coordinates
+of the seed point stem:[(x0, y0)] are known in advance, either encoded
+by the producer as instance metadata, or calculated when the dataset
+is ingested into the system. S-100 does not yet provide a standard
+way of encoding this information.
+
+Manufacturers may extend or adapt this algorithm in various ways,
+for example:
+
+* Adapt stem:[R_{"max"}] to the shape and proportions of the symbol
+(that is, its perceived effect on the display).
+* For grids with cells whose dimensions in display units are very
+different along different axes, use different stem:[D] and stem:[R_{"max"}]
+parameters for the two axes, giving different values of stem:[n] for
+different axes.
+* Pre-compute and cache the scale values where stem:[n] changes, so
+that suppression or revelation of symbols can be determined by the
+scale of the display.
+* Adapt the determination of the seed point to show as many significant
+values as possible.
+
+In order to avoid confusing the mariner, reasonable consideration
+should be given to generally maintaining the regular appearance of
+the grid coverage, though some irregularity is probably unavoidable
+with greater thinning.

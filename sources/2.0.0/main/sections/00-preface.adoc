@@ -1,0 +1,73 @@
+[.preface]
+== Document History
+
+Changes to this Specification are coordinated by the IHO S-100 Working
+Group. New editions will be made available via the IHO website. Maintenance
+of the Specification shall conform to IHO Resolution 2/2007 (as amended).
+
+[cols="87,93,69,299"]
+|===
+h| Version Number h| Date h| Approved By h| Purpose
+
+| 0.0.1 | 28 Aug 2020 | RM       | First draft. Reviewed by EM.
+| 0.0.2 | 01 Nov 2021 | J.Powell | Numerous revisions to take into account the S-98 Correspondence Group adjudication work.
+| 1.0.0 | May 2022    | S-100WG  | Submission to HSSC14 for approval.
+| 1.0.0 | May 2022    | HSSC     | Initial published version for evaluation and testing.
+
+| 1.1.0
+| August 2023
+|
+| Added MSC.530(106)/Rev.1 in place of MSC.232(82) and updated text
+accordingly ("SENC" to "System Database"- various clauses); updated
+tidal stream panel presentation (C-15.4); fixed heading 1 and heading
+2 styles; added new clause listing allowed support file formats for
+ECDIS and elaborated rules for additional information in text (C-11.5);
+struck alternate labels in Tables C-2 and C-3;
+
+| 1.2.0
+| February 2024
+|
+| Collection of issues identified by subgroup and external stakeholder.
+
+| 1.3.0
+| May 2024
+|
+| Incorporating stakeholder inputs, GitHub discussions and TSM 2024 outputs.
+
+| 1.3.4
+| July 2024
+|
+| Version after review meetings
+
+| 1.4.0
+| August 2024
+|
+| Version prepared for F2F meeting with stakeholders.
+
+| 1,6.0
+| September 2024
+|
+| Prepared following Face to Face meeting.
+
+| 1.7.1
+| October 2024
+|
+| Remainder of comments received applied and commented.
+
+| 1.8.0 [2.0.0]
+| January 2025
+|
+| Draft for 2.0.0, HSSC 2025 following VTC reviews and resolutions
+of comments from F2F meeting.
+
+| 1.9.0[2.0.0]
+| March 2025
+|
+| Prepared version for TSM 2025
+
+| 2.0.0
+| March 2025
+|
+| Version submitted to HSSC 2025
+
+|===
