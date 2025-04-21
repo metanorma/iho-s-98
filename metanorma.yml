@@ -2,6 +2,7 @@
 metanorma:
   source:
     files:
+      - sources/2.0.0/main/document.adoc
       - sources/2.0.0/part-a/document.adoc
       - sources/2.0.0/part-b/document.adoc
       - sources/2.0.0/part-c/document.adoc
