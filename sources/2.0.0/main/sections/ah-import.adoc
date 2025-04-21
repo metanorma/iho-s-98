@@ -1,0 +1,314 @@
+
+
+[[annexH]]
+[appendix]
+== Import and Use of projected data on S-100 ECDIS
+
+[[sec_H-1]]
+=== Introduction
+
+The ECDIS implementer must use an algorithm for the conversion of
+UTM coordinates to geographic latitude/longitude. The algorithm described
+meets these requirements but implementers may also use their own.
+
+<<sec_H-1.1>> and <<sec_H-1.2>> provide a set of numbered, steps for
+the conversion calculations.
+
+[[sec_H-1.1]]
+==== Conversion from UTM to WGS 84
+
+. For the calculation of latitude stem:[varphi] and longitude stem:[lambda]
+(both in degrees of arc) from easting stem:[E] and northing stem:[N]
+(both in meters) from a Universal Transverse Mercator (UTM) coordinate
+reference system (CRS) where the UTM CRS has a geodetic CRS of WGS
+84, it is given for all UTM zones:
++
+--
+False easting stem:[FE]:: stem:[= 500000 "unitsml(m)"]
+Scale at natural origin stem:[k_0]:: stem:[= 0.9996]
+Semi-major axis stem:[a]:: stem:[= 6378137.000 "unitsml(m)"]
+Inverse flattening stem:[1/f]:: stem:[= 298.257223563]
+
+Where stem:[b] is the semi-minor axis, because stem:[1/f = a/{a - b}]
+
+if follows that stem:[f = 3.35281066475 xx 10^{-3}]
+
+that stem:[b = a(1 - f)]
+
+and that stem:[b = 6356752.31425]
+--
+
+. For all UTM North zones, false northing stem:[FN = 0 "unitsml(m)"]
++
+--
+For all UTM South zones, false northing stem:[FN = 10000000 "unitsml(m)"]
+--
+
+. Each UTM zone has a corresponding central meridian stem:[λ_0], which
+can be found in the EPSG dataset. North and south zones of the same
+number (e.g., UTM Zone 18N and UTM Zone 18S) share a central meridian.
+
+Algorithmically, the value can be found as follows:
+
+For zone numbers stem:[N_z] between 1 and 30 (inclusive):
+stem:[λ_0 = [183-(6 xx N_z)\] "unitsml(deg)" W]
+
+For zone numbers stem:[N_z] between 31 and 60 (inclusive):
+stem:[λ_0 = {[6 xx (N_z-30)\] - 3} "unitsml(deg)" E]
+
+[example]
+For UTM Zone 45S, stem:[N_z = 45], so stem:[lambda_0 = 87 "unitsml(deg)"E].
+stem:[lambda_0] is also stem:[87 "unitsml(deg)"E] for UTM Zone 45N.
+
+. We next calculate constants for the projection
++
+--
+[stem%unnumbered]
+++++
+e = sqrt{2} f - f^2 = 8.18191908 xx 10^{-2}
+++++
+
+[stem%unnumbered]
+++++
+n = f/{(2 - f)} = 1.67922039 xx 10^{-3}
+++++
+
+[stem%unnumbered]
+++++
+B = [a/{(1 + n)} (1 + n^2/4 + n^4/64)] = 6367449.145823415
+++++
+
+[stem%unnumbered]
+++++
+h_1^' = n/2 - (2/3) n^2 + (37/96) n^3 - (1/360) n^4 = 8.37732164 xx 10^{-4}
+++++
+
+[stem%unnumbered]
+++++
+h_2^' = (1/48) n^2 - (1/15) n^3 + (437/1440) n^4 = 5.84321837 xx 10^{-8}
+++++
+
+[stem%unnumbered]
+++++
+h_3^' = (17/480) n^3 - (37/840) n^4 = 1.67348888 xx 10^{-10}
+++++
+
+[stem%unnumbered]
+++++
+h_4^' = (4397/161280) n^4 = 2.16773776 xx 10^{-13}
+++++
+--
+
+. Then
++
+--
+[stem%unnumbered]
+++++
+eta^' = (E - FE)/(B k_O) = (E - 500000)/6364902.166165086
+++++
+
+[stem%unnumbered]
+++++
+xi^' = (N - FN)/(B k_O) = (N - FN)/6364902.166165086
+++++
+
+[stem%unnumbered]
+++++
+xi_1^' = h_1^' sin(2 xi^') cosh(2 eta^') quad quad quad eta_1^' - h_1^' cos(2 xi^') sinh(2 eta^')
+++++
+
+[stem%unnumbered]
+++++
+xi_2^' = h_2^' sin(4 xi^') cosh(4 eta^') quad quad quad eta_2^' = h_2^' cos(4 xi^') sinh(4 eta^')
+++++
+
+[stem%unnumbered]
+++++
+xi_3^' = h_3^' sin(6 xi^') cosh(6 eta^') quad quad quad eta_3^' = h_3^' cos(6 xi^') sinh(6 eta^')
+++++
+
+[stem%unnumbered]
+++++
+x_4^' = h_4^' sin(8 xi^') cosh(8 eta^') quad quad quad eta_4^' = h_4^' cos(8 xi^') sinh(8 eta^')
+++++
+
+[stem%unnumbered]
+++++
+xi_0^' = xi^' + (xi_1^' + xi_2^' + xi_3^' + xi_4^') quad quad quad eta_0^' = eta^' - (xi_1^' + xi_2^' + xi_3^' + xi_4^')
+++++
+
+[stem%unnumbered]
+++++
+beta^' = sin^{-1}({sin xi_0^'}/{cosh eta_0^'})
+++++
+
+[stem%unnumbered]
+++++
+Q^' = sinh^{-1}(tan beta^')
+++++
+
+[stem%unnumbered]
+++++
+(:(Q^{''},=, Q^' + [e tanh^{-1} (e tanh Q^')],),
+(,=, Q^' + [e tanh^{-1} (e tanh Q^{''})], "which should be iterated until the change in" quad Q^{''} < 10^{-8t}):)
+++++
+--
+
+. Finally
++
+--
+[stem%unnumbered]
+++++
+{:(varphi, =, tan^{-1} (sinh Q^{''})(180/pi)),
+(lambda, =, lambda_0 + sin^{-1} ({tanh(eta_0^')}/{cos beta^'})(180/pi)):}
+++++
+--
+
+[[sec_H-1.2]]
+==== Conversion from UPS North to WGS 84
+
+. For the calculation of latitude stem:[phi] and longitude stem:[lambda]
+(both in degrees of arc) from easting stem:[E] and northing stem:[N]
+(both in meters) from the Universal Polar Stereographic (UPS) North
+CRS with a geodetic CRS of WGS 84, it is given that:
++
+--
+False easting stem:[FE = 2000000 "unitsml(m)"]
+
+False northing stem:[FN = 2000000 "unitsml(m)"]
+
+Scale at natural origin stem:[k_0 = 0.994]
+
+Semi-major axis stem:[a = 6378137.000 "unitsml(m)"]
+
+Inverse flattening stem:[1/f = 298.257223563]
+
+It follows that stem:[f = 3.35281066475 xx 10^{-3}]
+
+and that stem:[e = sqrt{2f - f^2} = 8.18191908 xx 10^{-2}]
+--
+
+. We next calculate the value stem:[t^']:
++
+--
+[stem%unnumbered]
+++++
+t^' = {sqrt{[(E - FE)^2 + (N - FN)^2](1 + e)^{(1 + e)}(1 - e)^{(1 - e)}}}/{2 a k_0}
+++++
+
+[stem%unnumbered]
+++++
+= 7.91307065 xx 10^{-8} sqrt{[(E-2000000)^2+(N-2000000)^2]}
+++++
+--
+
+. We then calculate the value stem:[chi]. For UPS North:
++
+--
+[stem%unnumbered]
+++++
+chi = pi/2 - 2 tan^{-1} t^'
+++++
+--
+
+. We then find stem:[varphi]
++
+--
+[stem%unnumbered]
+++++
+phi = (180/pi) [chi + (e^2/2 + {5e^4}/24 + e^6/12 + {13e^8}/360) sin(2chi) + ({7e^4}/48 + {29e^6}/240 + {811e^8}/11520) sin(4chi) + ({7e^6}/120 + {81e^8}/1120) sin(6chi) + ({4279e^8}/161280) sin(8chi)]
+++++
+
+[stem%unnumbered]
+++++
+= (180/pi)[chi + 3.35655147 xx 10^{-3} sin(2chi) + 6.57187270 xx 10^{-6} sin(4chi) + 1.76456433 xx 10^{-8} sin(6chi) + 5.32847842 xx 10^{-11} sin(8chi)]
+++++
+--
+
+. Finally
++
+--
+if stem:[E = 200000, quad lambda = 0 "unitsml(deg)"]
+
+else, stem:[lambda = (180/pi) atan2[(E - 200000),(200000 - N)\]]
+--
+
+==== Conversion from UPS South to WGS 84
+
+. For the calculation of latitude stem:[phi] and longitude stem:[lambda]
+(both in degrees of arc) from easting stem:[E] and northing stem:[N]
+(both in meters) from the UPS South CRS with a geodetic CRS of WGS
+84, it is given that:
++
+--
+False easting stem:[FE = 2000000 "unitsml(m)"]
+
+False northing stem:[FN = 2000000 "unitsml(m)"]
+
+Scale at natural origin stem:[k_0 = 0.994]
+
+Semi-major axis stem:[a = 6378137.000 "unitsml(m)"]
+
+Inverse flattening stem:[1/f = 298.257223563]
+
+It follows that stem:[f = 3.35281066475 xx 10^{-3}]
+
+and that stem:[e = sqrt{2f - f^2} = 8.18191908 xx 10^{-2}]
+--
+
+. We next calculate the value stem:[t^']:
++
+--
+[stem%unnumbered]
+++++
+{:(t^', =, {sqrt{[(E - FE)^2 + (N - FN)^2](1 + e)^{(1 + e)}(1 - e)^{(1 - e)}}}/{2 a k_0}),
+(,=, 7.91307065 xx 10^{-8} sqrt{[(E-2000000)^2+(N-2000000)^2]}):}
+++++
+--
+
+. We then calculate the value stem:[chi]. For UPS South:
++
+--
+[stem%unnumbered]
+++++
+chi = 2 tan^{-1} t^' - pi/2
+++++
+--
+
+[start=4]
+. We then find stem:[varphi]:
++
+--
+[stem%unnumbered]
+++++
+varphi = (180/pi) [chi + (e^2/2 + {5e^4}/24 + e^6/12 + {13e^8}/360) sin(2chi)
++ ({7e^4}/48 + {29e^6}/240 +{811e^8}/11520) sin(4chi)
++ ({7e^6}/120 + {81e^8}/1120) sin(6chi)
++ ({4279e^8}/161280) sin(8chi)]
+++++
+
+[stem%unnumbered]
+++++
+= (180/pi) [chi + 3.35655147 xx 10^-3 sin(2 chi) + 6.57187270 xx 10^-6 sin(4 chi) + 1.76456433 xx 10^-8 sin(6 chi) + 5.32847842 xx 10^-11 sin(8 chi)]
+++++
+--
+
+. Finally
++
+--
+if stem:[E = 200000], stem:[lambda "unitsml(deg)"]
+
+else, stem:[lambda = (180/pi) atan2[(E - 200000),(N - 200000)\]]
+--
+
+==== References [Informative]
+
+The following references are provided for background, and to explain
+the origin of the formulas stated in this specification.
+
+. "EPSG Geodetic Parameter Dataset" v. 11.023, 5 December 2024, https://epsg.org/
+. IOGP Report 373-07-02 "Coordinate conversions and transformations
+including formulas" v. 68, August 2024, https://epsg.org/guidance-notes.html, p. 7
+. IOGP Report 373-07-02, p. 60
+. IOGP Report 373-07-02, p. 61
+. IOGP Report 373-07-02, p. 84

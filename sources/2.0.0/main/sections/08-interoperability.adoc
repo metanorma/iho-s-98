@@ -1,0 +1,27 @@
+
+[[sec_8]]
+== Interoperability
+
+Ensuring visual interoperability in the presence of simultaneously
+displayed products is an important aspect of user interfaces for navigation
+screens. IHO Publication S-98 (Data Product Interoperability in S-100
+Navigation Systems) specifies the structure of an interoperability
+catalogue to be used for ECDIS and INS. S-98 will provide, as a minimum
+for S-100 ECDIS, two levels of interoperability allowing data layers
+in different products to be interleaved or substituted within the
+display. An interoperability catalogue is currently unpublished by
+IHO and there is no current requirement for its implementation in
+ECDIS. Other mechanisms for interoperability between product specifications
+exist and are defined in this document.
+
+When published by the IHO an Interoperability Catalogue will provide
+a normative Interoperability Catalogue for S-100 ECDIS and the published
+IHO product specifications. Therefore, a detailed requirement for
+its implementation will be contained in a future edition of this document.
+
+It is intended, in a future edition of this document, to also provide
+user interface requirements for end user control of interoperability.
+
+S-98 itself also permits extensions, substitutes and customizations
+provided the minimum functions provided by the IHO Catalogue are maintained
+and interoperability is not degraded (S-98 clauses 12.1.1-12.1.3).

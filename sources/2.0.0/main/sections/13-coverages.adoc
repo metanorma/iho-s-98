@@ -1,0 +1,80 @@
+
+
+== Coverages and Time Series for Gridded Data (S-102, S-104 and S-111)
+
+Coverage and time series features are encoded in the HDF5 format
+(see S-100 Part 10c). S-100 provides for the following types of coverage
+and time series data:
+
+* Gridded data with different types of spatial grid coverages;
+* Data at a set of discrete fixed points;
+* Data at a set of moving platforms;
+* Time series data at a set of fixed points.
+
+For S-102 and S-104 datasets, ECDIS must support gridded data in DCF
+2 format only. For S-111 datasets, ECDIS must support gridded data
+in DCF 2 or DCF 3 format only
+
+Gridded data will specify either continuous or discrete interpolation
+(no interpolation between points) between grid points. Data for discrete
+fixed points, moving platform and time series at fixed points is intrinsically
+discrete.
+
+[[sec_13.1]]
+=== Thinning
+
+When gridded data is portrayed using discrete symbols at each data
+point, the effects of scaling the display must be considered. A high-resolution
+display (that is, zooming in) of regularly gridded data display produces
+a lower density of data in the visual field.
+
+Displaying at a low resolution (that is, zooming out) increases the
+density of symbols in the visual field. However, by applying a thinning
+algorithm, the number of symbols may be reduced.
+
+Thinning must therefore be applied to reduce symbol density when the
+display is scaled.
+
+Manufacturers may use the recommended algorithm contained in <<annexG>>
+or other algorithms of their own devising.
+
+[[sec_13.2]]
+=== Temporal variation
+
+The metadata variables related to time are _dateTimeOfFirstRecord_,
+_dateTimeOfLastRecord_, _timeRecordInterval_, _numberOfTimes,
+timeIntervalIndex, timePoint, startDateTime,_ and _endDateTime_
+(see S-100 Part 10c). The time selected for display (that is,
+past/present/future) will typically not correspond exactly to the
+timestamp (metadata variable _timePoint_) of the input data.
+For a correct display, the ECDIS must select the correct data.
+
+For data with only a single timed record (where the timestamp of the
+earliest value equals that of the latest value) such as real-time
+data, the data values must be displayed only if the display time is
+later than the timestamp and the absolute time difference between
+the display time and the data timestamp is less than a discrimination
+interval (for example 5 minutes). For a single record, the variable
+_timeRecordInterval_ can be used to set the discrimination interval.
+
+For data with multiple times, if the selected display time is later
+than the first timestamp and earlier than the last timestamp, or the
+selected display time is in the interval [_startDateTime, endDateTime_],
+then the closest but immediately preceding values in the data must
+be displayed. However, if the selected display time is earlier than
+the first timestamp, or outside the interval [_startDateTime_, _endDateTime_]
+then the data must not be displayed. If the selected time is later
+than the last timestamp or after _endDateTime_, then data values
+at that time must be displayed only if the absolute time difference
+between the display time and the data timestamp is less than a discrimination
+interval (for example the value of the variable _timeRecordInterval_).
+
+Some data change rapidly, so more-or-less continual revision or updating
+of such data is essential. For real-time observations, new values
+are periodically collected (for example, on the order of once every
+5 minutes). For a forecast, the entire field may be created one or
+more times per day.Other data, such as tidal atlas or harmonic constant
+data are updated much less often, typically on an annual basis.
+
+The system should check for the availability of new data at a frequency
+that matches the update frequency.

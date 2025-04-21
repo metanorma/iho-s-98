@@ -1,0 +1,84 @@
+
+== Abbreviations and Notation
+
+=== Abbreviations
+
+AIS:: Automatic Identification System
+
+ARPA:: Automatic Radar Plotting Aid
+
+CRS:: Coordinate Reference System
+
+CSS:: Cascading Style Sheets
+
+EBL:: Electronic Bearing Line
+
+ECDIS:: Electronic Chart Display and Information System
+
+ECS:: Electronic Chart System
+
+ENC:: Electronic Navigational Chart
+
+ENDS:: Electronic Navigational Data Service
+
+ENP:: Electronic Nautical Publication
+
+GML:: Geographic Markup Language
+
+HO:: Hydrographic Office
+
+INS:: Integrated Navigation System
+
+IEC:: International Electrotechnical Commission
+
+IHO:: International Hydrographic Organization
+
+IMO:: International Maritime Organization
+
+SD:: System Database
+
+SECOM:: Secure communication between ship and shore
+
+SVG:: Scalable Vector Graphics
+
+VRM:: Variable Range Marker
+
+XML:: eXtensible Markup Language
+
+XSLT:: eXtensible Stylesheet Language Transformations
+
+=== Notation
+
+The following notation is used throughout the document to describe
+various portrayal aspects.
+
+(Name of feature or information type):: Features and information types
+are referenced by their names in camel-case or space-separated names
+in initial capitals ("LandArea" or "Land Area").
+
+(Name of attribute):: Attributes are referenced by their names in
+camel-case with initial letters in lower case, or space-separated
+names in all lower case ("visuallyConspicuous" or "visually conspicuous").
+
+(Portrayal register item):: Items from the IHO portrayal registry
+are referenced by their registered name and item type
+("line style SCLBDY51"). The portrayal registry is a component of
+the IHO Geospatial Information Registry
+(https://registry.iho.int/[https://registry.iho.int]).
+
+=== Normative vs Informative within this document.
+
+This document uses the word "must" to describe how mandatory functionality
+for S-100 ECDIS must be implemented. Some parts of the S-100 framework
+are also described in overview to provide useful context for implementers.
+Where this is the case sections are marked as "Informative" to clarify.
+
+Non-mandatory requirements or recommendations to implementers are
+indicated using word "shall" or "should".
+
+The word "may" expresses a permissible practice for action. It does
+not express a requirement.
+
+Mandatory functionality is achieved by the implementation of the relevant
+parts of S-100 and S-98. In all cases the content of the published,
+operational IHO product specifications are also normative.

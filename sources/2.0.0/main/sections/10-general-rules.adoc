@@ -1,0 +1,129 @@
+
+== General Rules for Symbols and Text
+
+=== Symbol Specifications
+
+All symbols are specified in the Portrayal Catalogue for the respective
+Product Specifications and are defined according to S-100 Part 9
+appendix B.
+
+Some feature types do not have a symbol. Such "no symbol" features
+may be picked up by cursor interrogation of the area.
+
+[[sec_10.2]]
+=== Reproduction of lines, symbols and text
+
+==== Introduction
+
+In a navigation system the viewing distance will be about 70 cm for
+route planning, but experience to date indicates that the viewing
+distance for important features during route monitoring may be several
+metres.
+
+Human factors experts recommend that symbols and characters subtend
+20 arc minutes at the observer's eye. (For example, a symbol viewed
+from 70 cm for route planning should be about 4mm in size, 1.5 times
+the size of a normal chart symbol. Two times chart size is a good
+general rule.) Symbols and characters important for route monitoring
+may have to be significantly bigger.
+
+For clear representation, symbols require a minimum number of screen
+units (pixels), depending on their complexity. A simple chart symbol
+of height 4mm should extend at least 13 pixels for a screen that just
+meets the current minimum standards for chart display size and resolution.
+
+The minimum resolution is defined by IEC 61174 and/or IEC 62288.
+
+==== Minimum Requirement for size and resolution
+
+The minimum sizes for all symbols must be as defined in the Portrayal
+Catalogue.
+
+Enough "picture units" (pixels) must be used to draw small features
+and symbols clearly and allow viewers to distinguish similar symbols.
+Symbols must therefore always be drawn with at least the same number
+of pixels as are required to draw the symbol at the size defined in
+the Portrayal Catalogue for the minimum resolution and minimum chart
+display area.
+
+NOTE: (informative): This requirement means the minimum height in
+pixels of a symbol is: (symbol height in stem:["unitsml(mm)"]) divided
+by the "pixel size" for the minimum size chart display.
+
+The CHKSYM01 symbol may be used for comparison; this symbol must measure
+stem:[5 "unitsml(mm)" xx 5 "unitsml(mm)"] when displayed at its nominal
+size (that is, scaled to 100%), within the tolerance specified by
+the IEC testing standard (recommended tolerance: 1 physical pixel
+width in each of the X and Y dimensions).
+
+Since the CHKSYM01 symbol is quite small for the purpose of on-site
+system configuration by ordinary users, manufacturers may use an enlarged
+version or an equivalent method for that purpose.
+
+==== Zooming
+
+When the display scale is enlarged by zooming in, it must be possible
+to hold symbol size constant. The same applies to text. Symbol and
+text size must never be decreased when zooming out.
+
+[[sec_10.3]]
+=== Common text and information attributes
+
+Several Product Specifications use common structures for feature names
+(*featureName*) and information attributes (*information/text*)
+
+To support dataset portrayal using languages other than English, the
+ECDIS must expose to the mariner two context parameters;
+
+**National Language** (applies for S-57 ENC only)
+
+This Boolean value should be used to show the national attribute values
+present in S-57 ENC data.
+
+*Preferred Language (does not apply to S-57 ENC)*
+
+This context parameter contains an ordered list 0 or more preferred
+language values. The following procedure must be used when displaying
+the "feature name" attributes.
+
+Feature names Attribute "feature name" (featureName) is a complex
+attribute consisting of the mandatory sub-attribute "name"
+(the actual name of the feature) and sub-attributes "language" and
+"name usage". The sub-attribute "name usage" is an enumeration indicating
+which indicates if a name should be displayed when preferred language
+is not selected (1), or may be displayed when preferred language is
+selected (2).
+
+If selected, feature name values must be displayed based on the user
+defined language preference values, the first value contained in the
+context parameter list should be displayed. If no feature names correspond
+to the language preferences, then the feature name with name
+usage = 1 must be displayed.
+
+In the following example Island Group feature below when the user
+has set a language preferences as follows;
+
+. **sms**
+. **smn**
+
+Then the name Lâu'ŋŋsuõllu is displayed, because it contains a name
+with the language "sms", the highest priority in the language preference
+list. With no language preference set, the name "Turvesaaret" must
+be displayed because it has nameUsage = 1.
+
+[source%unnumbered]
+----
+IslandGroup
+    featureName
+        language: fin
+        name: Turvesaaret
+        nameUsage: 1
+    featureName
+        language: smn
+        name: Lavŋesuolluuh
+        nameUsage: 2
+    featureName
+        language: sms
+        name: Lâu'ŋŋsuõllu
+        nameUsage: 2
+----

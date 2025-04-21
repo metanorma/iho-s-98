@@ -1,0 +1,216 @@
+
+[[sec_9]]
+== Display Organisation and Operation
+
+[[sec_9.1]]
+=== Display of non-S-100 information
+
+This section describes the display of information that is not from
+official S-100-based data products, S-57, radar, or AIS.
+
+[[sec_9.1.1]]
+==== Distinguishing between official S-100 data and additional data
+
+IMO Performance Standards (MSC.530(106)/Rev.1 section 1.5) states
+that ECDIS should enable the mariner to execute all route planning,
+route monitoring, and positioning and sections 3.3-3.4 mean that the
+ENDS and System Database may contain information from nautical publications
+as well as ENCs. This specification requires that ECDIS must distinguish
+between official data and such additional data from users (mariners)
+and manufacturers. The colour and symbol usage for mariners' and manufacturers'
+data in the IHO GI Registry and the Portrayal Catalogues for S-100
+data products are designed to implement this while ensuring the display
+remains clear and uncluttered.
+
+The official status of data delivered to the ECDIS is defined by the
+value of a role. This is encoded in the ST field of the X.509 certificate
+referenced in the mandatory digital signature accompanying content
+in the exchange set catalogue. Digital signatures are mandatory for
+any data imported into the ECDIS, whether official or not. The mandatory
+fields within every authenticating certificate are defined as:
+
+* *C* (Country) = ISO Country Code of state making request
+* *ST* (State or Province) = A code reflecting the role of the signing
+entity (below)
+* *O* (Organisation) = member state organisation name (text) or other
+organisation name
+* *CN* (Common Name) = IHO data producer code integer and alpha code
+(as part of a colon separated MRN), e.g. *urn:mrn:iho:aa00:01810*
+or *urn:mrn:iho:GB00:00540*. For digitally signed datasets, the CN
+data producer integer and alpha code elements in the MRN of at least
+one of the authenticating certificates must match those contained
+in the dataset and its CATALOG.XML entry.
+
+For ECDIS, the ST code holding the role determines whether a dataset
+or supporting resource is non official or official. The following
+codes are supported by the IHO data protection scheme:
+
+* For S-100 datasets or supporting resources the following roles define
+official data.
+
+** *DATA_PRODUCER* Data Producers - producing data content for live
+navigation under SOLAS. This data is "official"
+** *DATA_AGGREGATOR* RENCs/Aggregators - validate, distribute and
+(sometimes) digitally sign data on behalf of their members. These
+organisations do not create data content but can sign data as "official"
+* S-128 datasets used for ECDIS Update Status reports. These datasets
+may also be authenticated by:
+
+** *AGGREGATOR* S-128 producers - aggregate data together for the
+purposes of running a service for end users. They create and digitally
+sign S-128 datasets which support their service offering and the production
+of update status reports
+* Catalogues
+
+** **SCHEME_ADMINISTRATOR** The Scheme Administrator, the IHO. Only
+digitally signed catalogues with a certificate authenticated by the
+scheme administrator may be loaded onto the ECDIS.
+
+ST field values using the role *OTHER_DATA_PRODUCER* (or any other
+value not included in the list above, or those not conforming to the
+CN MRN format above) represent data or catalogue content which is
+non official.
+
+[[sec_9.1.2]]
+==== Supplemental display items
+
+The following information must be shown on demand
+
+* Positional data and time;
+* Legend (See <<sec_9.1.5>>);
+* Feature description and associated attributes
+(result of "cursor query") in human readable language;
+* textual information from ENC, for example, dataset name, compilation
+date, date of issue;
+* Record of updates for all data products;
+* ECDIS Chart 1;
+* Black adjust symbol for contrast adjustment;
+* Colour differentiation diagram (available from IHO S-164);
+* List of categories which are removed from Standard Display;
+* Dataset Edition and update numbers (if applicable) of S-101 and
+other Products in use;
+* Edition numbers of Presentation Libraries in use;
+* Edition numbers of feature and portrayal catalogues in use.
+
+[[sec_9.1.3]]
+==== Navigational Warning functions
+
+Specification for the display of navigational warnings are contained
+in section <<sec_12.12>>
+
+[[sec_9.1.4]]
+==== Units
+
+The units of height and depth listed below must be permanently indicated.
+
+Equivalent values using other units may also be shown:
+
+Depth: Metres and decimetres.
+
+Height: Metres.
+
+Additionally, the units listed below must be available, on demand
+and indicated in the display legend.
+
+Position: Latitude and longitude in degrees, minutes and decimal minutes.
+
+Distance: Nautical miles and decimal miles; or metres.
+
+Speed: Knots and decimal knots.
+
+[[sec_9.1.5]]
+==== Legend
+
+A standard legend of general information relating to the area displayed,
+applicable to the position selected by the mariner, must be shown
+on a graphic or text display. See <<sec_12.11.1>> for detail.
+
+=== Priority of information [Informative footnote:[Much of the described functionality in this clause is effected by implementation of the S-100 portrayal catalogues. When the S-100 portrayal mechanism is implemented the layers defined will implement the mandatory IMO layers. The description of those layers here is, thus, informative.]]
+
+==== Priority layers
+
+The IMO Performance Standard divides System Database information into
+three categories that determine what data is to be on the display:
+Display Base (always present on the display); Standard Display
+(the default display); and all other information (displayed on demand).
+(MSC.530(106)/Rev.1, Appendix 2).
+
+There are 9 basic priority layers for the drawing sequence of the
+data on the display, ordered from higher to lower priorities in the
+list below:
+
+. ECDIS visual alerts/indications (for example caution, overscale);
+. Official-data: Points/Curves and Surfaces + official updates;
+. Notices to Mariners, manual input and Navigational Warnings;
+. Official-caution (ENC and other cautions);
+. Official-colour-fill area data;
+. Official on demand data (for example, water levels, surface currents,
+under keel clearance);
+. Radar and AIS information;
+. Mariner's data: Points/lines and areas;
+. Mariner's colour-fill area data.
+
+This list is not intended to indicate a drawing sequence, but to specify
+that the information content of category n+1 must not obscure the
+information content of category n, or any higher-priority category
+(n-1 etc.).
+
+==== Radar priority
+
+Radar priority for a given display plane is described by the _order_
+attribute within the Portrayal Catalogue.
+
+The _RadarOverlay_ Portrayal Catalogue context parameters must be
+updated whenever the radar image is toggled on or off.
+
+When present, the radar image should be written over Portrayal Catalogue
+display planes with a negative _order_ attribute; and below display
+planes with a positive _order_ attribute.
+
+In order to meet the requirements of IMO MSC.530(106)/Rev.1 section
+11.4.18 to adjust the ship's position, the ECDIS may incorporate the
+capability of temporarily changing the radar image priority during
+the adjustment.
+
+=== Displaying ECDIS updates
+
+The strategy for displaying ECDIS updates is derived from the IMO
+Performance Standard MSC.530(106)/Rev.1. The citations below are to
+sections in that Standard. The quoted requirements are mandatory and
+must be implemented by the ECDIS.
+
+.MSC.530(106)/Rev.1 4.4
+____
+ECDIS should be capable of accepting official updates to the ENDS
+provided in conformity with IHO standards. These updates must be automatically
+applied to the system database. By whatever means updates are received,
+the implementation procedure must not interfere with the display in
+use.
+____
+
+.MSC.530(106)/Rev.1 4.5
+____
+ECDIS should also be capable of accepting updates to the ENDS data
+entered manually with simple means for verification prior to the final
+acceptance of the data. They must be distinguishable on the display
+from ENDS information and its official updates and not affect display
+legibility. (The requirements for Manual Updates are given in
+clauses 12.12.1 and 20.4.4.)
+____
+
+.MSC.530(106)/Rev.1 4.7
+____
+ECDIS should allow the mariner to display updates in order to review
+their contents and to ascertain that they have been included in the
+system database. (The requirements for displaying updates for review
+are given in <<sec_12.12.4>>.).
+____
+
+=== Display functions
+
+The Portrayal Catalogue defines a number of Independent Mariner Selections
+and Context Parameters. These must all be implemented and exposed
+to the end user through the user interface. Many of these may have
+already been implemented for existing (S-57) ECDIS, for example Four
+Depth Shades, Contour Labels and viewing of Accuracy patterns. Implementation
+should therefore be harmonised to provide a harmonised user interface.

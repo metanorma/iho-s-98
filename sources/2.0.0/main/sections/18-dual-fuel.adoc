@@ -1,0 +1,62 @@
+
+[[sec_18]]
+== Dual-fuel systems
+
+Dual-fuel systems are systems that use both older (pre-S-100) and
+newer (S-100) data products that contain the same type of information
+(for example, S-57 and S-101 ENCs).
+
+All stakeholders should anticipate a transition period during which
+new S-100 formats are increasingly published to co-exist with older
+formats. An S-100 ECDIS must be able to handle both S-57 and S-101
+ENCs during the transition period.
+
+=== Display of additional information layers
+
+The display of additional information layers is generally driven by
+mariner need. The Interoperability Catalogue concept for ECDIS
+(see S-100 Part 16 and S-98) is based on the use of S-101 ENCs as
+the base layer.
+
+=== Concurrent applicability of S-52 and S-57
+
+Dual-fuel capable systems must continue to use the principles defined
+in S-57 and S-52 for the presentation of chart data that conforms
+to S-57 instead of S-101. The principles of S-101 and this specification
+must be concurrently applied where S-101 data is displayed. This includes
+the case where one part of the chart window has S-101 data as the
+chart layer and another has S-57 data as the chart layer - S-57/S-52
+applies to the portion where S-57 data is the chart layer and S-101
+and this specification apply where S-101 data is the chart layer.
+
+Seamless portrayal of S-57 and S-101 data is described in <<annexE>>.
+
+Overlays of S-100-based non-ENC data over S-57 chart data are left
+to manufacturer discretion within IMO guidance. Any overlays over
+S-57 chart data must not interact with or modify the underlying chart
+data, in particular the Enhanced Safety Contour and Water Level Adjustment
+features must only be implemented over S-101 charts.
+
+This specification is designed to allow such integrated displays.
+Note in particular:
+
+* The IMO functions continue to be used. This specification describes
+their applicability to S-100-based data and defines additional functions
+for S-100-based data. Any additional functions that apply only to
+S-100-data should be deactivated for S-57 data.
+* The principles for chart furniture and miscellaneous display elements
+(scale boundaries, limits of data, safety contour, depth zones, update
+identification, legend, etc) are the same in S-52 and this specification.
+* The names of colour tokens are the same. (Future versions of this
+specification may add additional colour tokens, but should retain
+the S-52 set.)
+* Management of viewing groups must be combined between S-57 and S-100.
+Viewing groups common to S-57 and S-100 should be managed as a single
+group across all S-100 products.
+
+Note that some elements required for complete compatibility of S-57/S-52
+and S-101 presentations cannot be controlled in this specification,
+depending as they do on the harmonisation of Portrayal Catalogues
+with S-52 symbology, colour tables, and lookup tables. Among these
+are the shapes and dimensions of symbols and the colour coordinates
+assigned to colour tokens.

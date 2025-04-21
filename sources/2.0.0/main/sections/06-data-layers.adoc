@@ -1,0 +1,68 @@
+
+== Data Layers
+
+=== Data products and information layers
+
+[[sec_6.1.1]]
+==== Basic product specifications and layers
+
+Navigation displays such as the ECDIS main screen *must* be able to
+process and display at least the following data products:
+
+* S-101 ENC data as the base layer, alongside S-57 ENC data during
+the transition period;
+* S-102 Bathymetric Surface, only for Enhanced Safety Contour and
+Water Level Adjustment (<<annexD>>);
+* S-104 Water Level information for Surface Navigation, only for Water
+Level Adjustment (<<annexD>>);
+* S-111 Surface Currents, additional requirements apply (<<sec_13.1>>
+and <<annexG>>);
+* S-124 Navigational Warnings, additional requirements also apply
+(<<sec_12.12>>);
+* S-128 Catalogue of Nautical Products, only within Update Status
+Reports (<<annexC>>) and graphical indexes (<<sec_12.4>>)
+* S-129 Under Keel Clearance Management;
+
+With the exception of the ENC layer, which must be permanently on,
+the mariner must be able to switch the graphical display of S-111,
+S-124, S-129 on and off. Graphical display of S-101 is defined in
+<<annexE>>. Additional requirements for the graphical display of S-111,
+S-124 and S-129 are contained in 12.2.
+
+==== Projected Data
+
+ECDIS must support the import of data products using unprojected geographic
+latitude and longitude values. Additionally, ECDIS must support the
+import of S-102 and S-104 data products using coordinates which are
+projected using either UTM or UPS projections. Formulas for conversion
+of such coordinates back to unprojected latitude and longitude values
+are contained in <<annexH>> of this document.
+
+==== Other data products
+
+The intention is that in future editions of this document, when operational
+product specifications are published by IHO, navigation displays such
+as the ECDIS main screen will allow the mariner to process the following
+data products
+
+* S-122 Marine Protected Areas;
+* S-123 Marine Radio Services;
+* S-125 Marine Aids to Navigation;
+* S-127 Marine Traffic Management;
+* S-131 Marine Harbour Infrastructure;
+* WMO S-411 Ice Information;
+* WMO S-412 Weather and Wave Hazards;
+
+=== Mitigation of data overload
+
+To prevent the simultaneous presentation of multiple data layers from
+cluttering the presentation and hiding critical information, the ECDIS
+shall implement good practice in user interface design, including
+the applicable IMO requirements (MSC.191(79), MSC.1/Circ1609),
+see also <<sec_8>>.
+
+Detection of and response to possible data overload should be guided
+by the role a particular system is playing at the moment
+(e.g., a display being used for planning may be able to treat potential
+overloading in a laxer manner than navigation displays being used
+for route monitoring and collision avoidance).
