@@ -1,0 +1,634 @@
+
+[[annexD]]
+[appendix]
+== Enhanced Safety Contour and Water Level Adjustment
+
+=== Enhanced Safety Contour
+
+This Appendix defines how the "**Enhanced Safety Contour**" (ESC)
+feature is defined and implemented.
+
+Enhanced Safety Contour, or ESC, means creation of the safety contour
+from the bathymetric grid data based on the value set by the user.
+
+NOTE: On an S-100 ECDIS with the Enhanced Safety Contour feature switched
+off (or an S-57 ECDIS), the user sets the value for the safety contour,
+but if the exact value is not found from the available depth information
+then the safety contour defaults to the next deepest which may be
+over 10 metres deeper than the value set by the user. The Enhanced
+Safety Contour feature addresses this issue.
+
+The contents of this Appendix are not currently integrated with the
+existing S-100 portrayal mechanisms specified in S-100 Edition 5.2.0
+Part 9. This may be rectified in future editions of S-100. Until then,
+this appendix contains the normative specification for these features
+and may use different language, terms and conventions than S-100 itself.
+
+In these processes an end user selects:
+
+. Suppression of specific S-101 features by S-102.
+. A Safety Contour value of their choice.
+
+When a user selects a safety contour value, outside areas of S-102
+coverage the source for the displayed safety contour is the existing
+S-101 ENC (or S-57 ENC in dual-fuel mode).
+
+When the safety contour has been generated from S-102 data then the
+area over which it is generated, that is the S-102 coverage area,
+must be surrounded by a boundary line using colour token DEPWL
+footnote:[colour token DEPWL, stem:[xyL] values are: DAY
+stem:[x = 0.15], stem:[y = 0.15], stem:[L = 30.0]; DUSK
+stem:[x = 0.15], stem:[y = 0.15], stem:[L = 7.5]; NIGHT
+stem:[x = 0.15], stem:[y = 0.15], stem:[L = 1.2]] see <<fig_D-1-1>>.
+
+[[fig_D-1-1]]
+.Boundary line of S-102 coverage
+image::figure-d-1-1.png[]
+
+[[sec_D-1.1]]
+==== Data Constraints
+
+. Portrayal of S-102 data and application of ESC must be restricted
+by minimum and maximum display scale values contained in the exchange
+catalogue as specified in <<sec_12.2>>.
+. Coverage - S-102 data is not expected to overlap, but in case of
+overlap the ECDIS must indicate an overlap by the text "OVERLAP" and
+the user must have the ability to select which producer in the overlapped
+area has priority and will be selected for processing safety contour.
+.. Overlaps are strictly defined as those between grid cells containing
+data, as opposed to grid cells with no-data (fill) values. Both individual
+datasets and separate datasets may overlap, most commonly at national
+borders, but also in areas where there are multiple vertical datums
+within a single dataset. In these cases
+... Overlaps within the same dataset (in areas with multiple vertical
+datums) the overlap must be resolved by taking the shoalest value
+for each grid cell within the intersection. This is also used to resolve
+situations when the Mariner Selected Viewing Scale (MSVS) means that
+multiple grid cells are to be portrayed at the same screen position
+(the common point rule) - most often when the grid is being portrayed
+at a smaller zoom scale than the dataset resolution.
+... Overlaps between different producers. The end user must be able
+to select which dataset (or data producer) they wish to use.
+. No complex interpolation is required between points in the S-102
+grid. Nearest neighbour is used to define the depth in each S-102
+point's neighbourhood (that is, the same depth everywhere within the
+grid square), regardless of any interpolationType defined for the
+S-102 dataset (S-100 Part 8, clause 8-7.1.4), as illustrated by <<fig_D-1-2;and!fig_D-1-3>>:
++
+--
+[[fig_D-1-2]]
+.The extents of the S-102 points overlaid on the S-102 grid (grid spacing = 'd')
+image::figure-d-1-2.png["",261,227]
+
+[[fig_D-1-3]]
+.Extents of each S-102 points showing nearest neighbour interpolation (S-100 Part 8-7.1.4)
+image::figure-d-1-3.png["",438,173]
+--
+
+. Only rectangular grids for S-102 are allowed. The method outlined
+may be extended to other grids; for example, triangular grids in the
+future.
+. Enhanced Safety Contour can only be processed in areas where the
+Sounding Datum of suppressed S-101 features is the same as the vertical
+datum of the S-102 Coverage.
+
+[[sec_D-1.2]]
+==== Enhanced Safety Contour Selection and Implementation
+
+The user must be able to select S-102 to be used as the source of
+the depth information and the Enhanced Safety Contour.
+
+The Enhanced Safety Contour must be enabled by default.
+
+When S-102 is selected for use, in areas where S-102 coverage exists,
+the S-102 suppresses the drawing instructions associated with the
+following S-101 depth features
+
+. Depth Area
+. Dredged Area
+. Depth Contour
+
+This also suppresses the safety contour, the shallow water pattern,
+the catzoc pattern, text indicating the dredged depth and contour
+labels.
+
+The process to construct the enhanced safety contour then consists
+of a selection of common edges from rectangular extents for each S-102
+dataset point, as shown in <<fig_D-1-4>>.
+
+[[fig_D-1-4]]
+.Common edges from rectangular extents
+image::figure-d-1-4.png["",257,230]
+
+Common edges are selected when the S-102 points on either side of
+them lie on either side of the boundary of the safety contour value.
+In <<fig_D-1-5>> below, 11.5 metres is the threshold value set by
+the user.
+
+Edges on the boundary of the dataset, or which lie on an edge common
+with undefined S-102 values, are selected if the S-102 value is less
+than or equal to the safety contour value; for example, see <<fig_D-1-5>>:
+
+[[fig_D-1-5]]
+.Edges from rectangular extents and at boundaries
+====
+image::figure-d-1-5-1.png[]
+
+image::figure-d-1-5-2.png[]
+====
+
+The source of the displayed safety contour are the selected edges
+as defined. The areas of safe and unsafe water formed by the selected
+edges are used for processing of the safety contour related alarms
+under IMO MSC 530(106) 11.4.3, which the OEM must implement.
+
+=== Water Level Adjustment (WLA)
+
+The user must be able to adjust depth information by water level height
+in areas where both S-102 and S-104 data products are available.
+
+. The system must default to no water level adjustment.
+. The mariner must be able to select one of the following methods
+of depth adjustment:
+
+.. Current (or user selected) date and time;
+.. A mariner specified date and time period;
+.. Where the route includes a schedule, the predicted date and time
+of transit in each area along a route
+
+. When Water Level Adjustment is activated as defined in this section:
+
+.. The functionality and portrayal of the safety contour, depth zone
+shades, safety depth and indication of isolated dangers must use the
+adjusted depth;
+.. The ECDIS pick report must indicate both adjusted and unadjusted
+depth;
+.. Details of the Water Level Adjustment must be readily available,
+such as the data source, temporal extent, and applicable areas;
+.. It must be possible to de-activate Water Level Adjustment via simple
+operator action;
+.. There must be a permanent indication as described in <<sec_D-2.5>>,
+<<sec_D-2.6>> and <<sec_D-2.7>>.
+
+. The ECDIS voyage recording must include:
+
+.. The state of Water Level Adjustment (method applied);
+.. The mariner specified date and time or date and time period when
+in use for WLA, or the scheduled date and time, the check area distance
+and the time resolution when in use for WLA.
+
+==== Scope
+
+This section defines how the "**ECDIS Water Level Adjustment feature**"
+is implemented. Water Level Adjustment is referred to in this section
+as WLA. This section defines how the adjustment of depth information
+by water level is provided for:
+
+* __Selected single date and time;__
+* __Selected date and time period;__
+* _Linked to an estimated route schedule with selected check distance
+and time resolution._
+
+==== Constraints on input data
+
+. Coverage - S-104 data is not expected to overlap, but in case of
+an overlap of greater than one grid cell
+footnote:[In the case of a difference in resolution the maximum overlap
+is the size of the larger of the overlapping grid cell.] the approach
+must be same as for overlapping S-102 data. The ECDIS must provide
+a permanent indication of "Overlap" and the user *must* have the ability
+to select which producer in the overlapped area has priority and will
+be selected for processing WLA.
+
+. As with S-102, each S-104 point is assigned a rectangular extent
+with nearest neighbour interpolation.
+
+. WLA must not be applied unless the S-102 and S-104 features are
+on the same vertical datum. If the S-102 and S-104 features are not
+on the same vertical datum then an indication "Incompatible vertical
+datums" must be given to the user.
+
+==== User Inputs
+
+When WLA is selected for use, in areas where WLA coverage exists,
+one of the three different options must be used:
+
+. WLA Option 1: WLA at a single date and time (current or user selected).
+. WLA Option 2: WLA for a date and time period
+(from start date and time to end date and time).
+. WLA Option 3: WLA linked to an estimated route schedule. In this
+case the user also specifies:
+
+.. A distance parameter, the limit of the check area as specified
+by IMO MSC 530(106) 11.3.5 when route planning and MSC.530(106)/Rev.1
+11.4.4 when route monitoring.
+.. A time resolution stem:[t_u] used to construct the individual WLA
+sections. This time resolution reflects the uncertainty or tolerance
+of the time schedule of the route, for example 10 minutes if the user
+assumes that they could follow the time schedule within 10 minutes.
+
+==== Implementation - general
+
+WLA can be applied only in areas where there is data from both S-102
+and S-104. For example, the intersection of the Red and Blue outline
+in <<fig_D-2-6>> below. WLA is applied to S-101 features after substitution
+of depths by S-102 as defined in <<sec_D-1.2>> and <<sec_D-3.1>>.
+
+[[fig_D-2-6]]
+.WLA can only be computed in areas where there is S-104 and S-102 data
+image::figure-d-2-6.png["",308,200]
+
+Further, WLA can only be carried out:
+
+. When WLA option 1 or WLA option 2 is selected, where the temporal
+extent of the S-104 fully covers the required date and time instant
+or period selected by the user
+. When WLA option 3 is selected, where the S-104 temporal extent of
+the S-104 fully covers the estimated date and time of a part of the
+route; see <<fig_D-2-16>>.
+
+Where these conditions are not met the WLA processing must not be
+carried out.
+
+When WLA has been processed the area for which it is defined must
+be surrounded by a boundary line using colour token DEPWL
+footnote:[Thick dark blue dash line, colour token DEPWL xyL values
+are: DAY stem:[x= 0.15], stem:[y = not 0.15], stem:[L = 30.0]; DUSK
+stem:[x = 0.15], stem:[y = 0.15], stem:[L = 7.5]; NIGHT
+stem:[x = 0.15], stem:[y = 0.15], stem:[L = 1.2.]]; see <<fig_D-2-7>>.
+
+[[fig_D-2-7]]
+.Boundary line of WLA coverage
+image::figure-d-2-7.png["",444,246]
+
+NOTE: In this example S-102 coverage is larger than WLA coverage.
+
+In addition to the display of the boundary line of the WLA coverage
+there should be a permanent indication about the application of WLA
+and the applied date and time, see details in WLA
+Options 1, 2 and 3.
+
+OEMs are free to design their user interface. Usable ideas include,
+for example, a mouse roller to change datetime, use of a slider to
+change datetime, or even to provide an animation from user selected
+start date and time to user selected end date and time.
+
+[[sec_D-2.5]]
+==== Implementation of WLA Option 1 - WLA for a single datetime instant
+
+WLA is based on S-104 values closest to the selected datetime instant.
+Each S-102 point has an extent of coverage which is closest to it.
+Each S-104 point, similarly has an extent. The adjustment of the S-102
+values is calculated by adjusting each S-102 point by the shoalest
+of the S-104 values, for all S-104 points whose extent intersects
+the extent of the S-102 point.
+
+When an S-104 record does not exist for the precise time specified
+the shoalest of the two S-104 adjacent values is selected from the
+S-104 dataset. S-104 values can only be selected within the temporal
+extent of the S-104 dataset. In the example shown in <<fig_D-2-8>>
+(where S-104 values, "V" defined every 15 minutes and a user selected
+datetime of 07:24) the two values selected are 07:00 and 07:30, WLA
+would select 1.3m (the 07:00 value).
+
+[[fig_D-2-8]]
+.Selection of time-varying value
+image::figure-d-2-8.png["",386,96]
+
+In <<fig_D-2-9>> below, the S-102 point X is adjusted by the shoalest
+(that is, minimum) value of the S-104 values from (a), (b), (c) and
+(d) at the required datetime instant because the S-102 point extent
+overlaps the S-104 extents of a, b, c and d.
+
+[[fig_D-2-9]]
+.Adjustment of S-102 values by S-104
+image::figure-d-2-9.png["",345,240]
+
+Format of the permanent indication is as below:
+
+*WLA 12:34 08 Nov 2021*
+
+[[sec_D-2.6]]
+==== Implementation of WLA Option 2 - WLA for a datetime range specified by the user as a time period
+
+When WLA is based on a datetime range, then the process is identical
+to that followed for WLA Option 1 except each S-104 value selected
+is the shoalest of all values available in the S-104 within the selected
+time period.
+
+All S-104 points contributing to the WLA must be defined across the
+time range required, otherwise the WLA is not computable and the user
+must be informed. The S-104 records selected are those which lie either
+within the user defined time period; or before the start point of
+the time period and just after the end point of the time period.
+
+In the following examples:
+
+[[fig_D-2-10]]
+.Examples of S-104 data selection
+image::figure-d-2-10.png["",356,316]
+
+. User selected period 1, four values are from 0700, 0730, 0800 and
+0830 - WLA would select 08:30 value = 1.2m (even though the time period
+doesn't overlap).
+. User selected period 2, two values are from 0630 and 0700 - WLA
+would select 06:30 value V=1.2m (even though the time period doesn't
+overlap).
+. User selected period 3, three values are from 0600, 0630 and 0700
+- WLA would select 06:00 V=1.1m (even though the time period doesn't
+overlap).
+. User selected period 4, five values are from 0630, 0700, 0730, 0800
+and 0830 - WLA would select 07:30 V=1.2m.
+
+When adjusting depth values the shoalest (smallest) value from the
+selected S-104 records must be used in order to produce the safest
+WLA values.
+
+Format of the permanent indication is as below:
+
+*WLA from 12:34 08 Nov 2021 to 14:56 08 Nov 2021*
+
+[[sec_D-2.7]]
+==== Implementation of WLA Option 3 - linking of WLA to a defined route with planned waypoints and times
+
+When WLA is based on a route then the limit of check area around the
+route is set by the user as specified by IMO MSC 530(106) 11.3.7.
+
+The same user-specified distance must be used for the check of safety
+contour, prohibited areas, geographic areas for which special conditions
+exist and navigational hazards and equivalent requirements when route
+monitoring
+
+The WLA is processed within this check area. The boundary of the area
+of the display where WLA has been carried out must be displayed
+(as shown in <<fig_D-2-16>>). In the process description this distance
+is referred to as 'a'.
+
+A route could be either a Planned route or a Monitored route.
+Both could be processed for the WLA, but not at the same time in a
+single display area. In case of multiple display areas, it is possible
+that one area is WLA processed for Planned route and another area
+is WLA processed for the Monitored route.
+
+For a Planned route the datetime period applied for the WLA process
+is based on the schedule of the planned route itself.
+
+For a Monitored route the datetime period applied for the WLA process
+is user selectable either:
+
+. Based on the planned schedule of the monitored route itself; or
+. Based on the monitored route adjusted for the current own ship position.
+
+When WLA is based on the planned schedule and own ship is not keeping
+to schedule a Caution must be raised to indicate the water level being
+experienced may be different to that being applied by the ECDIS
+
+The region of WLA is restricted to a distinguishable bordered polygon
+around the route. The process works as follows:
+
+. For each section of the route a series of estimated time markers
+is defined along the route at times stem:[t_0 - t_n].
+The diagram also shows the "limit of check area" as specified by IMO
+MSC 530(106) 11.3.5. Each time marker is delimited before and after
+by the time +/- half the user selected stem:[t_u] interval so the
+rectangle in the diagram represents the extent of time stem:[t_1]
+which ranges from time stem:[t_1 - t_u/2] to stem:[t_1 + t_u/2].
+This is the WLA adjustment polygon (shown in red) corresponding to
+time stem:[t_1]:
++
+--
+[[fig_D-2-11]]
+.WLA adjustment polygon
+image::figure-d-2-11.png["",309,210]
+--
+
+. Where the route follows a curved section the polygon formed is not
+a rectangle but an area defined by the user selected limit as shown
+by areas a and b:
++
+--
+[[fig_D-2-12]]
+.WLA adjustment polygon along curved section
+image::figure-d-2-12.png["",483,203]
+--
+
+. The individual S-102 points (blue dots in <<fig_D-2-13>> below)
+are assigned rectangular extents. For each WLA adjustment rectangle
+corresponding to each stem:[t_i] the S-102 extents which spatially
+intersect are selected. A full example is shown in <<fig_D-2-13>>
+for one of the WLA polygons (shown in red).
++
+--
+[[fig_D-2-13]]
+.Grid cell selection
+image::figure-d-2-13.png["",455,317]
+--
+
+. For each S-102 point whose extent intersects the WLA adjustment
+polygon the Water level is adjusted using a similar process to
+Option 1. The S-104 value used for adjustment is the shoalest value
+from each of the S-104 points whose extents intersect the S-102 point
+(as described in WLA Option 1) across the time period
+(stem:[t_i - t_u/2]) and (stem:[t_i + t_u/2]), In <<fig_D-2-14>>,
+illustrating this step, two S-102 points are adjusted by S-104 values
+in the time period (stem:[t_1 - t_u/2]) and (stem:[t_1 + t_u/2]),
+for calculation of stem:[t_1]. S-102 point stem:[x] is adjusted using
+values drawn from S-104 points *_a_* and *_b_* (because its extent
+intersects the extents of points *_a_* and *_b_*) and S-102 point
+stem:[y] is only adjusted with values from S-104 point *_b_*.
++
+--
+[[fig_D-2-14]]
+.Selection of S-104 data
+image::figure-d-2-14.png["",385,261]
+--
+
+. Each of the S-102 points are assigned the adjusted water level equal
+to the S-102 value + the calculated (shoalest) S-104 value as defined
+in the previous step.
+. Once the WLA polygon for time stem:[t_i] is processed the WLA polygon
+for time stem:[t_{i+1}] is processed.
+. S-102 points whose extents are intersected by the both the WLA polygon
+for stem:[t_i] and stem:[t_{i+1}] are assigned the shoaler of the
+two values, that is the shoalest of the S-104 values between the two
+time periods (stem:[t_i - t_u/2]) and (stem:[t_i + t_u/2]) and
+(stem:[t_{i+1} - t_u/2]) and (stem:[t_{i+1} + t_u/2]).
+
+This completes the WLA process for (red) polygon stem:[t_i]. In <<fig_D-2-15>>
+below the orange border shows S-102 points lying in WLA polygons stem:[t_1]
+and stem:[t_2] and which would be assigned the shoaler of the two
+S-104 values corresponding to the stem:[t_1] and stem:[t_2] WLA process.
+
+[[fig_D-2-15]]
+.15: Time-dependent adjustment of S-102 data with S-104 data
+image::figure-d-2-15.png["",450,285]
+
+This process is extended to all stem:[t_i] along the planned route.
+
+<<fig_D-2-16>> shows a boundary line around all the WLA processed
+S-102 grid cells. This marks the boundary of the Water Level Adjustment
+area and requires portrayal to inform the user which areas of the
+display are subject to WLA. This area is surrounded by a distinguishable
+boundary line using colour token DEPWL footnote:[__thick dark blue
+dash dot line__, colour token DEPWL, xyL values are: DAY
+stem:[x = 0.15], stem:[y = not 0.15], stem:[L = 30.0]; DUSK
+stem:[x = 0.15], stem:[y = 0.15], stem:[L = 7.5]; NIGHT
+stem:[x = 0.15], stem:[y = 0.15], stem:[L = 1.2]]).
+
+[[fig_D-2-16]]
+.Boundary of adjusted area
+image::figure-d-2-16.png["",601,323]
+
+<<fig_D-2-17>> below shows how the rectangle is positioned in the
+middle of S-104 coverage area and at the edge of the S-104 coverage
+are.
+
+[[fig_D-2-17]]
+.Positioning in interior and at edge
+image::figure-d-2-17.jpeg["",602,211]
+
+Format of the permanent indication is as below:
+
+*WLA from 12:34 08 Nov 2021 to 14:56 08 Nov 2021*
+
+[[sec_D-3]]
+=== Treatment of depth and water level related S-101 features
+
+[[sec_D-3.1]]
+==== Substitution and adjustment of depth values
+
+In areas covered by only S-102, all depth values must be substituted
+for all ENC features at all scales which have depth attribution
+(that is, the attribute _valueOfSounding_ bound to them in the S-101
+Feature Catalogue)
+
+In areas where WLA is processed, all depth values must be adjusted
+for all ENC features at all scales which have depth attribution
+(that is, the attribute _valueOfSounding_ bound to them in the S-101
+Feature Catalogue).
+
+==== Areas covered by S-102 only or by both S-102 and S-104
+
+Adjustment of different geographic primitives.
+
+. Point Features
+** For Areas covered by S-102 only, a value for the attribute _valueOfSounding_
+must be taken from the S-102 grid cell extents which intersect the
+point feature (as shown in <<fig_D-3-18>>).
+** For Areas covered by S-102 and S-104, the value for attribute
+_valueOfSounding_ must be taken from the S-102 grid cell extents which
+intersect the point feature. WLA is then applied to this value using
+S-104 records selected from the S-104 grid cell intersecting the point
+feature. The S-104 value selected is as defined in <<sec_D-2.5;and!sec_D-2.6;and!sec_D-2.7>>.
+
+. For Curve and Surface features
+** For Areas covered by S-102 only, the value for _valueOfSounding_
+must be the shoalest value of all S-102 grid cells whose extents intersect
+the feature's geometry within the S-102 coverage available. If the
+curve or surface feature is not completely within the S-102 then the
+value defined is the shoalest resulting from the original feature
+value in S-101 attribute and the value selected from the intersecting
+S-102 grid cells.
+** For Areas covered by S-102 and S-104, the value for _valueOfSounding_
+is first selected, as the shoalest value of all S-102 grid cells whose
+extents intersect the feature's geometry. WLA adjustment must then
+applied to this value by selecting the shoalest value from all intersecting
+S-104 grid cells. The value selected is as defined in <<sec_D-2.5;and!sec_D-2.6;and!sec_D-2.7>> and shown in <<fig_D-3-19>>. If the curve or surface feature is not completely within the S-104 coverage then the adjusted value is the shoalest value resulting from the original feature value in S-101 attribute and the WLA adjusted value.
+
+[[fig_D-3-18]]
+.Substitution of sounding value from S-102
+image::figure-d-2-18.png["",450,289]
+
+[[fig_D-3-19]]
+.Substitution of _valueOfSounding_ attribute in S-101 Obstruction from S-102 data
+image::figure-d-2-19.png["",442,237]
+
+The S-101 features for which this depth substitution must be implemeneted
+within S-102 coverage areas are all those which bind _valueOfSounding_
+in the S-101 feature catalogue along with multipoint geometries, unless
+those specifically excluded in this section.
+
+Soundings are included (either individual soundings or those which
+are part of an array) substituting the S-102 grid cell whose extents
+intersect the sounding position for the defined ZCOO (ISO8211),
+see <<fig_D-3-18>>.
+
+If the depth substituted S-101 feature is covered by S-104, then WLA
+must be processed using the same method as for the underlying depth
+area.
+
+Depth values must also be substituted in all ENC features at all scales
+which have the attribute _depthRangeMinimumValue_ bound to them in
+the S-101 Feature Catalogue.
+
+For all features with substituted (and possibly adjusted values),
+the ECDIS Pick Report must indicate the substituted/adjusted value
+and its source. The format and portrayal of depths and drying heights
+(that is, number of decimals, etc) is unchanged.
+
+For example, for S-102 only covered area:
+
+*Value Of Sounding 12.3 m [S-102]*
+
+When an S-101 attribute has been WLA adjusted the pick report must
+indicate the WLA adjusted value, source and time/date. The format
+of time date is: hh:mm dd mmm yyyy.
+
+For example, for both S-102 and S-104 covered area:
+
+*Value Of Sounding 15.5m [WLA 12:34 08 Nov 2021]*
+
+*Value Of Sounding 15.5m [WLA from 12:34 08 Nov 2021 to 14:56 08 Nov 2021]*
+
+==== Adjustment of heights and vertical clearance values
+
+Any vertical measurement which is referenced to the same vertical
+datum as the S-104 data must be adjusted using the intersecting S-104
+grid cell water level value. This must be applied on any features
+within the coverage of S-104. Where a feature is not completely within
+the S-104 coverage the adjusted value is the minimum value resulting
+from the original feature value in the S-101 attribute and the WLA
+adjusted value.
+
+Adjustment is defined for all features which bind _verticalDatum_
+in the S-101 feature catalogue unless specifically excluded in this
+section.
+
+The simple attributes adjusted are _height_ and _verticalClearanceValue_.
+When adjusting height or clearance values the largest value from the
+selected S-104 records must be used in order to produce the safest
+values.
+
+The user must be given a permanent indication that the Water Level
+(S-104) values have adjusted attributes in the data display. Where
+values are not adjusted due to an incompatibility of vertical datums
+in the data, the user must be given a similar permanent notification.
+
+When either _height_ or _verticalClearanceValue_ in S-101 have been
+substituted or adjusted the ECDIS Pick Report must indicate the substituted
+value, source and time/date. The format of the height or vertical
+clearance values (that is, number of decimals, etc) is unchanged.
+
+For example:
+
+*Vertical Clearance Value 5.3 m Mean Sea Level [WLA 12:34 08 Nov 2021]*
+
+*Value Of Vertical Clearance 15.5m Mean Sea Level [WLA from 12:34 08 Nov 2021 to 14:56 08 Nov 2021]*
+
+==== Alerts and indication details
+
+Substituted or adjusted values in ENCs at the largest scale must be
+used as input to any alert/indication processing. The substituted
+values are portrayed as shown in <<fig_D-3-20>> which shows the graphical
+highlight (red boundary and red transparent fill) for the intersected
+safety contour.
+
+[[fig_D-3-20]]
+.20 - Graphical highlight for intersected safety contour
+image::figure-d-3-20.png["",363,230]
+
+==== Legend details
+
+The legend must additionally indicate the vertical datum of S-102
+and S-104 If the vertical datums are the same then a single indication
+is enough to cover S-101, S-102 and S-104.

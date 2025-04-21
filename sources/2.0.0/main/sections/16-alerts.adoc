@@ -1,0 +1,16 @@
+
+== Alerts and Indications
+
+IMO Resolution MSC.530(106)/Rev.1 states in 11.3 and 11.4 and their
+sub-paragraphs how an ECDIS should respond to risk of crossing, dangers,
+prohibited areas or areas with special conditions, during route planning
+(11.3) or route monitoring (11.4). Appendix 4 and Appendix 5 of the
+same resolution provide details about the areas for which an ECDIS
+should detect incursions and provide an alert or indication.
+
+=== Multiple spatial objects.
+
+If multiple spatial objects are identified then the union of those
+spatial objects must be highlighted. If the same spatial object identifies
+an alert and an indication then the drawing order must be the alert
+highlight followed by the drawing highlight.

@@ -1,0 +1,273 @@
+
+[[annexB]]
+[appendix]
+== S-100 Data Import Error Codes and Explanations
+
+=== Introduction.
+
+Loading, Updating, Authentication and Decryption error codes and messages
+are defined in this section. It is expected that application developers
+may also support the error conditions with an appropriate error message.
+
+When an error occurs, this can in some instances, prevent further
+processing of data.
+
+Standardised error codes must be used to communicate problems with
+import of datasets, data support files and catalogues into the ECDIS.
+These are defined in the following table.
+
+[[table_B-1]]
+.Error codes and messages
+[cols="65,502"]
+|===
+h| Error Code h| Error Message
+
+| *SSE 101* | _Self Signed Key is invalid_
+| *SSE 102* | _Format of Self Signed Key file is incorrect_
+| *SSE 103* | _Signed Data Server Certificate is invalid_
+| *SSE 104* | _Format of SA Signed DS Certificate is incorrect_
+| *SSE 105* | SA Digital Certificate (X509) file is not available. A valid certificate can be obtained from the IHO website or your data supplier
+| *SSE 106* | The SA Signed Data Server Certificate is invalid. The SA may have issued a new public key or the dataset may originate from another service. A new SA public key can be obtained from the IHO website or from your data supplier
+| *SSE 107* | _SA signed Data Server Certificate file is missing. A valid certificate can be obtained from your data supplier"_
+| *SSE 108* | SA Digital Certificate (X509) file incorrect format. A valid certificate can be obtained from the IHO website or your data supplier
+| *SSE 109* | Dataset Resource Digital Signature is invalid
+| *SSE 110* | Dataset Permits not available for this Data Server. Contact your data supplier to obtain the correct permits.
+| *SSE 111* | Dataset Permit not found. Load the permit file provided by the data supplier.
+| *SSE 113* | Dataset Permit is invalid (checksum is incorrect) or the Dataset Permit is for a different system" Contact your data supplier and obtain a new or valid permit file.
+| *SSE 114* | Incorrect system date, check that the computer clock (if accessible) is set correctly or contact your system supplier.
+| *SSE 115* | Subscription service has expired. Please contact your data supplier to renew the subscription licence
+| *SSE 117* | User Permit is invalid (checksum is incorrect). Check that the correct hardware device (dongle) is connected or contact your system supplier to obtain a valid User Permit.
+| *SSE 118* | HW_ID has incorrect format
+| *SSE 120* | Subscription service will expire in less than 30 days. Please contact your data supplier to renew the subscription licence
+| *SSE 121* | Decryption failed no valid dataset permit found. Permits may be for another system or new permits may be required, please contact your supplier to obtain a new licence
+| *SSE 122* | One or more of the SA Digital Certificate or Domain Controller certificates (X509) have expired. A new SA public key can be obtained from the IHO website or from your data supplier
+| *SSE 123* | Non sequential update, previous update(s) missing try reloading from the base media. If the problem persists contact your data supplier
+| *SSE 125* | The permit for dataset < name> has expired. This dataset may be out of date and MUST NOT be used for Primary NAVIGATION
+| *SSE 126* | This Dataset is not authenticated by the IHO acting as the Scheme Administrator
+| *SSE 127* | Dataset <dataset name> is not up to date. A New Edition, Re-issue or Update for this cell is missing and therefore MUST NOT be used for Primary NAVIGATION
+| *SSE128*  | Error processing <file name>. The format or content could not be parsed and it could not be installed
+| *SSE129*  | This Catalogue is not authenticated by the IHO acting as the Scheme Administrator
+| *SSE130*  | Warning: Dataset <dataset name> is not up to date. A New Edition or Update for this cell is missing
+| *SSE131*  | Error: No Feature Catalogue or Portrayal Catalogue could be found compatible with dataset <dataset name>
+| *SSE132*  | Signature Path can not be validated. One or more of the Domain Controller or SA digital certificates is missing or invalid
+| *SSE133*  | Version mismatch between <dataset> and <catalogue>. Only <catalogue version> is supported for data of this type (<product>)
+| *SSE134*  | This Exchange Set is not authenticated by the IHO acting as the Scheme Administrator
+| *SSE135*  | This Permit file is not authenticated by the IHO acting as the Scheme Administrator
+
+|===
+
+=== Error code descriptions.
+
+*SSE 101* must be returned when a self signed key (SSK) cannot be
+validated against the public stored as part of the SSK. The data server
+must check that its own SSK is valid before sending it to the SA.
+The SA will confirm the data server SSK before returning the SA signed
+data server certificate.
+
+*SSE 102* is returned if the SSK is wrongly formatted or if mandatory
+elements are missing. SA and data servers must complete this check.
+
+*SSE 103* is returned if the Signed data server certificate does not
+authenticate correctly against the SA public key or any Domain Controller
+Intermediaries. This validation process must be carried out by the
+SA or Domain Controller before supplying it to the data server. The
+data server must also validate a received certificate. The data client
+must validate the digital signature against any file prior to its
+use.
+
+*SSE 104* must be returned if the SA signed data server certificate
+is wrongly formatted. This must be carried out by the data server
+on receipt from the SA.
+
+*SSE 105* must be returned if there is no SA certificate installed
+on the data client.
+
+*SSE 106* must be returned if the SA digital certificate (public key)
+does not validate against the following:
+
+* SA digital certificate will not validate against the SA public key.
+* One or more of the Domain Controller certificates do not validate
+against the SA certificate.
+
+*SSE 107* must be returned if the SA signed data server certificate
+is not available to the data server for checking or is not present
+in the Exchange Set Catalogue file when the data client attempts to
+authenticate it.
+
+*SSE 108* must be returned if the SA public key held in the SA digital
+certificate is wrongly formatted or the certificate file is unreadable.
+
+*SSE 109* must be returned if any resources (dataset or supplementary
+file) in the Exchange Set Catalogue do not authenticate against the
+SA authenticated data server public key or Domain Controller authenticated
+public key contained in the Exchange Set Catalogue metadata.
+
+*SSE 110* must be returned if there are no dataset permits available
+for a particular data server corresponding to encrypted data within
+the Exchange Set being loaded.
+
+*SSE 111* must be returned if there are no permits installed on the
+system for a requested dataset.
+
+*SSE 113* must be returned if the calculated CRC of an individual
+dataset permit does not validate against the CRC held in that cell
+permit. [Data Clients] This may be a HW_ID problem, corruption during
+transmission or the permits are for a different system.
+
+*SSE 114* must be returned if the system date does not agree with
+the date obtained from any alternative, reliable date source; for
+example, GPS. [Data Clients]
+
+*SSE 115* must be returned if the expiry date of the dataset permit
+has an earlier date than that obtained from the validated system date.
+[Data Clients]
+
+*SSE 117* must be returned if the CRC contained in the User Permit
+does not validate against the calculated CRC of the extracted HW_ID.
+[Data Servers]
+
+*SSE 118* must be returned if the if the decrypted HW_ID extracted
+from the User Permit is incorrectly formatted. [Data servers]
+
+*SSE 120* must be returned if the subscription licence is due to expire
+within 30 days or less.
+
+*SSE 121* must be returned if a valid dataset key (decryption key)
+cannot be obtained from the relevant dataset permit to enable the
+system to decrypt the corresponding dataset.
+
+*SSE 122* must be returned if the SA Digital Certificate or any of
+the intermediate Domain Controller Certificates have expired. "Expired"
+is when the X.509 *_"Valid to"_* date in the certificate is older
+than the validated system date.
+
+*SSE 123* must be returned if a dataset update being imported is not
+sequential with the latest update already contained in the ENDS/System
+Database for any given dataset. Under these conditions the update
+process (for the dataset) must be terminated and the ECDIS is to display
+a warning when the dataset is displayed stating that it is not up
+to date and should not be used for navigation.
+
+*SSE 125* must be returned if the stored permit for any given dataset
+has expired. It should be possible to view the dataset but a permanent
+warning message must be displayed informing the user; for example,
+_"The permit for dataset <name> has expired. This dataset may be out
+of date and</name> MUST NOT be used for Primary NAVIGATION"._
+
+*SSE 126* must be returned if a signed resource (dataset, catalogue
+or permit) in an Exchange Set is authenticated against a certificate
+or public key file stored on the Data Client other than the one provided
+by the SA. In a chain of digital signatures the root certificate must
+be the SA certificate.
+
+*SSE 128* must be returned if one or more dataset resources
+(datasets, catalogues or permits) could not be loaded because the
+contents could not be validated according to the versions of the (XML)
+Schemas installed on the system. Only conformant content may be loaded
+onto any S-100 system.
+
+*SSE 129* must be returned if the Catalogue to be installed
+(Feature or Portrayal) has not been directly authenticated by the
+Scheme Adminstrator (as identified according to <<sec_9.1>>).
+
+*SSE 131* must be returned if a dataset has no Feature Catalogue or
+Portrayal Catalogue installed.
+
+*SSE 132* must be returned if any digitalSignatureValue for a resource
+(whether dataset, supplementary file or permit) is missing or fails
+validation.
+
+*SSE 133* must be returned if the dataset being installed is of a
+version which is not compatible with a Feature Catalogue or Portrayal
+Catalogue installed on the system.
+
+*SSE 134* must be returned if the CATALOG.XML digital signature (CATALOG.SIGN)
+cannot be authenticated against the Scheme Administrator's certificate,
+either through the data server's signed public key or any specified
+intermediate Domain Controllers. The contents of the Catalogue must
+not be installed if the signature is invalid.
+
+*SSE 135* must be returned if the PERMIT.XML digital signature (PERMIT.SIGN)
+cannot be authenticated against the Scheme Adminstrator's certificate,
+either through the data server's signed public key or any intermediate
+Domain Controllers.
+
+The flow diagrams in this Appendix show the conditions under which
+the SSE codes are displayed. These diagrams only relate to processes
+carried out on the ECDIS for import of exchange set contents.
+Data Server and Scheme Administrator processes are not defined here.
+
+=== Exchange Set Installation on ECDIS
+
+This section describes the sequence of actions to import Exchange
+Set contents. This content is always digitally signed and may optionally
+be encrypted.
+
+Before exchange sets are imported to ECDIS the CATALOG.XML must initially
+be authenticated against the digital signature contained in the CATALOG.SIGN
+file. This is described in the following flow diagram.
+
+[[fig_5]]
+.Verification of CATALOG.SIGN
+image::figure-05.png["",514,304]
+
+If encrypted data is to be imported into the ECDIS, before any permits
+are imported to ECDIS the PERMIT.XML must initially be authenticated
+against the digital signature contained in the PERMIT.SIGN file.
+
+[[fig_6]]
+.Verification of PERMIT.SIGN
+image::figure-06.png["",436,258]
+
+Once the CATALOG.XML is authenticated and, where encrypted data is
+to be imported, the PERMIT.XML is first authenticated, then the contents
+of the exchange set may be imported.
+
+Encrypted data is imported into the System Database. For encrypted
+data the following process is used to establish the validity of the
+PERMIT.XML contents (after the PERMIT.XML is successfully authenticated
+against the digital signature in the PERMIT.SIGN) and its contents
+in respect of the end user's subscription details. This is only for
+use with datasets which are encrypted and should be carried out prior
+to dataset file decryption according to S-100 Part 15.
+
+[[fig_7]]
+.Check for permit validity prior to dataset decryption
+image::figure-07.png["",604,272]
+
+Once encryption and compression has been processed the digital signatures
+for all Exchange Set contents to be imported can be processed. These
+signatures can form a chain of authentication and the following flow
+diagram illustrates how signatures must be processed.
+
+[[fig_8]]
+.Authentication of Exchange Set dataset components
+image::figure-08.png["",628,482]
+
+Under S-100 Part 15 datasets and other Exchange Set components may
+have multiple digital signatures, with each signature referenced to
+a signed public key certificate. Each Exchange Set contains all relevant
+certificates with the exception of the SA digital certificate which
+is installed separately by the end user.
+
+Using the flow shown in <<fig_8>> the chain of certificates for dataset
+components, permits and the CATALOG.XML itself can be authenticated.
+
+If more than one signature exists for a dataset or dataset support
+file then all signatures must be verified before successful import.
+
+Full documentation of authentication processes and technical details
+are contained in S-100 Part 15.
+
+Certain Exchange Set contents control the behaviour of the ECDIS and
+may only be digitally signed by the Scheme Administrator. These categories
+of content comprise the Feature Catalogues and Portrayal Catalogues
+should be authenticated using the following process.
+
+IHO standards determine the content and revision of such Catalogues.
+The following flow diagram describes the authentication of catalogues
+prior to their import into the ECDIS.
+
+[[fig_b-9]]
+.Authentication of Feature and Portrayal Catalogues
+image::figure-b-09.png["",477,337]

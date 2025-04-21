@@ -1,0 +1,44 @@
+== References
+
+[bibliography]
+=== Normative references
+
+* [[[ref1,A.1021(26)]]]
+span:title[_Code on Alerts and Indicators (2009)_], span:date[2009], span:publisher[IMO Resolution A.1021(26)]
+
+* [[[IEC_60945,IEC 60945]]]
+
+* [[IEC_61174,IEC 61174]]
+
+* [[[IEC_62288,IEC 62288]]]
+
+* [[[IEC_63173_2,IEC 63173-2]]]
+
+* [[[ref5,5]]] MSC.191(79) _Amendments to the Performance Standards for the Presentation of Navigation-Related Information on Shipborne Navigational Displays_, IMO Resolution MSC.191(79), 2004. As amended by MSC 466(101).
+
+* [[[ref6,6]]] MSC.252(83) _Performance Standards for Integrated Navigation Systems (INS)_, IMO Resolution 252(83), 2007.
+
+* [[[ref7,7]]] MSC.302(87) _Adoption of Performance Standards for Bridge Alert Management_, IMO Resolution 302(87), 2010.
+
+* [[[ref8,8]]] MSC.466(101) _Amendments to the Performance Standards for the Presentation of Navigation-Related Information on Shipborne Navigational Displays_, Resolution MSC.191(79), 2019.
+
+* [[[ref9,9]]] MSC.530(106)/Rev. 1 Performance Standards for Electronic Chart Display and Information Systems (ECDIS), Resolution MSC.530(106)/Rev.1, 2024.
+
+* [[[ref10,10]]] MSC.1/Circ.1609 _Guidelines for the Standardization of User Interface Design for Navigation Equipment_, IMO MSC.1/Circ 1609, 2019.
+
+* [[[IHO_S_97,IHO S-97]]]
+
+* [[[IHO_S_100,IHO S-100]]]
+
+* [[[ref13,13]]] SN.1/Circ.243/Rev. 2 _Guidelines for the Presentation of Navigational-Related Symbols, Terms and Abbreviations_, IMO SN.1/Circ.243/Rev.2, 2019.
+
+All references refer to the latest revision or amendment.
+
+[bibliography]
+=== Informative references
+
+* [[[ISO_19117,ISO 19117]]]
+
+* [[[IHO_S_4,IHO S-4]]]
+
+* [[[IHO_S_52,IHO S-52]]]

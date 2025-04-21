@@ -1,0 +1,24 @@
+
+== Colours
+
+=== Colour palettes implemented by the portrayal catalogue
+
+There are three colour palettes, all of which should be made available
+to the Mariner. They are specified as part of the colour profile file(s)
+in the Portrayal Catalogues. They are as follows:
+
+DAY:: The "Day" palette uses a white background as a result of a comparative
+test outdoors in bright sunlight which showed that a display background
+of maximum luminance gives the best contrast achievable under near-washout
+conditions. This conclusion has been confirmed by subsequent sea experience.
+
+DUSK:: The "Dusk" colour palette is based on using a black background;
+this palette may also be used by day as a Mariner's option.
+
+NIGHT:: The "Night" colour palette is intended for nighttime use.
+At night the light emitted by the display must be strictly limited
+to avoid impairing night vision. In case the luminance needs to be
+further reduced, the "Night" colour palette may be augmented by a
+luminance-reducing neutral density filter which should have 8 times
+attenuation, designated (logarithmically) "0.9 ND".
+(This is a manufacturer's option.)

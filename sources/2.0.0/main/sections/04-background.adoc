@@ -1,0 +1,225 @@
+
+== Background - System Concepts and Limitations
+
+=== The concepts of ENC, ENDS and System Database
+
+The Electronic Navigational Data Service and System Database concepts
+include multiple products for use in navigation systems. They were
+introduced in IMO MSC 530(106) and update the previous concept of
+SENC defined in IMO MSC.232(82).
+
+IMO MSC.530(106)/Rev.1 defines Electronic Navigational Chart (ENC),
+Electronic Navigational Data Service (ENDS), and System Database as
+follows:
+
+____
+3.2 Electronic Navigational Chart (ENC) means the database, standardized
+as to content, structure and format, issued for use with ECDIS by
+or on the authority of a Government, authorized hydrographic office
+or other relevant government institution, and conforming to IHO standards.
+The ENC contains all the nautical chart information necessary for
+safe navigation.
+
+3.3 Electronic Navigational Data Service (ENDS) means a special-purpose
+database, compiled from nautical chart and nautical publication data,
+standardized as to content, structure and format, issued for use with
+ECDIS by or on the authority of a Government, authorized hydrographic
+office or other relevant government institution, and conforming to
+IHO standards; and, which is designed to meet the requirement of marine
+navigation and the nautical chart and nautical publications carriage
+requirements in SOLAS regulations V/19 and V/27. The navigational
+base layer of ENDS is the electronic navigational chart.
+
+3.4 System Database means a database, in the manufacturer's internal
+ECDIS format, resulting from the lossless transformation of the ENDS
+contents and its updates. It is this database that is accessed by
+ECDIS for the display generation and other navigational functions,
+and is equivalent to up-to-date ENDS.
+____
+
+The System Database is compiled from one or more S-100-based products
+and/or S-57 based products.
+
+[[sec_4.2]]
+=== ECDIS concept, limitations, and challenges
+
+IMO MSC 530(106)/Rev.1 also defines Electronic Chart Display and Information
+System (ECDIS):
+
+____
+3.1 Electronic Chart Display and Information System (ECDIS) means
+a navigation information system which with adequate backup arrangements
+can be accepted as complying with the up-to-date nautical chart and
+nautical publications required by SOLAS regulations V/19 and V/27,
+by displaying selected information from a system database with positional
+information from navigation sensors to assist the mariner in route
+planning and route monitoring and, if required, display additional
+navigation-related information.
+____
+
+The following list explains more of the ECDIS concept in detail and
+provides information about certain limitations.
+
+. ENC is an integral part of ECDIS and therefore is defined as the
+base layer for the portrayal harmonisation framework. Additional layers
+are classified as two main types, additional information to that of
+the ENC or enhanced information to that of the ENC. Additional information
+is information that is not contained in the ENC, while enhanced information
+are layers that contain improved, detailed or higher resolution information
+than the ENC.
+. ECDIS, used together with official data, [is] accepted as complying
+with the up-to-date nautical chart and nautical publications carriage
+requirement required by regulations V/19 and V/17 of the 1974 SOLAS
+Convention amended in 2009. Electronic chart systems not meeting these
+ECDIS specifications of IHO and IMO, or ECDIS using non-official data,
+are known as ECS (Electronic Chart Systems).
+. Chart information may be used in conjunction with a radar overlay
+on ECDIS. Tracked radar targets and targets reported by AIS
+(Automatic Identification System) can be integrated into the ECDIS
+display, as well as other navigational information which may be added
+to the ECDIS display. With the advent of S-100, additional types of
+data may also be occasionally added to the ECDIS display, especially
+high-density bathymetry, surface current and water levels data or
+predictions, maritime safety information (MSI), and under keel clearance
+area data.
+. Colours and symbols defined in the S-101 portrayal catalogue are
+conceptually based on the symbology of conventional paper charts.
+However, due to the special conditions of the ECDIS chart display
+as a computer-generated image, the ECDIS presentation of ENC data
+may differ from the appearance of a conventional paper chart, especially
+when simplified portrayal mode is used. There may be considerable
+differences in symbology in shape, colour and size, and in the placement
+of text in particular.
+. ECDIS combines chart and real-time navigational positioning information.
+Modern navigation systems (i.e. GNSS) may offer a more accurate positioning
+than was available to position some of the surveys from which the
+digital chart data ENC was derived. Further, other products may not
+be encoded to the same accuracy or precision as ENC data or ship's
+positioning, therefore there is a potentially greater reliance on
+metadata covering data quality and precision in a digital navigation
+context
+. The display categories specified in the IMO Performance Standards
+and the IHO priorities of the various types of chart information
+(alerts, updates, mariner's and non official chart data, etc.) are
+applied to features by the display plane and drawing order assignments
+in individual portrayal catalogues. The drawing order may be modified
+if interoperability is activated.
+. In the initial period of S-100 roll-out, S-100 compatible ECDIS
+will be "dual-fuel" in that they will have both S-57 and S-101 ENCs
+(see: <<sec_18>>). It is possible that there will be situations where
+the navigation screen will display both S-57 and S-101 ENCs. The user
+experience aspects of such situations are discussed in <<sec_18>>.
+
+The versatility of ECDIS poses several challenges for ECDIS display
+design. These challenges are discussed below.
+
+The diversity of information displayed on an ECDIS may include:
+
+* physical chart information, for example, coastline, depth contours,
+buoys;
+* traffic routeing; specified areas; cautions; etc.;
+* supplementary HO information from light list, etc.;
+* mariner's notes; additional local chart information; manufacturer's
+information;
+* chartwork such as planned route; electronic bearing lines and range
+rings; etc.;
+* own ship's position and velocity vector; ship's head and rate of
+turn; past track;
+* fix accuracy, or position check from secondary positioning system;
+* possibly, ship handling options, based on ship's characteristics,
+alphanumeric navigation information (ship's latitude, longitude, heading,
+course, etc.);
+* information from radar and other sensors;
+* information from AIS;
+* navigational indications and alerts generated by ECDIS;
+* possibly, telemetered information from shore authorities
+(traffic, real-time tides etc.);
+* possibly, ice information;
+* reminders (for example, time to contact pilot station);
+* possibly, messages from other displays.
+
+The flexibility of portrayal may include:
+
+* displaying/removing various types of chart and non-chart information,
+* selecting standard chart display or a thinned out display, and either
+paper chart symbols or simplified symbols,
+* using cursor interrogation for further detail,
+* overlaying/removing radar video or radar target information
+(in order to: confirm ship's positioning; aid radar interpretation;
+show the entire navigation situation on one screen),
+* overlaying/removing various other sensor information, or information
+telemetered from shore,
+* changing the scale or orientation of the display,
+* selecting true motion or relative motion,
+* changing screen layout with windowed displays, text information
+in the margins, etc.,
+* possibility of pull-down menus and other operator interaction devices
+being alongside the operational navigation display and so interacting
+with it,
+* giving navigation and chart warnings such as "too close approach
+to safety contour"; "about to enter prohibited area"; "overscale display";
+"more detailed (larger scale) data available"; etc.,
+* possibly, a diagrammatic representation of a computer evaluation
+of grounding danger,
+* possibly, a diagrammatic representation of the immediate vicinity
+of the ship to aid in close quarters manoeuvring,
+
+==== Depth Related Functionality
+
+S-100 ECDIS allows water levels to be automatically adjusted using
+an interoperable combination of S-101, S-102 and S-104 data, both
+for monitoring and planning purposes. This is described fully in <<annexD>>
+of this document.
+
+
+
+=== Integrated Navigation System (INS) concept, limitations and challenges
+
+The concept of an Integrated Navigation System (INS) is outlined in
+the IMO Performance Standards MSC 252(83). INS workstations have multifunctional
+displays providing at least route monitoring and collision avoidance
+functions, and may provide manual or automatic navigation control
+functions. In addition to these functions, an INS generally also provide
+route planning, navigation control data and status, and alert management
+functions. INS integrate sources, data, and displays into one navigation
+system. An INS may consist of multiple task stations.
+
+Since the concept of ECDIS is included in the INS concept, the principle
+described in <<sec_6.1.1>> of having ENC as the base layer applies
+- but in the context of an INS it applies to components playing the
+role of an ECDIS. Components playing other roles will generally use
+ENC or similar data, but this may depend on function and task.
+
+The considerations related to portrayal that are in addition to the
+requirements already embedded in the INS standards are outlined below:
+
+. An INS may substitute under some carriage requirements for certain
+navigational equipment. The INS is required to fulfil the requirements
+for the systems it replaces. For example, an INS component used for
+the tasks of route monitoring and route planning must meet the requirements
+for an ECDIS, which are described in IMO MSC 530(106). This means
+that the portrayal and user interaction considerations for an ECDIS
+described in <<sec_4.2>> apply to the workstation playing the role
+of an ECDIS.
+. All tasks of an INS should use the same electronic chart data and
+other S-100 navigational databases such as routes, maps, and tide
+information.
+
+IMO Performance Standards state that for each task it is used for,
+the INS should fulfil the relevant modules of the performance standards
+for standalone equipment for the task. An INS display being used for
+route monitoring will be subject to the ECDIS performance standards,
+and therefore the relevant INS display will have largely the same
+limitations and challenges described in <<sec_4.2>>. The potential
+availability of other workstations in an INS allows manufacturers
+somewhat more flexibility in designing solutions, but this is limited
+by human factors constraints related to compatibility and divided
+attention.
+
+Given the complexity of the issues and the necessity for compatibility,
+this document does not distinguish between INS and ECDIS displays
+for the purpose of harmonised portrayal. If the data products are
+shown on the same screen, the same rules apply for INS and ECDIS displays,
+and the treatment should be the same for INS as for ECDIS. If the
+data products are on different INS screens, the treatment should be
+compatible in the sense of the guidelines in IMO MSC.1/Circ.1609.

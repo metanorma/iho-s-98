@@ -1,0 +1,278 @@
+
+[[annexE]]
+[appendix]
+== Dataset Loading and Display (Rendering) Algorithms
+
+=== Introduction
+
+Details of the dataset loading and data display algorithms are contained
+within this Appendix.
+
+Algorithms for dataset loading, unloading, and rendering (display)
+within a navigation system are prescribed for S-101 (and possibly
+other products which provide multiple generalizations for a given
+geographic area) in order for the appropriate data to be viewed at
+the mariner's selected viewing scale (MSVS).
+
+These algorithms are intended to provide clear and concise rules on
+how and when data is loaded and unloaded; and the order in which datasets
+are to be displayed.
+
+NOTE: These algorithms only address loading and display related to
+visualization within the system graphics window. The application may
+need to load other datasets to satisfy requirements related to alerts
+processing, such as MSC.530(106)/Rev.1 A11.2.
+
+NOTE: Light sectors and other features which may span dataset boundaries.
+It should be possible, on request, for the mariner to be capable of
+identifying the colour of the sectors affecting the ship, even if
+the lights involved are off the display, and, in general provision
+must be made to ensure that all relevant features are portrayed.
+
+Scales and scale ranges are defined in <<sec_12.1.1>>. The scale range
+of a dataset is the range of display scales between which a producer
+intends the data for use. This scale range is determined by the scale
+ranges of the component *Data Coverage* features. Each *Data Coverage*
+feature has a *minimum display scale* and an *optimum display scale*
+attribute; the dataset scale range is from the smallest to the largest
+of these attribute values.
+
+==== Dataset Loading Algorithm
+
+===== Prerequisites
+
+A collection of *Data Coverages, each* containing:
+
+* A polygon describing the *Data Coverage*: __(dataCoverage)__;
+* A set of scale bands: __scaleBands(dataCoverage)__;
+* The associated dataset: __dataset(dataCoverage)__.
+
+A projection _projection_ that can convert geographic polygons _geoPolygon_
+to device polygons: __projection(geoPolygon)__;
+
+==== Scale Bands
+
+Attributes which represent scales store the denominator of the scale;
+an attribute value of "22,000" represents a scale of "1:22,000".
+Larger values represent smaller scales, while smaller values represent
+larger scales.
+
+A scale range is the set of scales between different scale values.
+The attributes *minimum display scale* and *optimum display scale*
+describe the scale range of a *Data Coverage* feature. The scale range
+of a dataset is a set of ranges, each range taken from each of the
+component *Data Coverage*.
+
+Scale bands describe specific scale ranges, as defined in <<table_11>>.
+Each scale band is defined by its minimum and optimum scale denominators
+and is defined using a numerical index.
+
+Note that whenever scales are compared in these algorithms the numerical
+comparison and _min/max_ functions are based on scales, not on scale
+denominators for example a scale of 45,000 is less than ("<") a scale
+of 22,000 and stem:[min (22000,45000) = 45000].
+
+[[table_11]]
+.Scale Band definitions
+[cols="46,141,214,140"]
+|===
+h| _scale band index_ h| _minimumScale_ h| _optimumScale_ h| Remarks
+
+| 1   | NULL (stem:[oo]) | 10,000,000 | For all values larger than 10,000,000
+| 2   | 10,000,000       | 3,500,000  |
+| 3   | 3,500,000        | 1,500,000  |
+| 4   | 1,500,000        | 700,000    |
+| 5   | 700,000          | 350,000    |
+| 6   | 350,000          | 180,000    |
+| 7   | 180,000          | 90,000     |
+| 8   | 90,000           | 45,000     |
+| 9   | 45,000           | 22,000     |
+| 10  | 22,000           | 12,000     |
+| 11  | 12,000           | 8,000      |
+| 12  | 8,000            | 4,000      |
+| 13  | 4,000            | 3,000      |
+| 14  | 3,000            | 2,000      |
+| 15  | 2,000            | 1,000      |
+|===
+
+The following algorithm associates a scale band index with a
+(display) scale:
+
+[pseudocode%unnumbered]
+====
+*Algorithm* __GetScaleBand(scale)__
+*Input*: A scale
+*Output* The index of the scale band
+    1. **If** _scale < 10,000,000_
+        a. **Return** 1
+    2. **For** _index_ = 2 to 15
+        a. *If* _scale > minimumScale[index] AND scale <= optimumScale[index]_
+            i. *Return* _index_
+    3. *Return* 15
+====
+
+The following algorithm associates a set of scale band indexes with
+a *Data Coverage* feature:
+
+[pseudocode%unnumbered]
+====
+**Algorithm** _scaleBands(dataCoverage)_
+*Input*: A *Data Coverage*
+*Output:* A set of associated scale band indices _S_
+    1. _minimumDisplayScale_ - The minimum display scale of the coverage (if not defined it is 
+      assumed that the scale is stem:[1:oo = 0])
+      _optimumDisplayScale_ - The optimum display scale of the coverage
+    2. Create an empty set _S_
+    3. *If* _minimumDisplayScale < 10,000,000_
+        a. stem:[S = S uu 1]
+    4. *For* index = 2 to 15
+        a. If _max(minimumDisplayScale,minimumScale[index]) < min(optimumDisplayScale,optimumScale[index])_
+            i. stem:[S = S uu "index"]
+    5. *Return* S
+====
+
+==== Dataset Selection Process
+
+The following algorithm selects *Data Coverage* features. The output
+is used to load each dataset which is associated with any of the selected
+features (stem:[S]).
+
+The algorithm evaluates a collection of *Data Coverage* features and
+selects those which overlap both the viewport and a supplied scale.
+If selected, the coverage footprint is subtracted from the viewport.
+This process is repeated until the viewport is empty or the entire
+inventory has been evaluated.
+
+[pseudocode%unnumbered]
+====
+**Algorithm** _SelectDataCoverages(collection, scale, viewport, projection)_
+*Input*: A collection of *Data Coverage* features _collection_
+         A _scale_ for which the *Data Coverage* features will be selected (usually the display scale)
+         A device-polygon _viewport_ describing the device area that should be covered with data
+         A projection __projection__
+**Output**: A set of *Data Coverage* features _S_
+    1. stem:[S = O/]
+    2. _ScaleBand_ = _GetScaleBand(scale)_
+    3. *While* stem:["viewport" != O/] *do*
+        a. *For* all _dataCoverage_ in _collection_
+            i. *If* __ScaleBand__ stem:[in] scaleBands(_dataCoverage_) AND (_projection_(__dataCoverage__) stem:[nn] _viewport_) stem:[!= O/]
+                1. stem:[S = S uu "dataCoverage"]
+                2. _viewport_ = _viewport_ \ _projection(dataCoverage)_
+        b. _ScaleBand_ = _ScaleBand_ - 1
+        c. **If** __ScaleBand__ = 0
+    4. **Return** _S_.
+====
+
+Comments:
+
+[cols="41,534",options="unnumbered"]
+|===
+h| Row h| Description
+
+| *1.*        | Create an empty set of inventory *Data Coverage* features
+| *2.*        | Get the scale band to which _scale_ belongs and assign it to the variable _ScaleBand_
+| *3.*        | While the _viewport_ area is not empty
+| *3.a*       | Loop over all *Data Coverage* features in the inventory
+| *3.a.i*     | If _ScaleBand_ is an element of the scale bands of the **Data Coverage and** the projected *Data Coverage* polygon overlaps the _viewport_
+| *3.a.i.1.*  | Add the *Data Coverage* to _S_
+| *3.a.i.2.*  | Remove the projected *Data Coverage* polygon from the __viewport__, The _viewport_ will now only define the uncovered part of the original _viewport_
+| *3.b.*      | Decrement _ScaleBand_ footnote:[Data Coverage features selected after this point in the algorithm are subject to the OVERSC01 grossly overscaled pattern as described in <<sec_12.3>>]
+
+| *3.c.*      | If _ScaleBand_ equals to zero (no scale band left to investigate)
+| *3.c.i.*    | Return the collected result
+| *4.*        | Return the collected result
+|===
+
+==== Data display Algorithm
+
+===== Rendering Algorithm
+
+The first step is to use information from the loading algorithm to
+assign a _mask_ to each of the *Data Coverage* features within each
+dataset.
+
+Each _mask_ represents the footprint of obscuring *Data Coverages;*
+it indicates areas of a dataset which should not be visible.
+Each dataset is then assigned a _mask_ from the component *Data Coverage*
+features. The dataset _mask_ is the union of the component *Data Coverage*
+masks.
+
+[pseudocode%unnumbered]
+====
+*Algorithm*: _AssignMasks(dataSets, viewport, projection)_
+*Input*: A set of datasets _dataSets_ (previously selected using the dataset loading algorithm)
+         A device-polygon _viewport_ describing the device area that should be covered with data
+         A projection _projection_
+        1. Collect all *Data Coverage* features from _dataSets_ into _dataCoverages_.
+        2. Sort _dataCoverages_ by *minimum display scale* into _sortedCoverages_ (from smallest to largest scale)
+        3. *For* each _dataCoverage_ in _sortedCoverages_
+            a. *Set* _mask of dataCoverage to_ stem:[O/]
+            b. *For* each _obscuringCoverage_ in _sortedCoverages_
+                i. *If* _obscuringCoverage_ <> _dataCoverage_ AND _scale(dataCoverage)_ < _scale(obscuringCoverage)_ AND _projection(polygon(dataCoverage))_ stem:[cap] _projection(polygon(obscuringCoverage))_ stem:[!= O/]
+                    1. _dataCoverage.mask_ = _dataCoverage.mask_ stem:[uu] _projection_(_polygon_(_obscuringCoverage_))
+        4. For each _dataset_ in _dataSets_
+            a. Set mask of dataset to stem:[O/]
+            b. For each _dataCoverage_ in _dataset_
+                i. _dataset.mask_ = _dataset.mask_ stem:[uu] _dataCoverage.mask_
+====
+
+The next step is rendering. The screen is filled with the no data
+pattern, then the active drawing instructions are collected from all
+loaded datasets and sorted by drawing priority. Each drawing instruction
+is then rendered using the _RenderInstruction_ algorithm.
+
+[pseudocode%unnumbered]
+====
+*Algorithm*: _RenderChartImage(dataSets, viewport)_
+*Input*: A set of datasets _dataSets_ (previously selected using the dataset loading algorithm)
+         A device-polygon _viewport_ describing the device area that should be covered with data
+    1. Fill _viewport_ as per Section _12.5.1 ENC No data areas_.
+    2. Collect all active^\*^ drawing instructions from all _dataSets_ into _drawingInstructions._
+    3. Sort _drawingInstructions_ by **drawing priority** into _sortedInstructions_ (from smallest to largest)^**^
+        a. Instructions which share a *drawing priority* must be ordered as follows:
+            i. all null instructions, followed by
+            ii. all area instructions, followed by
+            iii. all line instructions, followed by
+            iV. all point instructions, followed by
+            v. all text instructions
+    4. For each _drawingInstruction_ in __sortedInstructions__
+        a. __RenderInstruction__(_drawingInstruction_)
+
+^*^ The __viewingGroup(s)__, __scaleMinimum__, _scaleMaximum, date
+dependency, line suppression, and any other_ properties of the drawing
+instruction which may affect the instructions visibility must be taken
+into account. (See S-100 Part 9).
+
+^**^ To enhance the readability of text, an implementation may consider
+the guidance in S-100 Part 9 regarding text rendering to adjust this
+algorithm as needed.
+====
+
+==== The RenderInstruction Algorithm
+
+This algorithm describes how each drawing instruction is to be rendered.
+Instructions originating from non-point geometries use _mask_ to clip
+or mask the rendered output; those originating from occluded point
+geometries are not rendered, and those originating from non-occluded
+point geometries are rendered without masking or clipping.
+
+[pseudocode%unnumbered]
+====
+*Algorithm*: _RenderInstruction(drawingInstruction, dataset, viewport)_
+*Input*: A _drawingInstruction_ generated by dataset portrayal
+            The _dataset_ of the drawing instruction
+            A device-polygon _viewport_ describing the device area that should be covered with data
+    1. _isPoint_ = false
+        a. *If* _drawingInstruction_ is an augmented point
+            i. _isPoint_ = true
+            ii. _point_ = augmented geometry
+        b. *Else If* geometry of _drawingInstruction_ *feature reference* is a point
+            i. _isPoint_ = true
+            ii. __point =__ feature reference geometry
+    2. *If* not __isPoint__
+        a. Render the drawing instruction, using the _dataset mask_ to either clip or mask the rendered output. Portions of the rendered output which intersect _mask_ should not be visible.
+    3. *Else If* _dataset.mask_ stem:[cap] _point_ <> stem:[O/]
+        a. Do not render the instruction
+    4. *Else*
+        a. Render the instruction (without masking or clipping)
+====
