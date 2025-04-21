@@ -1,0 +1,97 @@
+
+== Introduction
+
+This document contains requirements and guidance for the implementation
+of harmonised portrayal and other user interaction functions for S-101
+Electronic Navigational Chart (ENC) and other S-100 based data products
+in an Electronic Chart Display and Information System (ECDIS). It
+describes how S-100 products are to be used and displayed simultaneously
+on the navigation screen. It does not address the portrayal processes
+or architectures, which are addressed in S-100 Part 9. It is based
+on the general principles described in S-100 Part 16A, and the requirements
+for ECDIS specified in the relevant International Maritime Organization
+(IMO), International Hydrographic Organization (IHO), and International
+Electrotechnical Commission (IEC) standards.
+
+This specification is the successor to the IHO S-52 Standard for chart
+content and display in ECDIS. It contains material from S-52 that
+has been updated for S-100, but does not include symbol specifications
+(the S-52 "presentation library") or portrayal rules because symbols
+and portrayal rules are now defined in the IHO GI Registry and portrayal
+catalogues for individual product specifications. This document focuses
+on the principles for portraying S-101 ENC and S-100 based data on
+ECDIS. The principles described herein are intended to be compatible
+with the corresponding requirements for ECDIS portrayal of S-57 ENCs.
+
+This specification does not revoke nor does it supersede S-52 in its
+applicability to the use of S-57 information on ECDIS. It assumes
+ECDIS will support both S-52/S-57 and S-101 ENCs for the foreseeable
+future. Such systems should continue to follow the S-52/S-57 standards
+for S-57 information.
+
+ECDIS presentation and user interactions are determined by the following
+standards:
+
+* IMO standards control presentation, performance, and user experience.
+They include standards and guidelines for display and user interaction,
+including alerts.
+* IHO standards provide the framework for data content, primarily
+in S-100, as well as standards for portrayal of hydrographic data.
+S-100 also provides an abstract specification for visual interoperability;
+for ECDIS, details about interoperability are specified in S-98. IHO
+standards additionally provide methods of test and required test results
+for portrayal and interoperability, these are in S-64 (for S-57) and
+S-164 (for S-100).
+* IEC standards describe methods and required results for equipment
+and system testing.
+* Data product specifications describe the content, data formats,
+symbols, portrayal rules, packaging, and delivery, of individual data
+products. For ECDIS, the basic data product is S-101
+(Electronic Navigational Charts). Other products describe additional
+information relevant to navigation, for example, bathymetry, currents,
+water levels, regulated areas, services and weather.
+
+The standards that are current at the time of writing of this specification
+are listed in the References section. More detailed information about
+the various standards is provided in S-100 Part 16a.
+
+Application developers should obtain an up-to-date set of applicable
+standards and specifications from the relevant organisations. Developers
+must conform to the mandatory requirements of the particular standards
+which apply to an application or system. In case of a conflict between
+this specification and a mandatory requirement in an applicable standard,
+the requirement in the standard supersedes the guidance in this specification.
+Manufacturers, type-approval authorities, and above all Mariners,
+are always encouraged to contact the IHO to provide feedback that
+they may have about the ECDIS display, in order that this specification
+can be kept effective and up to date.
+
+This specification also applies to navigation displays in an Integrated
+Navigation System (INS) which fulfil the role of an ECDIS. Users of
+this document should refer to IEC publications when dealing with implementation
+testing.
+
+This document contains the main requirements and guidance for development
+of S-100 ECDIS. Mariners and other users will receive different S-100-based
+data products, each providing one or more information layers, and
+will often need to view some of the information layers simultaneously
+on a S-100 compatible ECDIS as well as in other ship and shore-based
+scenarios.
+
+The smooth interoperability and harmonized user-friendly graphical
+presentations of these various products is therefore necessary. The
+rules for interoperation and harmonized graphical presentations of
+S-100 data products are contained in an _Interoperability Catalogue_,
+which describes how groups of products are to be used and displayed
+simultaneously.
+
+<<annexA>> to this Specification describes the structure, usage and rules
+for development of Interoperability Catalogues that can be used by
+systems to control the simultaneous use and display of two or more
+S-100 based data products. It is an implementation of the abstract
+interoperability concepts described in S-100 Part 16. Part A and B
+of this specification define levels 1 and 2 respectively.
+
+NOTE: the current edition of S-98 does not use the full interoperability
+specification, it is included on the basis that it is highly likely
+to be brought in in a future edition.

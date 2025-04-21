@@ -1,0 +1,132 @@
+
+
+[[annexA]]
+[appendix]
+== Manual Updates
+
+=== Introduction
+
+Manual updates are data entered manually into the ENDS/ENC. Manual
+updates are entered by the mariner to add, delete or modify features
+in an ENC. In order to provide a harmonised and consistent approach
+to manual updates on the ECDIS a set of portrayal symbols is supplied
+alongside this publication. As a minimum, the symbols and attributes
+listed in <<table_8>>, <<table_9>> and <<table_10>> must be supported.
+
+Indications and alerts must be triggered as for all official ENC data.
+
+In order to provide a harmonised and consistent approach to manual
+editing and update on the ECDIS a set of portrayal symbols is supplied
+alongside this publication. These symbols, contained within an S-100
+portrayal catalogue and feature catalogue allow the OEM to implement
+a manual update and editing feature on the ECDIS.
+
+A visual index of the supplied symbols is provided in this Appendix
+in the following tables.
+
+[[table_8]]
+.Manual Update Point Symbols
+[cols="155,194,214"]
+|===
+h| Symbol h| Suggested attributes h| Example
+
+| Depth | Depth ValueInformation.text
+a|
+[%unnumbered]
+image::figure-table-8-1.png["",185,45]
+
+| Underwater | Information.text
+a|
+[%unnumbered]
+image::figure-table-8-2.png["",149,39]
+
+| Wreck | As per Wreck feature in S-101
+a|
+[%unnumbered]
+image::figure-table-8-3.png["",85,30]
+
+| Obstruction | As per obstruction feature in S-101
+a|
+[%unnumbered]
+image::figure-table-8-4.png["",104,30]
+
+| Beacon | As per general purpose beacon in S-101
+a|
+[%unnumbered]
+image::figure-table-8-5.png["",113,52]
+
+| Buoy | As per general purpose buoy in S-101
+a|
+[%unnumbered]
+image::figure-table-8-6.png["",89,56]
+
+| Caution (Vicinity) | Caution Area
+a|
+[%unnumbered]
+image::figure-table-8-7.png["",170,31]
+
+[%unnumbered]
+image::figure-table-8-8.png["",125,77]
+
+| Caution (Object Missing) | Caution Area
+a|
+[%unnumbered]
+image::figure-table-8-9.png["",170,58]
+
+|===
+
+[[table_9]]
+.Manual update: Curve symbols
+[cols="116,118,223"]
+|===
+h| Symbol h| Suggested attributes h| Example
+
+| Danger |
+a|
+[%unnumbered]
+image::figure-table-9-1.png["",221,178]
+
+| Cable |
+a|
+[%unnumbered]
+image::figure-table-9-2.png["",318,115]
+
+| Other |
+a|
+[%unnumbered]
+image::figure-table-9-3.png["",329,70]
+|===
+
+[[table_10]]
+.Manual update: Surface symbols
+[cols="132,141,289"]
+|===
+h| Symbol h| Suggested attributes h| Example
+
+| Restricted Area |
+a|
+[%unnumbered]
+image::figure-table-10-1.png["",275,180]
+
+| Caution Area |
+a|
+[%unnumbered]
+image::figure-table-10-1.png["",269,131]
+
+| Other |
+a|
+[%unnumbered]
+image::figure-table-10-1.png["",165,185]
+|===
+
+=== Attribution of Manual Update Features
+
+Features added by manual updates must support attribution as defined
+in the Manual Updates feature catalogue. A feature catalogue containing
+the data structures which must be supported by the manual updates
+also accompanies this publication.
+
+The supplied feature catalogue contains a restricted set of features
+and attributes compatible with those used for S-101 electronic charts
+which enable portrayal and required alert and indication processing
+to be carried out on manually entered updates.

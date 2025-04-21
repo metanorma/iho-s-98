@@ -1,0 +1,21 @@
+
+== Use of Context Parameters
+
+The Portrayal Catalogue for a product contains the set of parameters
+which are used in the portrayal processing for that product.
+This set may be different for different products. Context parameters
+are used for passing portrayal-related configuration information and
+user settings to portrayal processing, and the values of context parameters
+may therefore be changed by user functions, including those defined
+in the IMO Performance Standards, in this document, or manufacturers'
+custom user functions.
+
+In order to be able to use the official Portrayal Catalogue for a
+data product, manufacturers must implement all the context parameters
+listed in the Portrayal Catalogue.
+
+Context parameters may be added or removed by updates to the Portrayal
+Catalogue. Context parameters which cannot be automatically associated
+with ECDIS display functions or user interface features must be exposed
+to the Mariner for use.
+

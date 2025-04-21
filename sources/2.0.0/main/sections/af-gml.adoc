@@ -1,0 +1,65 @@
+
+[[annexF]]
+[appendix]
+== GML Coverage Polygons
+
+=== GML Coverage Polygons
+
+==== Introduction
+
+GML is used as an integral part of S-100 Part 17, specifically in
+the XML elements defined by the Exchange Catalogue Schema.
+
+For the purpose of representing coverage objects in CATALOG.XML, however
+only a very small number of possibilities are required.
+
+Implementers would benefit from a tighter standardization through
+a reduction of the CATALOG.XML coverage polygons.
+
+==== Specification
+
+In order to simplify the job of S-100 implementers for CATALOG.XML
+the only requirement is for a representation which encodes a simple,
+connected polygon with a single exterior and 0 or more holes.
+
+Such polygons will be implemented using the GML vocabulary implemented
+in the included S-100 schemas as follows:
+
+[source%unnumbered]
+----
+<S100XC:boundingPolygon>
+     <gex:polygon>
+         <gml:Polygon gml:id="DC1">
+             <gml:exterior>
+                 <gml:LinearRing>
+                     <gml:posList srsName="http://www.opengis.net/def/crs/EPSG/0/4326">
+                             0.0 0.0 1.0 0.0 1.1 1.1 0.0 1.0 0.0 0.0
+                     </gml:posList>
+                 </gml:LinearRing>
+             </gml:exterior>
+             <gml:interior>
+                 <gml:LinearRing>
+                     <gml:posList srsName="http://www.opengis.net/def/crs/EPSG/0/4326">
+                             0.25 0.25 0.75 0.25 0.75 0.75 0.25 0.75 0.25 0.25
+                     </gml:posList>
+                 </gml:LinearRing>
+             </gml:interior>
+           </gml:Polygon>
+       </gex:polygon>
+</S100XC:boundingPolygon>
+----
+
+This implements bounding Polygons restricted to a single GML Polygon
+(with a gml:id with an SRS defined in each of the posList coordinates
+of http://www.opengis.net/def/crs/EPSG/0/4326) with a single exterior
+element and optional (i.e. 0 or more ) interior elements. Each exterior
+or optional interior is a Linear Ring with >=4 coordinate pairs expressed
+as a single space separated posList, with the first and last coordinate
+pair being identical, i.e. the Linear Ring is closed.
+
+Coordinate order is always as per http://www.opengis.net/def/crs/EPSG/0/4326,
+latitude followed by longitude.
+
+No further stipulations are required as geometry must also conform
+to the S-100 geometry model and be conformant with the XML Schema
+for exchange catalogues.

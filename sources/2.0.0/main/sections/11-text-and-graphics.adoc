@@ -1,0 +1,19 @@
+
+== Text and Graphics
+
+=== Arrangement of viewing group layers.
+
+Viewing group layers should be grouped together when one (the child)
+is wholly included (a subset) of another (the parent). The table below
+shows an example of grouping of "Other text" viewing group layers.
+
+[cols="127,244",options="header,unnumbered"]
+|===
+h| Viewing Group Layer h| Name of Viewing group layer in the ECDIS
+
+| 1    | Important text
+| 2    | Other Text
+| 2.1  | Names
+| 2.2  | Light description
+| 2.3  | All other
+|===

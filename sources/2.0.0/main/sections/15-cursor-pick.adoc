@@ -1,0 +1,125 @@
+
+[[sec_15]]
+== Cursor Pick Reports and Displays in Interface Panels
+
+ECDIS must be capable of performing spatial queries on ENC and other
+S-100 data. Spatial query is understood as the ability to inspect
+graphical position and numerical value of spatial coordinates associated
+with a charted feature.
+
+Spatial query must be available by means of cursor pick.
+
+=== Cursor pick rules
+
+The rules below must be applied to all ECDIS cursor Pick Reports.
+
+. Full feature and attribute names must be displayed. If a language
+pack is installed then the feature and attribute names must use the
+translated names contained in the language pack according to user
+preference - user language preferences are described in <<sec_10.3>>.
+. Listed value names must be displayed instead of the numerical code.
+. There must not be any padding of attribute values, for example,
+a height of 10 metres must not be padded to 10.000000 metres as this
+could potentially confuse or mislead the Mariner.
+. Units of measure must be included after all attribute values when
+available.
+. Cursor pick report must extend to include both information associations
+and feature associations, including aggregations and compositions,
+which may link to information types or features that carry additional
+information such as a _featureName_.
+. Dates must be given in the form "Day Month Year" DD-MMM-YYYY.
++
+--
+Month abbreviations must be: JAN, FEB, MAR, APR, MAY, JUN, JUL, AUG,
+SEP, OCT, NOV, DEC.
+--
+
+. The Pick Report must only return information about the visible features
+on the ECDIS display. If the viewing group is turned on all features,
+even "no symbol" features without visible presentation within that
+viewing group, must be provided in the cursor Pick Report, i.e. only
+active drawing instructions must be included.
+. Pick Report must include the information associated with the spatial
+object limited to the area of the cursor pick. For example, information
+related to accuracy.
+. Complex or Simple Attributes with private feature catalogue visibility
+must not be included. If visibility is not defined then it must be
+assumed to be public.
+. All features with identical _interoperabilityIdentifier_ values
+must be presented together and merged.
+. Descriptions of attributes and their values, available in the feature
+catalogue, must be shown on demand.
+
+=== Display of dataset support files
+
+S-100 datasets encode textual or graphical information such as diagrams
+and photographs in dataset support files using one of the S-100 dataset
+support file formats.
+
+The pick report must enable text and graphical information to be displayed
+without affecting the night vision of the user. The luminance of the
+displayed information must be in the same band as the current palette
+in use at the time it is displayed.
+
+=== Pick report organisation.
+
+==== Sorting order of results
+
+The Pick Report must be organized to facilitate navigation through
+complex reports in a manner logically consistent with the layering
+presented on the screen.
+
+The order of features must correspond to the drawing order. Features
+must be prioritized using the highest priority active drawing instruction
+associated with the feature. Only active drawing instructions which
+intersect the pick area should be evaluated during sorting.
+
+==== Hover-over function
+
+The ECDIS may provide a hover-over function for Mariners to access
+important charted feature details without having to select a Pick
+Report. If this function is implemented within an ECDIS, the Mariner
+must be able to turn hover-over functionality on and off.
+
+=== Tidal stream data panels
+
+S-101 Tidal stream information in the form of speed and direction
+at intervals relative to the time of a "reference tide"
+(generally high or low water) must be formatted for display in the
+ECDIS cursor Pick Report (or other UI panel).
+
+<<table_6>> shows the layout that must be used for displaying the
+values, encoded in the *Tidal Stream Panel Data* S-101 feature.
+
+Multiple instances of *Tidal Stream Panel Data* features must be shown
+as separate tables
+
+The table shows how a *Tidal Stream Panel Data* feature and its attributes
+are used in the ECDIS display. Complex attributes are in italics and
+encoded values are in blue text.
+
+[[table_6]]
+.Template for tidal stream values
+[cols="71,38,147,97,101",options="noheader"]    
+|===
+5+| Tidal Station: _(station name)_ [blue]#*Plymouth Devonport*#
+2+| Tidal Station Identifier: _(station identifier)_ [blue]#*0014*#
+3+| Data From: _(data product, from dataset metadata)_ [blue]#*S-101*#
+.2+|   .2+| Hours | Direction of Stream | Rates (knots) | Stream Depth
+| _(degrees)_ | _springs_ | _metres_
+
+.6+| *Before*   ^| _-6_ ^| [blue]#*113*# ^| [blue]#*0.1*# ^| [blue]#*1.0*#
+                ^| _-5_ ^| [blue]#*332*# ^| [blue]#*0.6*# ^| [blue]#*1.0*#
+                ^| _-4_ ^| [blue]#*331*# ^| [blue]#*1.1*# ^| [blue]#*1.0*#
+                ^| _-3_ ^| [blue]#*342*# ^| [blue]#*1.0*# ^| [blue]#*1.0*#
+                ^| _-2_ ^| [blue]#*347*# ^| [blue]#*0.7*# ^| [blue]#*1.0*#
+                ^| _-1_ ^| [blue]#*333*# ^| [blue]#*0.5*# ^| [blue]#*1.0*#
+| _high water_  ^| _0_  ^| [blue]#*317*# ^| [blue]#*0.3*# ^| [blue]#*1.0*#
+.6+| *After*    ^| _1_  ^| [blue]#*178*# ^| [blue]#*0.3*# ^| [blue]#*0.5*#
+                ^| _2_  ^| [blue]#*146*# ^| [blue]#*0.6*# ^| [blue]#*0.5*#
+                ^| _3_  ^| [blue]#*140*# ^| [blue]#*1.0*# ^| [blue]#*0.5*#
+                ^| _4_  ^| [blue]#*143*# ^| [blue]#*1.1*# ^| [blue]#*0.5*#
+                ^| _5_  ^| [blue]#*143*# ^| [blue]#*0.8*# ^| [blue]#*0.5*#
+                ^| _6_  ^| [blue]#*138*# ^| [blue]#*0.3*# ^| [blue]#*0.5*#
+|===
+
