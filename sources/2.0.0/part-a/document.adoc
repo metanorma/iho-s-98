@@ -152,7 +152,7 @@ all S-98 Interoperability Catalogues and S-98 Exchange Sets;
 model and Catalogue encoding that are specific to Level 1 interoperability.
 
 The hypothetical processing model for implementations is described
-in general terms in the "S-98 - Main" document and elaborated in <<sec_A-7>>
+in general terms in <<S98>> and elaborated in <<sec_A-7>>
 of this Part.
 
 In Level 1 processing, feature types from different products, including
@@ -178,11 +178,11 @@ to Interoperability Catalogues designated as Level 1.
 
 For <<sec_A-3;to!sec_A-10>>, the content of the clause or sub-clause
 extends or elaborates on the content under the same or similar clause
-heading or sub-heading in the S-98 - Main document.
+heading or sub-heading in <<S98>>.
 
 The numbering of <<sec_A-3;to!sec_A-10>> may differ from that of corresponding
-clauses in S-98 - Main, because for some there is no additional Level-specific
-information needed. If a clause or sub-clause in S-98 - Main has no
+clauses in <<S98>>, because for some there is no additional Level-specific
+information needed. If a clause or sub-clause in <<S98>> has no
 corresponding clause or sub-clause in this Part, there is no Level-specific
 information on that topic.
 
@@ -190,7 +190,7 @@ information on that topic.
 == Specification Scope for Part A
 
 S-98 Part A describes the portions of S-98 which correspond to the
-following scope defined in S-98 - Main (clause 2):
+following scope defined in <<S98,clause=2>>:
 
 *Scope Identification:* S98L1
 
@@ -213,7 +213,7 @@ EX_GeographicBoundingBox = [-180, +180, -90, +90]
 
 The Application Schema for Interoperability Level 1 is depicted in
 <<fig_A-3.1>> below. This Application Schema is a subset of the full
-Application Schema in S-100 Part 16. It consists of the following
+Application Schema in <<IHO_S_100,part=16>>. It consists of the following
 components:
 
 . Catalogue header information.
@@ -229,13 +229,13 @@ image::figure-a-3-1.png[]
 ==== Operations in pre-defined combinations
 
 Operations in predefined combinations are possible only in Levels
-2, 3, and 4 (Parts B, C, D).
+2, 3, and 4 (<<PartB>>, <<PartC>>, <<PartD>>).
 
 [[sec_A-3.1.3]]
 ==== Enhanced selection of feature instances
 
 Enhanced selection of feature instances is possible only in Levels
-3 and 4 (Parts C and D).
+3 and 4 (<<PartC>> and <<PartD>>).
 
 [[sec_A-3.1.4]]
 ==== Interoperability Levels
@@ -250,13 +250,13 @@ plane pertains.
 ==== Hybridization rules
 
 Hybridization rules are allowed only in Levels 3 and 4
-(Parts C and D).
+(<<PartC>> and <<PartD>>).
 
 [[sec_A-3.1.6]]
 ==== Hybrid Feature and Portrayal Catalogues
 
 Hybrid Feature and Portrayal Catalogues are allowed only in Levels
-3 and 4 (Parts C and D).
+3 and 4 (<<PartC>> and <<PartD>>).
 
 [[sec_A-3.1.7]]
 ==== Progression of Interoperability Levels
@@ -272,7 +272,7 @@ is no interoperability Schema) to Level 1 interoperability.
 
 The following clauses summarize the conceptual elements used in Level
 1 Interoperability Catalogues. Details about these conceptual types
-are provided in S-100 Part 16.
+are provided in <<IHO_S_100,part=16>>.
 
 [[sec_A-3.2.1.1]]
 ===== Display plane (S100_IC_DisplayPlane)
@@ -313,7 +313,7 @@ with drawing instructions instead of feature objects. The
 *S100_IC_DrawingInstruction* element in Interoperability Catalogues
 is similar in operation to the layering and priority aspects of the
 *DrawingInstruction* element in Portrayal Catalogues
-(see S-100 Part 9 - Portrayal). Where there is a conflict with a Portrayal
+(see <<IHO_S_100,part=9>> - Portrayal). Where there is a conflict with a Portrayal
 Catalogue drawing instruction, the drawing instruction in the Interoperability
 Catalogue supersedes the drawing instruction in the Portrayal Catalogue.
 
@@ -343,7 +343,7 @@ all Catalogues where substitution of symbolization is necessary.
 ==== Use of S-100 types
 
 The S-100 types used by S-98 Level 1 Interoperability Catalogues are
-described in the S-98 - Main document. For Level 1 Interoperability
+described in <<S98>>. For Level 1 Interoperability
 Catalogues, the following additional information applies.
 
 * Interoperability Catalogues of Level 1 do not use feature and information
@@ -351,13 +351,13 @@ associations in feature filters.
 
 === UML model documentation
 
-The UML model documentation is provided in S-100 Part 16. This clause
+The UML model documentation is provided in <<IHO_S_100,part=16>>. This clause
 documents details specific to the use of the UML model for the interoperability
 Level described in this Part of S-98.
 
 Only the model elements used in this Level (and included in the Level's
 Application Schema) are listed. The constraints and considerations
-listed in the UML documentation tables in S-100 Part 16 apply. Any
+listed in the UML documentation tables in <<IHO_S_100,part=16>> apply. Any
 S-98 general or Level-specific considerations are described under
 the element name in the list below.
 
@@ -372,8 +372,8 @@ Catalogues is 1.
 . *S100_IC_DrawingInstruction*:
 +
 --
-NOTE: for implementers: Even if the Presentation Schema in S-100 Part
-9 is used, implementers may need to provide specific code to validate
+NOTE: for implementers: Even if the Presentation Schema in <<IHO_S_100,part=9>>
+is used, implementers may need to provide specific code to validate
 the content of the _substituteSymbolization_ attribute instead of
 depending on normal XML Schema validation. The content of this attribute
 is not prescribed by this Specification and may be a fragment of XML,
@@ -405,7 +405,7 @@ MRN: urn:mrn:iho:prod:s98:1:0:0:products.
 . *Codelist requirementType*: No Level-specific constraints or notes.
 
 For all interoperability Levels, the following subset of the standard
-values listed in S-100 Part 16 are permitted to be used in S-98 Interoperability
+values listed in <<IHO_S_100,part=16>> are permitted to be used in S-98 Interoperability
 Catalogues:
 
 [[table_A-3.1]]
@@ -431,7 +431,7 @@ charterer, or operator                                                          
 |===
 
 
-Extra values ("other: ...") as defined in S-100 Part 3, clause 3-6.7
+Extra values ("other: ...") as defined in <<IHO_S_100,clause="3-6.7">>
 are also permitted.
 
 [[sec_A-4]]
@@ -440,8 +440,7 @@ are also permitted.
 [[sec_A-4.1]]
 === Quality of displayed data
 
-There are no Level-specific extensions to clause 6.1 of the
-"S98 - Main" document.
+There are no Level-specific extensions to <<S98,clause="6.1">>.
 
 <<sec_A-5.11>> provides guidance for maintaining data quality for
 Level-specific rules and operations.
@@ -449,29 +448,27 @@ Level-specific rules and operations.
 [[sec_A-4.2]]
 === Quality of interoperability catalogues
 
-The quality measures recommended in S-97 (Part C) which are applicable
+The quality measures recommended in <<S97,part=C>> which are applicable
 to Level 1 S-98 Interoperability Catalogues are those listed in
-Table 6-1 of the "S-98 - Main" document. There are no additional Level-specific
+<<S98,table="6-1">> document. There are no additional Level-specific
 measures for Level 1.
 
 [[sec_A-4.2.1]]
 ==== Test methods
 
-There are no Level-specific extensions to clause 6.2.1 of the
-"S-98 - Main" document.
+There are no Level-specific extensions to <<S98,clause="6.2.1">>.
 
 [[sec_A-4.2.2]]
 ==== Data quality testing
 
-There are no Level-specific extensions to clause 6.2.2 of the
-"S-98 - Main" document.
+There are no Level-specific extensions to <<S98,clause="6.2.2">>.
 
 [[sec_A-5]]
 == Level-Specific Guidance on Making Product Specifications Interoperable
 
 The guidelines in this clause supplement and extend guidance common
 to all Levels on making Product Specifications interoperable, which
-is given in clause 8 of the "S-98 - Main" document.
+is given in <<S98,clause=8>>.
 
 === Duplicated features
 
@@ -488,17 +485,17 @@ drawing priority or in an upper display plane will still be visible.
 [[sec_A-5.1.1]]
 ==== Duplicated features same model
 
-See the guidance in clause 8.1.1 of the "S-98 - Main" document.
+See the guidance in <<S98,clause="8.1.1">>.
 
 [[sec_A-5.1.2]]
 ==== Duplicated features, different models
 
-See the guidance in clause 8.1.2 of the "S-98 - Main" document.
+See the guidance in <<S98,clause="8.1.2">>.
 
 [[sec_A-5.1.3]]
 ==== Duplicate feature domains
 
-See the guidance in clause 8.1.3 of the "S-98 - Main" document.
+See the guidance in <<S98,clause="8.1.3">>.
 
 === Geometry
 
@@ -506,30 +503,30 @@ See the guidance in clause 8.1.3 of the "S-98 - Main" document.
 ==== Combined geometry
 
 Combined geometry is possible only in Interoperability
-Levels 3 and 4 (Parts C and D of this Specification).
+Levels 3 and 4 (<<PartC>> and <<PartD>> of this Specification).
 
 [[sec_A-5.2.2]]
 ==== Spatial discrepancy, unrelated to scaled or cartographic smoothing
 
 Resolution of this type of spatial discrepancy is possible only in
-Levels, 2, 3, and 4 (Parts B, C, and D of this Specification).
+Levels, 2, 3, and 4 (<<PartB>>, <<PartC>>, and <<PartD>> of this Specification).
 
 There is no Level-specific guidance for this issue. Common guidance
-is provided in clause 8.2.2 of the "S-98 - Main" document.
+is provided in <<S98,clause="8.2.2">>.
 
 [[sec_A-5.2.3]]
 ==== Spatial discrepancies, related to scale or cartographic smoothing
 
 Resolution of this type of spatial discrepancy is possible only in
-Levels, 2, 3, and 4 (Parts B, C, and D of this specification).
+Levels, 2, 3, and 4 (<<PartB>>, <<PartC>>, and <<PartD>> of this specification).
 
 There is no level-specific guidance for this issue. Common guidance
-is provided in clause 8.2.3 of the "S-98 - Main" document.
+is provided in <<S98,clause="8.2.3">>.
 
 === Display of text
 
 There is no Level-specific guidance for this issue. Common guidance
-is provided in clause 10.8 of the "S-98 - Main" document.
+is provided in <<S98,clause="10.8">>.
 
 === Skin-of-the-earth feature operations
 
@@ -549,13 +546,13 @@ See <<sec_A-6.9>> for portrayal considerations.
 ==== Skin-of-the earth feature adjusting
 
 Adjustment of the geometry of skin-of-the-earth features is possible
-only in Level 4 (Part D).
+only in Level 4 (<<PartD>>).
 
 [[sec_A-5.5]]
 === Blended feature concepts
 
 Blended features or blended portrayal are only possible in interoperability
-Levels 3 and 4 (Parts C and D).
+Levels 3 and 4 (<<PartC>> and <<PartD>>).
 
 === Hierarchy of data
 
@@ -570,25 +567,25 @@ rules.
 ==== Predefined combinations
 
 Predefined combinations can be defined only in Level 2, 3, or 4 Interoperability
-Catalogues (Parts B, C, and D).
+Catalogues (<<PartB>>, <<PartC>>, and <<PartD>>).
 
 [[sec_A-5.7]]
 === New datasets
 
 There is no Level-specific guidance for this issue. Common guidance
-is provided in clause 8.7 of the "S-98 - Main" document.
+is provided in <<S98,clause="8.7">>.
 
 [[sec_A-5.8]]
 === Dataset scales, loading, and unloading
 
 There is no Level-specific guidance for this issue. Common guidance
-is provided in clause 8.8 of the "S-98 - Main" document.
+is provided in <<S98,clause="8.8">>.
 
 [[sec_A-5.9]]
 === Metadata
 
 There is no Level-specific guidance for this issue. Common guidance
-is provided in clause 8.9 of the "S-98 - Main" document.
+is provided in <<S98,clause="8.9">>.
 
 [[sec_A-5.10]]
 === Meta-features
@@ -597,13 +594,13 @@ Any spatial operations on meta-features require an Interoperability
 Catalogue to implement at least Level 4.
 
 There is no other Level-specific guidance for meta-features. Common
-guidance is provided in clause 8.10 of the "S-98 - Main" document.
+guidance is provided in <<S98,clause="8.10">>.
 
 [[sec_A-5.11]]
 === Quality considerations
 
 There is no Level-specific guidance for this issue. Common guidance
-is provided in clause 8.11 of the "S-98 - Main" document.
+is provided in <<S98,clause="8.11">>.
 
 == Portrayal
 
@@ -618,48 +615,48 @@ are external to the Interoperability Catalogue; in such cases the
 Interoperability Catalogue should continue to function in the presence
 of products not defined in the Catalogue. Data products that are outside
 of the interoperability scope must be treated in Interoperability
-Level 0 (see clause 9.6 of the "S-98 - Main" document).
+Level 0 (see <<S98,clause="9.6">>).
 
 === Display of significant features
 
 There is no Level-specific guidance for this issue. Common guidance
-is provided in clause 10.1 of the "S-98 - Main" document.
+is provided in <<S98,clause="10.1">>.
 
 === Display of significant features - switching to original
 
 There is no Level-specific guidance for this issue. Common guidance
-is provided in clause 10.2 of the "S-98 - Main" document.
+is provided in <<S98,clause="10.2">>.
 
 === Portrayal distinguishability - colour set-asides
 
 There is no Level-specific guidance for this issue. Common guidance
-is provided in clause 10.3 of the "S-98 - Main" document. See also
-S-100 Part 16 for specific guidance on colour set-asides.
+is provided in <<S98,clause="10.3">>. See also
+<<IHO_S_100,part=16>> for specific guidance on colour set-asides.
 
 === Day/night/dusk modes
 
 There is no Level-specific guidance for this issue. Common guidance
-is provided in clause 10.4 of the "S-98 - Main" document.
+is provided in <<S98,clause="10.4">>.
 
 === Impacts on viewing groups
 
 There is no level-specific guidance for this issue. Common guidance
-is provided in clause 10.5 of the "S-98 - Main" document.
+is provided in <<S98,clause="10.5">>.
 
 === Impacts on Portrayal Catalogues
 
 There is no level-specific guidance for this issue. Common guidance
-is provided in clause 10.6 of the "S-98 - Main" document.
+is provided in <<S98,clause="10.6">>.
 
 === Meta-features
 
 There is no level-specific guidance for this issue. Common guidance
-is provided in clause 10.7 of the "S-98 - Main" document.
+is provided in <<S98,clause="10.7">>.
 
 === Display of text
 
 There is no level-specific guidance for this issue. Common guidance
-is provided in clause 10.8 of the "S-98 - Main" document.
+is provided in <<S98,clause="10.8">>.
 
 [[sec_A-6.9]]
 === Skin-of-the-earth operations and portrayal
@@ -701,16 +698,16 @@ on the corresponding features in other data layers.
 
 Changes to the location or extent of symbols displayed on the screen
 due to a feature in another dataset are only possible in interoperability
-Levels 3 and 4 (Parts C and D).
+Levels 3 and 4 (<<PartC>> and <<PartD>>).
 
 === Blended portrayals
 
 There is no Level-specific guidance for this issue. Common guidance
-is provided in clause 10.10 of the "S-98 - Main" document.
+is provided in <<S98,clause="10.10">>.
 
 === Hierarchy of data
 
-As noted in clause 11.11 of the "S-98 - Main" document, hierarchy
+As noted in <<S98,clause="11.11">>, hierarchy
 of data can be controlled by predefined combinations (Level 2 and
 higher). Level 1 Catalogues offer only a very limited means of controlling
 hierarchy by means of display plane ordering. There is no Level-specific
@@ -720,8 +717,7 @@ guidance for portrayal in connection with this issue.
 ==== Interacting gridded information
 
 There is no Level-specific guidance for portrayal in connection with
-this issue. Common guidance is provided in clause 10.11.1 of the
-"S-98 - Main" document.
+this issue. Common guidance is provided in <<S98,clause="10.11.1">>.
 
 === Pick Reports
 
@@ -729,7 +725,7 @@ NOTE: The Pick Report functionality specification in S-98 is still
 under development, and the content of this section will change as
 this functionality is defined.
 
-Clause 10.12 of the "S-98 - Main" document applies. There is no additional
+<<S98,clause="10.12">> applies. There is no additional
 Level-specific guidance for Level 1.
 
 [[sec_A-7]]
@@ -810,7 +806,7 @@ image::figure-a-7-2.png["",605,374]
 == Normative Implementation Guidance
 
 There is no level-specific normative implementation guidance in this
-Edition of S-98. See clause 17 of the "S-98 - Main" document for implementation
+Edition of S-98. See <<S98,clause=17>> for implementation
 guidance that applies to all Levels.
 
 == Feature Catalogue
@@ -826,6 +822,25 @@ Level 1 does not define Portrayal Catalogues.
 == Bibliography
 
 * [[[S98,dropid(repo:(current-metanorma-collection/IHO S-98))]]],
-span:title[S-98 -- Part 1: Conceptual Schema Language],
-span:edition[5.2.0],
+span:title[S-98 -- S-100 ECDIS and Interoperability Specification],
+span:edition[2.0.0],
 span:organization[International Hydrographic Organization]
+
+* [[[PartB,dropid(repo:(current-metanorma-collection/IHO S-98 Part B))]]],
+span:title[S-98 -- Part B: Level 2 Interoperability],
+span:edition[1.0.0],
+span:organization[International Hydrographic Organization]
+
+* [[[PartC,dropid(repo:(current-metanorma-collection/IHO S-98 Part C))]]],
+span:title[S-98 -- Part C: Level 3 Interoperability],
+span:edition[1.0.0],
+span:organization[International Hydrographic Organization]
+
+* [[[PartD,dropid(repo:(current-metanorma-collection/IHO S-98 Part D))]]],
+span:title[S-98 -- Part D: Level 4 Interoperability],
+span:edition[1.0.0],
+span:organization[International Hydrographic Organization]
+
+* [[[IHO_S_100,IHO S-100]]]
+
+* [[[S97,IHO S-97]]]

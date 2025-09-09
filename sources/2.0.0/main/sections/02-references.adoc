@@ -44,3 +44,13 @@ All references refer to the latest revision or amendment.
 * [[[IHO_S_4,IHO S-4]]]
 
 * [[[IHO_S_52,IHO S-52]]]
+
+* [[[PartA,dropid(repo:(current-metanorma-collection/IHO S-98 Part A))]]],
+span:title[S-98 - Part A: Level 1 Interoperability],
+span:edition[1.0.0],
+span:organization[International Hydrographic Organization]
+
+* [[[PartB,dropid(repo:(current-metanorma-collection/IHO S-98 Part B))]]],
+span:title[S-98 - Part B: Level 2 Interoperability],
+span:edition[1.0.0],
+span:organization[International Hydrographic Organization]
