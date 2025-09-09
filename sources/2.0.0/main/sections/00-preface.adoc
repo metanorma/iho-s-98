@@ -1,73 +1,119 @@
 [.preface]
-== Document History
+== metanorma-extension
 
+[.boilerplate]
+--
 Changes to this Specification are coordinated by the IHO S-100 Working
 Group. New editions will be made available via the IHO website. Maintenance
 of the Specification shall conform to IHO Resolution 2/2007 (as amended).
+--
 
-[cols="87,93,69,299"]
-|===
-h| Version Number h| Date h| Approved By h| Purpose
+=== document history
 
-| 0.0.1 | 28 Aug 2020 | RM       | First draft. Reviewed by EM.
-| 0.0.2 | 01 Nov 2021 | J.Powell | Numerous revisions to take into account the S-98 Correspondence Group adjudication work.
-| 1.0.0 | May 2022    | S-100WG  | Submission to HSSC14 for approval.
-| 1.0.0 | May 2022    | HSSC     | Initial published version for evaluation and testing.
-
-| 1.1.0
-| August 2023
-|
-| Added MSC.530(106)/Rev.1 in place of MSC.232(82) and updated text
-accordingly ("SENC" to "System Database"- various clauses); updated
-tidal stream panel presentation (C-15.4); fixed heading 1 and heading
-2 styles; added new clause listing allowed support file formats for
-ECDIS and elaborated rules for additional information in text (C-11.5);
-struck alternate labels in Tables C-2 and C-3;
-
-| 1.2.0
-| February 2024
-|
-| Collection of issues identified by subgroup and external stakeholder.
-
-| 1.3.0
-| May 2024
-|
-| Incorporating stakeholder inputs, GitHub discussions and TSM 2024 outputs.
-
-| 1.3.4
-| July 2024
-|
-| Version after review meetings
-
-| 1.4.0
-| August 2024
-|
-| Version prepared for F2F meeting with stakeholders.
-
-| 1,6.0
-| September 2024
-|
-| Prepared following Face to Face meeting.
-
-| 1.7.1
-| October 2024
-|
-| Remainder of comments received applied and commented.
-
-| 1.8.0 [2.0.0]
-| January 2025
-|
-| Draft for 2.0.0, HSSC 2025 following VTC reviews and resolutions
-of comments from F2F meeting.
-
-| 1.9.0[2.0.0]
-| March 2025
-|
-| Prepared version for TSM 2025
-
-| 2.0.0
-| March 2025
-|
-| Version submitted to HSSC 2025
-
-|===
+[source,yaml]
+----
+- date:
+  - type: published
+    value: 2020-08-28
+  edition: "0.0.1"
+  contributor:
+  - person:
+      name:
+        completename: RM
+        abbreviation: RM
+  amend:
+    - description: First draft. Reviewed by EM.
+- date:
+  - type: updated
+    value: 2021-11-01
+  edition: "0.0.2"
+  contributor:
+  - person:
+      name:
+        completename: J. Powell
+        abbreviation: JP
+  amend:
+    - description: Numerous revisions to take into account the S-98 Correspondence Group adjudication work.
+- date:
+  - type: updated
+    value: 2022-05
+  edition: "1.0.0"
+  contributor:
+  - organization:
+      name: International Hydrographic Organization
+      subdivision: S-100 Working Group
+      abbreviation: S-100WG
+  amend:
+    - description: Submission to HSSC14 for approval.
+- date:
+  - type: published
+    value: 2022-05
+  edition: "1.0.0"
+  contributor:
+  - organization:
+      name: International Hydrographic Organization
+      subdivision: IHO Hydrographic Services and Standards Committee
+      abbreviation: HSSC
+  amend:
+   - description: Initial published version for evaluation and testing.
+- date:
+  - type: updated
+    value: 2023-08
+  edition: "1.1.0"
+  amend:
+   - description: Added MSC.530(106)/Rev.1 in place of MSC.232(82) and updated text accordingly ("SENC" to "System Database"- various clauses); updated tidal stream panel presentation (C-15.4); fixed heading 1 and heading 2 styles; added new clause listing allowed support file formats for ECDIS and elaborated rules for additional information in text (C-11.5); struck alternate labels in Tables C-2 and C-3;
+- date:
+  - type: updated
+    value: 2024-02
+  edition: "1.2.0"
+  amend:
+   - description: Collection of issues identified by subgroup and external stakeholder.
+- date:
+  - type: updated
+    value: 2024-05
+  edition: "1.3.0"
+  amend:
+   - description: Incorporating stakeholder inputs, GitHub discussions and TSM 2024 outputs.
+- date:
+  - type: updated
+    value: 2024-07
+  edition: "1.3.4"
+  amend:
+   - description: Version after review meetings
+- date:
+  - type: updated
+    value: 2024-08
+  edition: "1.4.0"
+  amend:
+   - description: Version prepared for F2F meeting with stakeholders.
+- date:
+  - type: updated
+    value: 2024-09
+  edition: "1.6.0"
+  amend:
+   - description: Prepared following Face to Face meeting.
+- date:
+  - type: updated
+    value: 2024-10
+  edition: "1.7.1"
+  amend:
+   - description: Remainder of comments received applied and commented.
+- date:
+  - type: updated
+    value: 2025-01
+  edition: "1.8.0 [2.0.0]"
+  amend:
+   - description: Draft for 2.0.0, HSSC 2025 following VTC reviews and resolutions of comments from F2F meeting.
+- date:
+  - type: updated
+    value: 2025-03
+  edition: "1.9.0 [2.0.0]"
+  amend:
+   - description: Prepared version for TSM 2025
+- date:
+  - type: updated
+    value: 2025-03
+  edition: "2.0.0"
+  amend:
+   - description: Version submitted to HSSC 2025
+----

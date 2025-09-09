@@ -44,17 +44,17 @@ and that stem:[b = 6356752.31425]
 For all UTM South zones, false northing stem:[FN = 10000000 "unitsml(m)"]
 --
 
-. Each UTM zone has a corresponding central meridian stem:[λ_0], which
+. Each UTM zone has a corresponding central meridian stem:[lambda_0], which
 can be found in the EPSG dataset. North and south zones of the same
 number (e.g., UTM Zone 18N and UTM Zone 18S) share a central meridian.
 
 Algorithmically, the value can be found as follows:
 
 For zone numbers stem:[N_z] between 1 and 30 (inclusive):
-stem:[λ_0 = [183-(6 xx N_z)\] "unitsml(deg)" W]
+stem:[lambda_0 = [183-(6 xx N_z)\] "unitsml(deg)" W]
 
 For zone numbers stem:[N_z] between 31 and 60 (inclusive):
-stem:[λ_0 = {[6 xx (N_z-30)\] - 3} "unitsml(deg)" E]
+stem:[lambda_0 = {[6 xx (N_z-30)\] - 3} "unitsml(deg)" E]
 
 [example]
 For UTM Zone 45S, stem:[N_z = 45], so stem:[lambda_0 = 87 "unitsml(deg)"E].

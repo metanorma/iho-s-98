@@ -229,7 +229,7 @@ PERMIT.XML contents (after the PERMIT.XML is successfully authenticated
 against the digital signature in the PERMIT.SIGN) and its contents
 in respect of the end user's subscription details. This is only for
 use with datasets which are encrypted and should be carried out prior
-to dataset file decryption according to S-100 Part 15.
+to dataset file decryption according to <<IHO_S_100,part=15>>.
 
 [[fig_7]]
 .Check for permit validity prior to dataset decryption
@@ -244,7 +244,7 @@ diagram illustrates how signatures must be processed.
 .Authentication of Exchange Set dataset components
 image::figure-08.png["",628,482]
 
-Under S-100 Part 15 datasets and other Exchange Set components may
+Under <<IHO_S_100,part=15>> datasets and other Exchange Set components may
 have multiple digital signatures, with each signature referenced to
 a signed public key certificate. Each Exchange Set contains all relevant
 certificates with the exception of the SA digital certificate which
@@ -257,7 +257,7 @@ If more than one signature exists for a dataset or dataset support
 file then all signatures must be verified before successful import.
 
 Full documentation of authentication processes and technical details
-are contained in S-100 Part 15.
+are contained in <<IHO_S_100,part=15>>.
 
 Certain Exchange Set contents control the behaviour of the ECDIS and
 may only be digitally signed by the Scheme Administrator. These categories

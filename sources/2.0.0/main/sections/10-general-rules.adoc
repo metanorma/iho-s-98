@@ -4,8 +4,7 @@
 === Symbol Specifications
 
 All symbols are specified in the Portrayal Catalogue for the respective
-Product Specifications and are defined according to S-100 Part 9
-appendix B.
+Product Specifications and are defined according to <<IHO_S_100,locality:appendix="9-B">>.
 
 Some feature types do not have a symbol. Such "no symbol" features
 may be picked up by cursor interrogation of the area.
@@ -32,7 +31,7 @@ units (pixels), depending on their complexity. A simple chart symbol
 of height 4mm should extend at least 13 pixels for a screen that just
 meets the current minimum standards for chart display size and resolution.
 
-The minimum resolution is defined by IEC 61174 and/or IEC 62288.
+The minimum resolution is defined by <<IEC_61174>> and/or <<IEC_62288>>.
 
 ==== Minimum Requirement for size and resolution
 
