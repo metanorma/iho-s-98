@@ -1,7 +1,10 @@
 = Data Product Interoperability in S-100 Navigation Systems - Part C: Level 3 Interoperability
 :series: S
 :docnumber: 98
-:doctype: standard
+:partnumber: C
+:title: Data Product Interoperability in S-100 Navigation Systems
+:title-part: Level 3 Interoperability
+:doctype: specification
 :edition: 1.0.0
 :language: en
 :published-date: 2022-05-01
