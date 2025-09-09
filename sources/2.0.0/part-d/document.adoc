@@ -813,7 +813,7 @@ plus those listed in <<table_D-4.1>>
 below.
 
 S-98 also includes the quality measure "Relative Internal Positional
-Accuracy" (IHO_S_100,locality:appendix="4c-C">>) as a measure of the accuracy
+Accuracy" (<<IHO_S_100,locality:appendix="4c-C">>) as a measure of the accuracy
 of any spatial operations during interoperability processing which
 may generate spatial primitives for display purposes from input products.
 
