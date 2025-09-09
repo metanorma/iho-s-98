@@ -15,7 +15,7 @@ ENCs during the transition period.
 
 The display of additional information layers is generally driven by
 mariner need. The Interoperability Catalogue concept for ECDIS
-(see S-100 Part 16 and S-98) is based on the use of S-101 ENCs as
+(see <<IHO_S_100,part=16>> and S-98) is based on the use of S-101 ENCs as
 the base layer.
 
 === Concurrent applicability of S-52 and S-57

@@ -35,7 +35,7 @@ is up to date for a section of a particular route
 is up to date.
 
 All S-100 datasets use Edition and, sometimes, update numbers to denote
-their individual revision (see S-100 Part 17 for details). These numbers
+their individual revision (see <<IHO_S_100,part=17>> for details). These numbers
 uniquely identify how up to date a dataset is. The difficulty with
 using Edition/update numbers in isolation is that they do not document
 the date of revision of all datasets relative to the installation
@@ -67,9 +67,9 @@ S-128 dataset). The equipment manual should explain terms "up to date"
 and "out of date".
 
 This report only reports the status of datasets delivered as part
-of a data service using S-100 Part 17 Exchange Set metadata and
+of a data service using <<IHO_S_100,part=17>> Exchange Set metadata and
 (as part of dual-fuel mode) IHO S-57 datasets (as illustrated in the
-hybrid Exchange Set in S-100 Part 17, clause 17-4.2). Where other
+hybrid Exchange Set in <<IHO_S_100,clause="17-4.2">>). Where other
 S-100 datasets are installed on the system from other sources
 (for example, Unencrypted ENCs) then they should be displayed with
 a status of "unknown". The Equipment manual should explain terms "unknown".
@@ -238,7 +238,7 @@ a|
 | The data used as the reference for the status of each of the cells.
 This is the issue date of the last S-128 dataset in the Exchange Set
 used to update the System Database. The date is taken from the latest
-S-128 datasets issueDate in the CATALOG.XML and is expressed in ISO8601
+S-128 datasets issueDate in the CATALOG.XML and is expressed in ISO 8601
 notation:[*YYYMMDDZHHMMSS*]
 
 a|

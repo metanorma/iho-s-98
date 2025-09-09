@@ -107,7 +107,7 @@ screen as the chart display, and treated as display base. Use colour
 SCLBR.
 
 This overscale indication is required by IMO Performance Standards
-(MSC.530(106)/Rev.1) and must be shown whenever the overscale factor
+(<<ref9>>) and must be shown whenever the overscale factor
 at the vessel location (when the vessel is on screen), or at the centre
 of the screen (when the vessel is not on screen), exceeds 1.
 
@@ -182,7 +182,7 @@ of X 3.6 but would have no OVERSC01 area fill.
 As the mariner's display window moves and begins to cover an ENC that
 is of a larger *_optimumDisplayScale_*, the ECDIS must indicate when
 the ship's position enters the larger scale ENC, as required by
-MSC.530(106)/Rev.1 6.1.2.
+<<ref9,section="6.1.2">>.
 
 [[sec_12.4]]
 === Graphical indexes
@@ -419,7 +419,7 @@ A north arrow must be provided as part of the Display Base according
 to the IMO Performance Standard. The north arrow must always be shown
 at the top left corner of the chart display, just clear of the scale
 bar or latitude scale. Other requirements for the north arrow are
-defined in IEC 61174.
+defined in <<IEC_61174>>.
 
 The symbol 'NORTHAR1' must be used to indicate true north.
 It must be placed in the top left corner of the chart display, on
@@ -429,7 +429,7 @@ if the latter extends the full height of the display.
 
 [[table_2]]
 .North Arrow presentation parameters
-[cols="25,17,21,21,17"]
+[cols="a,a,a,a,a"]
 |===
 h| Symbol h| Drawing priority h| Display plane h| Display category h| Viewing group
 
@@ -439,14 +439,14 @@ h| Symbol h| Drawing priority h| Display plane h| Display category h| Viewing gr
 ==== Graticule
 
 If the ECDIS shows a graticule (listed in "other information" in IMO
-Performance Standards (MSC.530(106)/Rev.1)) the lines must use the
+Performance Standards (<<ref9>>) the lines must use the
 colour token CHBLK.
 
 ==== Display mode
 
 The ECDIS manufacturer must provide the indication of display mode
 required in the display base by IMO Performance Standards
-(MSC.530(106)/Rev.1 Appendix 2).
+(<<ref9,locality:appendix=2>>).
 
 ==== Black level adjustment symbol
 
@@ -458,8 +458,7 @@ is provided as a part of ECDIS Chart 1, see <<sec_19.5>>
 
 ==== Detection and notification of navigational hazards
 
-The IMO Performance Standard for ECDIS MSC.530(106)/Rev.1,
-clause 11.3.7 Route planning states:
+The IMO Performance Standard for <<ref9,clause="11.3.7">> Route planning states:
 
 ____
 A graphical indication should also be given if the mariner plans a
@@ -468,7 +467,7 @@ category of point objects, such as a fixed or floating aid to navigation
 or isolated danger.
 ____
 
-Clause 11.4.6 Route monitoring states:
+<<ref9,clause="11.4.6">> Route monitoring states:
 
 ____
 ECDIS should give a warning or caution or indication as selected by
@@ -480,7 +479,7 @@ from a user-selectable category of danger
 safety contour or a user-selectable category of aid to navigation.
 ____
 
-Clause 11.4.8 Route Monitoring states:
+<<ref9,clause="11.4.8">> Route Monitoring states:
 
 ____
 A graphical indication should be given if the current or the next
@@ -508,8 +507,8 @@ image::figure-02.png["",440,325]
 
 ==== Detection of areas for which special conditions exist
 
-The IMO Performance Standard for ECDIS MSC.530(106)/Rev.1,
-clause 11.3.7 (which applies to Route Planning) states:
+The IMO Performance Standard for
+<<ref9,clause="11.3.7">> (which applies to Route Planning) states:
 
 ____
 A graphical indication should be given if the mariner plans a route
@@ -518,7 +517,7 @@ category of prohibited area or geographic area for which special conditions
 exist (see appendix 4).
 ____
 
-Clause 11.4.4 Route Monitoring states;
+<<ref9,clause="11.4.4">> Route Monitoring states;
 
 ____
 ECDIS should give a warning or caution, or indication, as selected
@@ -538,15 +537,14 @@ areas of the display.
 
 ==== Detection of safety contour
 
-The IMO Performance Standard for ECDIS MSC.530(106)/Rev.1,
-clause 11.3.6 Route Planning states;
+The IMO Performance Standard for <<ref9,clause="11.3.6">> Route Planning states;
 
 ____
 A graphical indication is required if the mariner plans a route closer
 than a user-specified distance from own ship's safety contour.
 ____
 
-Clause 11.4.3 Route Monitoring states;
+<<ref9,clause="11.4.3">> Route Monitoring states;
 
 ____
 It should be possible to select that ECDIS gives an alarm and related
@@ -555,7 +553,7 @@ the mariner, own ship will pass closer than a user-selected distance
 from the safety contour.
 ____
 
-Clause 11.4.7 Route Monitoring states:
+<<ref9,clause="11.4.7">> Route Monitoring states:
 
 ____
 A graphical indication should be given if the current or the next
@@ -575,8 +573,7 @@ image::figure-03.png["",461,321]
 
 ==== Indications related to ENC accuracy
 
-The IMO Performance Standard for ECDIS MSC.530(106)/Rev.1,
-clause 11.3.6 Route Planning states;
+The IMO Performance Standard for <<ref9,clause="11.3.6">> Route Planning states;
 
 ____
 11.3.8 It should be possible for the mariner to select that the indications
@@ -584,7 +581,7 @@ of 11.3.6 and 11.3.7 take into account accuracy information of relevant
 hydrographic information, as defined by IHO standards.
 ____
 
-Clause 11.4.9 Route Monitoring states;
+<<ref9,clause="11.4.9">> Route Monitoring states;
 
 ____
 11.4.9 It should be possible for the mariner to select that the indications
@@ -612,7 +609,7 @@ according to the following table of default values:
 
 [[table_3]]
 .categoryOfZoneOfConfidence and Accuracy values.
-[cols="111,68"]
+[cols="a,a"]
 |===
 h| _categoryOfZoneOfConfidence value_ h| Positional Accuracy
 
@@ -629,7 +626,7 @@ h| _categoryOfZoneOfConfidence value_ h| Positional Accuracy
 When the depth information in the S-101 is substituted by S-102 the
 __zoneOfConfidence.horizontalPositionUncertainty.__uncertaintyFixedin
 the QualityOfBathymetryCoverage feature attribute table
-(S-100 Part 10c, 9.6.2) from the S-102 must be used instead of the
+(<<IHO_S_100,clause="10c-9.6.2">>) from the S-102 must be used instead of the
 S-101 feature information as defined in the last clause if it is set.
 If this value is not available then the S-101 value defined in the
 previous clause must be used instead.
@@ -739,7 +736,7 @@ available for display for a position selected by the Mariner.
 
 [[table_4]]
 .Legend elements
-[cols="203,365"]
+[cols="a,a"]
 |===
 h| ECDIS Legend Item h| Values
 
@@ -797,18 +794,18 @@ selected and the contour displayed must be quoted
 _referenceYearForMagneticVariation (RYRMGV)_, _valueofAnnualChangeInMagneticVariation (VALACM)_,
 and _valueOfMagneticVariation (VALMAG)_ Item must be displayed as:
 VALMAG RYRMGV (VALACM) +
-For example, 4°15W 1990 (8'E)
+For example, stem:[4"unitsml(deg)"15"W"] 1990 (8'E)
 | Date and number of latest update affecting the ENC each dataset
 currently in use
 | Issue date and update number from the dataset discovery record
 (S100_DatasetDiscoveryMetadata) of the last update dataset applied.
-(See S-100 Part 17)
+(See <<IHO_S_100,part=17>>)
 
 | Edition number and date of each dataset the ENC currently in use
 | Edition number and issue date from the dataset discovery record
 
 (S100_DatasetDiscoveryMetadata) of the current base issue of the ENC
-dataset. (See S-100 Part 17)
+dataset. (See <<IHO_S_100,part=17>>)
 | Display projection | Projection used for the ECDIS display
 (For example, oblique azimuthal). This must be appropriate to the
 scale and latitude of the data in use
@@ -865,7 +862,7 @@ but will not be otherwise displayed.
 ==== Additional Mariner's Information
 
 Mariner's Caution Notes and a Mariner's Information Notes must be
-presented according to IEC 61174 or IEC 62288, as applicable [and
+presented according to <<IEC_61174>> or <<IEC_62288>>, as applicable [and
 available].
 
 Point cautions and notes entered by the mariner and the manufacturer
@@ -873,9 +870,9 @@ must be distinguished by the colours orange and yellow respectively.
 
 ==== Automatic Updates
 
-Only ISO8211 and GML encoded data can support updates, as described
-in S-100 Part 10a and 10b respectively. The use of GML updates as
-described in S-100 Part 10b is used, in particular, by S-128 to update
+Only ISO 8211 and GML encoded data can support updates, as described
+in <<IHO_S_100,part=10a>> and <<IHO_S_100,part=10b>> respectively. The use of GML updates as
+described in <<IHO_S_100,part=10b>> is used, in particular, by S-128 to update
 catalogue information used by the ECDIS to produce update Status Reports,
 as described in <<annexC>> - ECDIS Update Status Reports.
 

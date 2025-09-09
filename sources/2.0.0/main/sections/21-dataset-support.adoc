@@ -10,9 +10,9 @@ System database. There is no requirement to import or update any other
 content from an exchange set. This includes any of S-100's component
 schemas and system support files associated with those schemas.
 
-As defined in S-100 Part 17, each dataset support file references
+As defined in <<IHO_S_100,part=17>>, each dataset support file references
 one or more datasets which contain a reference to it. Language packs
-(S-100 Part 18) reference the feature catalogue they refer to.
+(<<IHO_S_100,part=18>>) reference the feature catalogue they refer to.
 
 === Exchange set delivery
 
@@ -24,7 +24,7 @@ base dataset.
 
 === Management of automatic updates to Dataset Support files
 
-Dataset names in S-100 are unique (S-100 Part 17). Dataset support
+Dataset names in S-100 are unique (IHO_S_100,part=17>>). Dataset support
 files are referenced to one or more datasets in the exchange catalogue
 metadata. This allows dataset support files to be shared between multiple
 datasets.
@@ -53,7 +53,7 @@ is not used by any other datasets prior to deletion.
 
 From all possible support file formats, ECDIS must at least be able
 to display the following (taken from the list of support file formats
-in S-100 Part 17 S100_SupportFileFormat enumeration)
+in <<IHO_S_100,part=17>> S100_SupportFileFormat enumeration)
 
 * Plain text
 * JPEG 2000

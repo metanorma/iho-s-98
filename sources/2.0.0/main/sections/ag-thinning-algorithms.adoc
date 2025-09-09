@@ -143,7 +143,7 @@ example, counting displayable rows and columns starting with the first
 instance of a maximised symbol may suppress significant information
 in nearby grid points and produce the wrong overall impression.
 In <<fig_G-1-3>>, row 2 would be suppressed even if all the data points
-in that row are of the same size as the symbol at (1,1) — this would
+in that row are of the same size as the symbol at (1,1) -- this would
 suppress more data points with scaled-up symbols, which may represent
 data of more significance to the Mariner.
 

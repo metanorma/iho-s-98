@@ -11,7 +11,7 @@ official S-100-based data products, S-57, radar, or AIS.
 [[sec_9.1.1]]
 ==== Distinguishing between official S-100 data and additional data
 
-IMO Performance Standards (MSC.530(106)/Rev.1 section 1.5) states
+IMO Performance Standards (<<ref9,section="1.5">>) states
 that ECDIS should enable the mariner to execute all route planning,
 route monitoring, and positioning and sections 3.3-3.4 mean that the
 ENDS and System Database may contain information from nautical publications
@@ -133,7 +133,7 @@ The IMO Performance Standard divides System Database information into
 three categories that determine what data is to be on the display:
 Display Base (always present on the display); Standard Display
 (the default display); and all other information (displayed on demand).
-(MSC.530(106)/Rev.1, Appendix 2).
+(<<ref9,locality:appendix=2>>).
 
 There are 9 basic priority layers for the drawing sequence of the
 data on the display, ordered from higher to lower priorities in the
@@ -167,19 +167,19 @@ When present, the radar image should be written over Portrayal Catalogue
 display planes with a negative _order_ attribute; and below display
 planes with a positive _order_ attribute.
 
-In order to meet the requirements of IMO MSC.530(106)/Rev.1 section
-11.4.18 to adjust the ship's position, the ECDIS may incorporate the
+In order to meet the requirements of <<ref9,section="11.4.18">>
+to adjust the ship's position, the ECDIS may incorporate the
 capability of temporarily changing the radar image priority during
 the adjustment.
 
 === Displaying ECDIS updates
 
 The strategy for displaying ECDIS updates is derived from the IMO
-Performance Standard MSC.530(106)/Rev.1. The citations below are to
+Performance Standard <<ref9>>. The citations below are to
 sections in that Standard. The quoted requirements are mandatory and
 must be implemented by the ECDIS.
 
-.MSC.530(106)/Rev.1 4.4
+.<<ref9,section="4.4">>
 ____
 ECDIS should be capable of accepting official updates to the ENDS
 provided in conformity with IHO standards. These updates must be automatically
@@ -188,7 +188,7 @@ the implementation procedure must not interfere with the display in
 use.
 ____
 
-.MSC.530(106)/Rev.1 4.5
+.<<ref9,section="4.5">>
 ____
 ECDIS should also be capable of accepting updates to the ENDS data
 entered manually with simple means for verification prior to the final
@@ -198,12 +198,12 @@ legibility. (The requirements for Manual Updates are given in
 clauses 12.12.1 and 20.4.4.)
 ____
 
-.MSC.530(106)/Rev.1 4.7
+.<<ref9,section="4.7">>
 ____
 ECDIS should allow the mariner to display updates in order to review
 their contents and to ascertain that they have been included in the
 system database. (The requirements for displaying updates for review
-are given in <<sec_12.12.4>>.).
+are given in clause 12.12.4.).
 ____
 
 === Display functions

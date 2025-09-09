@@ -7,8 +7,8 @@ Electronic Navigational Chart (ENC) and other S-100 based data products
 in an Electronic Chart Display and Information System (ECDIS). It
 describes how S-100 products are to be used and displayed simultaneously
 on the navigation screen. It does not address the portrayal processes
-or architectures, which are addressed in S-100 Part 9. It is based
-on the general principles described in S-100 Part 16A, and the requirements
+or architectures, which are addressed in <<IHO_S_100,part=9>>. It is based
+on the general principles described in <<IHO_S_100,part=16a>>, and the requirements
 for ECDIS specified in the relevant International Maritime Organization
 (IMO), International Hydrographic Organization (IHO), and International
 Electrotechnical Commission (IEC) standards.
@@ -53,7 +53,7 @@ water levels, regulated areas, services and weather.
 
 The standards that are current at the time of writing of this specification
 are listed in the References section. More detailed information about
-the various standards is provided in S-100 Part 16a.
+the various standards is provided in <<IHO_S_100,part=16a>>.
 
 Application developers should obtain an up-to-date set of applicable
 standards and specifications from the relevant organisations. Developers
@@ -89,7 +89,7 @@ simultaneously.
 for development of Interoperability Catalogues that can be used by
 systems to control the simultaneous use and display of two or more
 S-100 based data products. It is an implementation of the abstract
-interoperability concepts described in S-100 Part 16. Part A and B
+interoperability concepts described in <<IHO_S_100,part=16>>. Part A and B
 of this specification define levels 1 and 2 respectively.
 
 NOTE: the current edition of S-98 does not use the full interoperability

@@ -21,7 +21,7 @@ are to be displayed.
 NOTE: These algorithms only address loading and display related to
 visualization within the system graphics window. The application may
 need to load other datasets to satisfy requirements related to alerts
-processing, such as MSC.530(106)/Rev.1 A11.2.
+processing, such as <<ref9,section="A11.2">>.
 
 NOTE: Light sectors and other features which may span dataset boundaries.
 It should be possible, on request, for the mariner to be capable of
@@ -241,10 +241,10 @@ is then rendered using the _RenderInstruction_ algorithm.
 ^*^ The __viewingGroup(s)__, __scaleMinimum__, _scaleMaximum, date
 dependency, line suppression, and any other_ properties of the drawing
 instruction which may affect the instructions visibility must be taken
-into account. (See S-100 Part 9).
+into account. (See <<IHO_S_100,part=9>>).
 
 ^**^ To enhance the readability of text, an implementation may consider
-the guidance in S-100 Part 9 regarding text rendering to adjust this
+the guidance in <<IHO_S_100,part=9>> regarding text rendering to adjust this
 algorithm as needed.
 ====
 

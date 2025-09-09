@@ -58,7 +58,7 @@ data products
 To prevent the simultaneous presentation of multiple data layers from
 cluttering the presentation and hiding critical information, the ECDIS
 shall implement good practice in user interface design, including
-the applicable IMO requirements (MSC.191(79), MSC.1/Circ1609),
+the applicable IMO requirements (<<ref5>>, <<ref10>>),
 see also <<sec_8>>.
 
 Detection of and response to possible data overload should be guided

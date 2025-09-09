@@ -8,7 +8,7 @@ include multiple products for use in navigation systems. They were
 introduced in IMO MSC 530(106) and update the previous concept of
 SENC defined in IMO MSC.232(82).
 
-IMO MSC.530(106)/Rev.1 defines Electronic Navigational Chart (ENC),
+<<ref9>> defines Electronic Navigational Chart (ENC),
 Electronic Navigational Data Service (ENDS), and System Database as
 follows:
 
@@ -43,7 +43,7 @@ and/or S-57 based products.
 [[sec_4.2]]
 === ECDIS concept, limitations, and challenges
 
-IMO MSC 530(106)/Rev.1 also defines Electronic Chart Display and Information
+<<ref9>> also defines Electronic Chart Display and Information
 System (ECDIS):
 
 ____
@@ -176,7 +176,7 @@ of this document.
 === Integrated Navigation System (INS) concept, limitations and challenges
 
 The concept of an Integrated Navigation System (INS) is outlined in
-the IMO Performance Standards MSC 252(83). INS workstations have multifunctional
+the IMO Performance Standards <<ref6>>. INS workstations have multifunctional
 displays providing at least route monitoring and collision avoidance
 functions, and may provide manual or automatic navigation control
 functions. In addition to these functions, an INS generally also provide

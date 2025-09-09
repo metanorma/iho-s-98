@@ -3,7 +3,7 @@
 == Coverages and Time Series for Gridded Data (S-102, S-104 and S-111)
 
 Coverage and time series features are encoded in the HDF5 format
-(see S-100 Part 10c). S-100 provides for the following types of coverage
+(see <<IHO_S_100,part="10c">>). S-100 provides for the following types of coverage
 and time series data:
 
 * Gridded data with different types of spatial grid coverages;
@@ -44,7 +44,7 @@ or other algorithms of their own devising.
 The metadata variables related to time are _dateTimeOfFirstRecord_,
 _dateTimeOfLastRecord_, _timeRecordInterval_, _numberOfTimes,
 timeIntervalIndex, timePoint, startDateTime,_ and _endDateTime_
-(see S-100 Part 10c). The time selected for display (that is,
+(see <<IHO_S_100,part="10c">>). The time selected for display (that is,
 past/present/future) will typically not correspond exactly to the
 timestamp (metadata variable _timePoint_) of the input data.
 For a correct display, the ECDIS must select the correct data.

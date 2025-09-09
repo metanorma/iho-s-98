@@ -4,8 +4,8 @@
 This section provides a brief, informative summary of the S-100 portrayal
 process, the main elements of Portrayal Catalogues, and the alert
 model. More details about the process and definitions of Portrayal
-Catalogue elements and the alerting model are available in S-100 Parts
-9 and 9a.
+Catalogue elements and the alerting model are available in
+<<IHO_S_100,part=9>> and <<IHO_S_100,part=9a>>.
 
 Later sections of this document describe how the portrayal elements
 should be used in an ECDIS implementation.
@@ -25,21 +25,22 @@ produce the final display according to the output device.
 
 S-100 describes two different portrayal mechanisms, one based on XSLT
 templates and the other based on the scripting capability described
-in S-100 Part 13. The basic portrayal process is the same for both,
-and is described in S-100 Part 9 and 9a.
+in <<IHO_S_100,part=13>>. The basic portrayal process is the same for both,
+and is described in <<IHO_S_100,part=9>> and <<IHO_S_100,part=9a>>.
 
 When interoperability is activated and there is an interoperable product
 loaded to the display, either feature data or drawing instructions
 (depending on the implementation architecture) are further filtered
 and/or have their priorities adjusted as specified in the interoperability
-catalogue. Interoperability processing is described in S-100 Part
-16 and in Annexes A and B of this specification (Note that such interoperability
+catalogue. Interoperability processing is described in <<IHO_S_100,part=16>>
+and in <<IHO_S_100,annex=A>> and <<IHO_S_100,annex=B>> of this specification
+(Note that such interoperability
 is not operational in this edition of S-98).
 
 === Elements of S-100 Portrayal
 
 Much of the content of this section is included for information as
-it is described definitively in S-100 Part 9 and Part 9a.
+it is described definitively in <<IHO_S_100,part=9>> and <<IHO_S_100,part=9a>>.
 
 ==== Pixmaps
 
@@ -97,9 +98,9 @@ composed of repeating line patterns.
 Simple line styles are generally described by continuity, width, and
 colour. The full specification of a simple line style may also include
 other elements such as dash interval, cap and join types
-(see S-100 clauses 9-12.4 and 9a-11.2.2.3), defaults for which may
+(see <<IHO_S_100,clause="9-12.4">> and <<IHO_S_100,clause="9a-11.2.2.3">>), defaults for which may
 be set in the Portrayal Catalogue. Complex line styles consist of
-additional elements, described in S-100 9-12.4 and 9a-11.2.2.3.
+additional elements, described in <<IHO_S_100,clause="9-12.4">> and <<IHO_S_100,clause="9a-11.2.2.3">>.
 
 Complex linestyles may be one-sided (symbols, text, etc., which are
 part of the line extend to only one side of the line) or two-sided
@@ -156,7 +157,7 @@ locations.
 However, explicit cartographic placement along curves or relative
 to area/local CRS cannot be explicitly encoded in S-101 datasets,
 though it can be encoded in portrayal rules in a Portrayal Catalogue
-(S-100 Part 9a, clause 9a-11.2).
+(<<IHO_S_100,clause="9a-11.2">>).
 
 ==== Style sheets
 
@@ -166,7 +167,7 @@ This mechanism allows changing colours and line weights used in the
 symbols by swapping CSS files according to the desired colour scheme.
 
 In principle, any style attribute can be set in a CSS file, but the
-CSS files in IHO Portrayal Catalogues are restricted by S-100 9-B-4.4
+CSS files in IHO Portrayal Catalogues are restricted by <<IHO_S_100,clause="9b-4.4">>
 to only two use cases: setting stroke and fill colours, altering the
 visibility of elements which are not normally displayed
 (for example, the pivot point).
@@ -180,8 +181,8 @@ drawn over a radar image.
 
 ==== Display (drawing) priorities
 
-Display priorities are also called "drawing priorities" in S-100 Parts
-9 and 9a.
+Display priorities are also called "drawing priorities" in
+<<IHO_S_100,part=9>> and <<IHO_S_100,part=9a>>.
 
 Display priorities control the order in which the output of the portrayal
 functions is processed by the rendering engine within a display plane.
@@ -237,10 +238,10 @@ of the smallest granularity. For example, if the end instant is specified
 a date without a time of day, and the interval is "right-closed",
 the end instant is midnight at the end of the specified day
 (240000 in ISO 8601 terms). This is consistent with the S-100 treatment
-of _dateStart_ and _dateEnd_ attributes (see S-100 Part 3 clause 3-8-3
+of _dateStart_ and _dateEnd_ attributes (see <<IHO_S_100,clause="3-8-3">>
 (Interpretation of models of time intervals and period), but note
 that the open/closed nature of the interval affects the interpretation
-for Part 9 time intervals — if the same interval is specified as "right-open"
+for Part 9 time intervals -- if the same interval is specified as "right-open"
 the start time point is midnight at the beginning of the specified
 day (000000 in ISO 8601 terms).
 
@@ -259,4 +260,4 @@ and are triggered when the vessel route (either actual track, during
 route monitoring, or planned, during route planning) intersects the
 geometry (which may be restricted or augmented) of a feature.
 The events are alarms, alerts, warnings, cautions, or indications
-as described in IMO MSC.252(83).
+as described in <<ref6>>.

@@ -68,12 +68,12 @@ a| A.B.image:figure-x.png["",16,16]
 Each dataset has a product specification edition number contained
 within it. These are located as follows:
 
-. ISO8211 datasets (S-100 Part 10a). The "PRED" field of the DSID
+. ISO 8211 datasets (<<IHO_S_100,part=10a>>). The "PRED" field of the DSID
 record in the dataset.
-. GML Datasets (S-100 Part 10b). The "ProductEdition" element of the
+. GML Datasets (<<IHO_S_100,part=10b>>). The "ProductEdition" element of the
 DatasetIdentification element in the GML dataset header.
-. HDF5 datasets (S-100 Part 10c) - Root Group "Product Specification"
-metadata value, S-100 Part 10c
+. HDF5 datasets (<<IHO_S_100,part=10c>>) - Root Group "Product Specification"
+metadata value, <<IHO_S_100,part=10c>>
 
 And have the following common format:
 
@@ -155,7 +155,7 @@ is not needed in these cases.
 ==== Introduction
 
 The current Editions of S-65, S-57 and S-63 continue to apply to the
-production and data delivery for S-57 ENC updates. S-52 Appendix I
+production and data delivery for S-57 ENC updates. <<IHO_S_52,locality:appendix="I">>
 continues to apply to the processing of S-57 updates on ECDIS.
 
 ==== General requirements
@@ -179,7 +179,7 @@ and edition numbers for S-101 ENC
 NOTE: (informative) Sequences are determined by the update and Edition
 numbers, not by issue date and time. Issue date/time are given in
 dataset discovery metadata in the Exchange Catalogue
-(see S-100 Part 17). Note that time is optional. Note also that it
+(see <<IHO_S_100,part=17>>). Note that time is optional. Note also that it
 is possible for the date/time for two or more consecutive updates
 to be the same - in fact for data that are frequently updated, such
 as water levels, the date may be the same for many consecutive datasets.
@@ -187,11 +187,11 @@ as water levels, the date may be the same for many consecutive datasets.
 ==== Automatic Update
 
 . *Reception of Updates.* The ECDIS must be capable of receiving official
-updates, as S-100 Part 17 exchange set.For such updates of S-124 and
+updates, as <<IHO_S_100,part=17>> exchange set.For such updates of S-124 and
 S-129 datasets, the ECDIS should footnote:[In the next operational
 version of S-98, "should" to be changed to "must" and the constraint
 to S-124 and S-129 to be removed.] be capable of being interfaced
-to a SECOM (IEC 63173-2) based telecommunication network. This capability
+to a SECOM (<<IEC_63173_2>>) based telecommunication network. This capability
 should include at least:
 
 .. [[item_i]]User selection of data services from a list provided
@@ -202,7 +202,7 @@ for example SECOM subscription status, and
 +
 --
 NOTE: (informative) The bi-directional transfer of S-421 based route
-plans using SECOM is described in IEC 61174, IEC 63173-1 and IEC 63173-2.
+plans using SECOM is described in <<IEC_61174>>, <<IEC_63173_1>> and <<IEC_63173_2>>.
 --
 
 . *Sequence Check*. Where data products support sequential updating
@@ -210,8 +210,8 @@ the ECDIS must ensure updates are always applied in uninterrupted
 sequence.
 . *Data Integrity and Authentication Check*. All exchange set contents
 require the use of digital signatures and the ECDIS must authenticate
-all updates using the applicable procedures described in S-100
-Part 15. All updates that do not pass the authentication and data
+all updates using the applicable procedures described in
+<<IHO_S_100,part=15>>. All updates that do not pass the authentication and data
 integrity check must not be applied. The user must be informed of
 any authentication or data integrity anomalies (refer to SSE codes).
 Update authentication and data integrity related messages for the
@@ -267,7 +267,7 @@ coverage data products should be kept in mind. After a re-issue, subsequent
 updates may be incorporated from this reissue or from the original
 data kept continuously updated.
 * Cancellation - delete the cancelled dataset and its updates as per
-S-100 17-4.4.1. The system must report any dataset(s) that have been
+<<IHO_S_100,clause="17-4.4.1">>. The system must report any dataset(s) that have been
 identified as cancelled at load time. A message must be displayed
 informing the user of the dataset name. Depending on the method adopted
 by the OEM for managing cancelled datasets one of the following conditions

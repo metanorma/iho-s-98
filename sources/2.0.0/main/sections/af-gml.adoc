@@ -7,7 +7,7 @@
 
 ==== Introduction
 
-GML is used as an integral part of S-100 Part 17, specifically in
+GML is used as an integral part of <<IHO_S_100,part=17>>, specifically in
 the XML elements defined by the Exchange Catalogue Schema.
 
 For the purpose of representing coverage objects in CATALOG.XML, however

@@ -3,8 +3,8 @@
 
 === General principles
 
-The guidelines in IMO MSC.1/Circ.1609 (Guidelines for the Standardization
+The guidelines in <<ref10>> (Guidelines for the Standardization
 of User Interface Design for Navigational Equipment) apply to the
 design of user interfaces for navigation systems such as ECDIS and
-INS. The general principles are described in MSC.1/Circ.1609 and are
-summarised in S-100 Part 16A.
+INS. The general principles are described in <<ref10>> and are
+summarised in <<IHO_S_100,part=16a>>.
