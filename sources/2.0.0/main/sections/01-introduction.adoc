@@ -89,7 +89,7 @@ simultaneously.
 for development of Interoperability Catalogues that can be used by
 systems to control the simultaneous use and display of two or more
 S-100 based data products. It is an implementation of the abstract
-interoperability concepts described in <<IHO_S_100,part=16>>. Part A and B
+interoperability concepts described in <<IHO_S_100,part=16>>. <<PartA;and!PartB>>
 of this specification define levels 1 and 2 respectively.
 
 NOTE: the current edition of S-98 does not use the full interoperability
