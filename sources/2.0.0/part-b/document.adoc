@@ -448,7 +448,7 @@ the content of the _substituteSymbolization_ attribute instead of
 depending on normal XML Schema validation. The content of this attribute
 is not prescribed by this Specification and may be a fragment of XML,
 or interpretable code or rules, etc, in a non-XML syntax. It may be
-enclosed in a <![CDATA[…]]> section so that XML validators treat it
+enclosed in a <![CDATA[...]]> section so that XML validators treat it
 as character data instead of XML.
 --
 
@@ -933,7 +933,7 @@ Included product list from S100_IC_PredefinedCombination.includedProduct
 | Suppress Feature Types
 | Suppress all instances of a specified feature type in a product
 | 2
-| S100_IC_Suppressed‌Feature‌Layer
+| S100_IC_SupressedFeatureLayer
 |
 |
 
