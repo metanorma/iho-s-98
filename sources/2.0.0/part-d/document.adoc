@@ -19,34 +19,121 @@
 :imagesdir: images
 
 [.preface]
-== Document History
+== metanorma-extension
 
+[.boilerplate]
+--
 Changes to this Specification are coordinated by the IHO S-100 Working
 Group. New editions will be made available via the IHO web site. Maintenance
 of the Specification shall conform to IHO Resolution 2/2007 (as amended).
+--
 
-[cols="14,15,14,57",options="unnumbered"]
-|===
-h| Version Number h| Date h| Approved By h| Purpose
+=== document history
 
-| 0.1 | 31 Jul 2017 | EM, RM | First draft.
-| 0.2 | 12 Dec 2017 | RM, EM | Changes from interoperability workshop
-and TSM5.
-| 0.3 | 08 Jul 2018 | EM, RM | Edits from March 2018 review commentsUpdates
-for conformance to S-100 Edition 4.0.0, ISO 19115-1, and 19115-3.
-Removed metadata items not used by S-98 from the metadata documentation
-tables.
-| 1.0.0 RC1 | 13 Mar 2019 | RM | Applied S-100 WG4 decisions; updated
-metadata to conform to final version of S-100 Edition 4.0.0.
-| 1.0.0 (Draft) | 21 Mar 2019 | JW | Editorial updates for HSSC.
-| 0.4 | Jan 2020 | RM | Revised after TSM7 decision to separate interoperability
-into an abstract specification (new S-100 Part) and implementation
-specification (S-98).
-| 1.0.0 | May 2022 | S-100WG | Submission to HSSC14 for approval.
-| 1.0.0 | May 2022 | HSSC | Initial published version for evaluation
-and testing.
-
-|===
+[source,yaml]
+----
+- date:
+  - type: updated
+    value: 2017-07-31
+  edition: "0.1"
+  contributor:
+  - person:
+      name:
+        completename: EM
+        abbreviation: EM
+  - person:
+      name:
+        completename: RM
+        abbreviation: RM
+  amend:
+    - description: First draft
+- date:
+  - type: updated
+    value: 2017-12-12
+  edition: "0.2"
+  contributor:
+  - person:
+      name:
+        completename: RM
+        abbreviation: RM
+  - person:
+      name:
+        completename: EM
+        abbreviation: EM
+  amend:
+    - description: Changes from interoperability workshop and TSM5.
+- date:
+  - type: updated
+    value: 2018-07-08
+  edition: "0.3"
+  contributor:
+  - person:
+      name:
+        completename: EM
+        abbreviation: EM
+  - person:
+      name:
+        completename: RM
+        abbreviation: RM
+  amend:
+    - description: Edits from March 2018 review comments
+    - description: Updates for conformance to S-100 Edition 4.0.0, ISO 19115-1, and 19115-3. Removed metadata items not used by S-98 from the metadata documentation tables.
+- date:
+  - type: updated
+    value: 2019-03-13
+  edition: "1.0.0 RC1"
+  contributor:
+  - person:
+      name:
+        completename: RM
+        abbreviation: RM
+  amend:
+    - description: Applied S-100 WG4 decisions; updated metadata to conform to final version of S-100 Edition 4.0.0.
+- date:
+  - type: updated
+    value: 2019-03-21
+  edition: "1.0.0. (Draft)"
+  contributor:
+  - person:
+      name:
+        completename: JW
+        abbreviation: JW
+  amend:
+    - description: Editorial updates for HSSC.
+- date:
+  - type: updated
+    value: 2020-01
+  edition: "0.4"
+  contributor:
+  - person:
+      name:
+        completename: RM
+        abbreviation: RM
+  amend:
+    - description: Revised after TSM7 decision to separate interoperability into an abstract specification (new S-100 Part) and implementation specification (S-98).
+- date:
+  - type: updated
+    value: 2022-05
+  edition: "1.0.0"
+  contributor:
+  - organization:
+      name: International Hydrographic Organization
+      subdivision: S-100 Working Group
+      abbreviation: S-100WG
+  amend:
+    - description: Submission to HSSC14 for approval.
+- date:
+  - type: published
+    value: 2022-05
+  edition: "1.0.0"
+  contributor:
+  - organization:
+      name: International Hydrographic Organization
+      subdivision: IHO Hydrographic Services and Standards Committee
+      abbreviation: HSSC
+  amend:
+    - description: Initial published version for evaluation and testing.
+----
 
 [[sec_D-1]]
 == Introduction
