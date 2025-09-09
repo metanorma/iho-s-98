@@ -24,7 +24,7 @@ base dataset.
 
 === Management of automatic updates to Dataset Support files
 
-Dataset names in S-100 are unique (IHO_S_100,part=17>>). Dataset support
+Dataset names in S-100 are unique (<<IHO_S_100,part=17>>). Dataset support
 files are referenced to one or more datasets in the exchange catalogue
 metadata. This allows dataset support files to be shared between multiple
 datasets.
